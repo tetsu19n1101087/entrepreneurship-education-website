@@ -57,7 +57,7 @@ export function LoginForm() {
 
       <div className="text-center text-sm">
         <span className="text-muted-foreground">アカウントをお持ちでない方は </span>
-        <Link href="/register" className="text-primary hover:underline">
+        <Link href="/auth/register" className="text-primary hover:underline">
           新規登録
         </Link>
       </div>

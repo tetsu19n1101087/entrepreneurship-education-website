@@ -139,7 +139,7 @@ export function RegisterForm() {
 
       <div className="text-center text-sm">
         <span className="text-muted-foreground">既にアカウントをお持ちの方は </span>
-        <Link href="/login" className="text-primary hover:underline">
+        <Link href="/auth/login" className="text-primary hover:underline">
           ログイン
         </Link>
       </div>
