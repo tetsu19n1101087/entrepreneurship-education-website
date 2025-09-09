@@ -1,66 +1,79 @@
-"use client"
+'use client';
 
-import type React from "react"
-
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useAuth } from "@/hooks/use-auth"
-import Link from "next/link"
+import { useActionState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import Link from 'next/link';
+import { login, loginWithGoogle } from '@/lib/action';
 
 export function LoginForm() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const { login } = useAuth()
-  const router = useRouter()
+  const [state, formAction, isPending] = useActionState(login, {});
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-
+  const handleGoogleLogin = async () => {
     try {
-      // Mock login - in real implementation, this would call an API
-      await login(email, password)
-      router.push("/")
+      await loginWithGoogle();
     } catch (error) {
-      console.error("Login failed:", error)
-    } finally {
-      setIsLoading(false)
+      console.error('Google login failed:', error);
     }
-  }
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="email">メールアドレス</Label>
-        <Input
-          id="email"
-          type="email"
-          placeholder="teacher@example.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+    <div className='space-y-4'>
+      <div className='space-y-3'>
+        <Button
+          type='button'
+          variant='outline'
+          className='w-full'
+          onClick={handleGoogleLogin}
+          disabled={isPending}
+        >
+          Googleでログイン
+        </Button>
+        <div className='text-xs text-center text-muted-foreground'>または</div>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="password">パスワード</Label>
-        <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-      </div>
+      <form action={formAction} className='space-y-4'>
+        <div className='space-y-2'>
+          <Label htmlFor='email'>メールアドレス</Label>
+          <Input
+            id='email'
+            name='email'
+            type='email'
+            placeholder='teacher@example.com'
+            required
+          />
+        </div>
 
-      <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? "ログイン中..." : "ログイン"}
-      </Button>
+        <div className='space-y-2'>
+          <Label htmlFor='password'>パスワード</Label>
+          <Input id='password' name='password' type='password' required />
+        </div>
 
-      <div className="text-center text-sm">
-        <span className="text-muted-foreground">アカウントをお持ちでない方は </span>
-        <Link href="/auth/register" className="text-primary hover:underline">
+        {state?.error && (
+          <div className='text-red-600 text-sm bg-red-50 p-3 rounded-md'>
+            {state.error}
+          </div>
+        )}
+
+        <Button
+          type='submit'
+          className='w-full'
+          disabled={isPending}
+          variant='secondary'
+        >
+          {isPending ? 'ログイン中...' : 'メール/パスワードでログイン'}
+        </Button>
+      </form>
+
+      <div className='text-center text-sm'>
+        <span className='text-muted-foreground'>
+          アカウントをお持ちでない方は{' '}
+        </span>
+        <Link href='/auth/register' className='text-primary hover:underline'>
           新規登録
         </Link>
       </div>
-    </form>
-  )
+    </div>
+  );
 }

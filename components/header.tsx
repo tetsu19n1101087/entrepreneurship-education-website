@@ -1,42 +1,130 @@
-"use client"
+'use client';
 
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { PlusCircle, User, LogOut, Settings } from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
-import { NotificationCenter } from "./notification-center"
-import Link from "next/link"
+} from '@/components/ui/dropdown-menu';
+import { PlusCircle, User as UserIcon, LogOut, Settings } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
+import { NotificationCenter } from './notification-center';
+import Link from 'next/link';
+import type { User } from '@supabase/supabase-js';
+import { useRouter } from 'next/navigation';
+
+interface Profile {
+  id: string;
+  display_name: string;
+  school_name: string;
+  school_type: string;
+  subject?: string;
+  years_experience?: number;
+  bio?: string;
+  avatar_url?: string;
+}
 
 export function Header() {
-  const { user, profile, logout } = useAuth()
+  const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const supabase = createClient();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const getInitialSession = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+
+      if (user) {
+        await fetchProfile(user.id);
+      }
+
+      setIsLoading(false);
+    };
+
+    getInitialSession();
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      setUser(session?.user ?? null);
+
+      if (session?.user) {
+        await fetchProfile(session.user.id);
+      } else {
+        setProfile(null);
+      }
+
+      setIsLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const fetchProfile = async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
+
+      if (error && error.code !== 'PGRST116') {
+        console.error('Error fetching profile:', error);
+        return;
+      }
+
+      setProfile(data);
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const supabase = createClient();
+      await supabase.auth.signOut();
+      router.push('/auth/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
   return (
-    <header className="border-b bg-card">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">千</span>
+    <header className='border-b bg-card'>
+      <div className='container mx-auto px-4 py-4'>
+        <div className='flex items-center justify-between'>
+          <Link href='/' className='flex items-center gap-4'>
+            <div className='w-10 h-10 bg-primary rounded-lg flex items-center justify-center'>
+              <span className='text-primary-foreground font-bold text-lg'>
+                千
+              </span>
             </div>
             <div>
-              <h1 className="font-bold text-xl text-foreground">千葉県教育事例共有</h1>
-              <p className="text-sm text-muted-foreground">アントレプレナーシップ教育</p>
+              <h1 className='font-bold text-xl text-foreground'>
+                千葉県教育事例共有
+              </h1>
+              <p className='text-sm text-muted-foreground'>
+                アントレプレナーシップ教育
+              </p>
             </div>
           </Link>
 
-          <div className="flex items-center gap-3">
+          <div className='flex items-center gap-3'>
             {user ? (
               <>
-                <Button variant="default" className="gap-2" asChild>
-                  <Link href="/post">
-                    <PlusCircle className="w-4 h-4" />
+                <Button variant='default' className='gap-2' asChild>
+                  <Link href='/post'>
+                    <PlusCircle className='w-4 h-4' />
                     事例を投稿
                   </Link>
                 </Button>
@@ -45,43 +133,49 @@ export function Header() {
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="icon">
-                      <Avatar className="w-6 h-6">
-                        <AvatarFallback className="text-xs">
-                          {profile?.display_name?.charAt(0) || user?.email?.charAt(0) || "U"}
+                    <Button variant='outline' size='icon'>
+                      <Avatar className='w-6 h-6'>
+                        <AvatarFallback className='text-xs'>
+                          {profile?.display_name?.charAt(0) ||
+                            user?.email?.charAt(0) ||
+                            'U'}
                         </AvatarFallback>
                       </Avatar>
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56">
-                    <div className="px-2 py-1.5">
-                      <p className="text-sm font-medium">{profile?.display_name || user?.email}</p>
-                      <p className="text-xs text-muted-foreground">{profile?.school_name}</p>
+                  <DropdownMenuContent align='end' className='w-56'>
+                    <div className='px-2 py-1.5'>
+                      <p className='text-sm font-medium'>
+                        {profile?.display_name || user?.email}
+                      </p>
+                      <p className='text-xs text-muted-foreground'>
+                        {profile?.school_name}
+                      </p>
                     </div>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
-                      <User className="w-4 h-4 mr-2" />
+                      <UserIcon className='w-4 h-4 mr-2' />
                       プロフィール
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                      <Settings className="w-4 h-4 mr-2" />
+                      <Settings className='w-4 h-4 mr-2' />
                       設定
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={logout}>
-                      <LogOut className="w-4 h-4 mr-2" />
+                    <DropdownMenuItem onClick={handleLogout}>
+                      <LogOut className='w-4 h-4 mr-2' />
                       ログアウト
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </>
             ) : (
-              <div className="flex items-center gap-2">
-                <Button variant="outline" asChild>
-                  <Link href="/auth/login">ログイン</Link>
+              <div className='flex items-center gap-2'>
+                <Button variant='outline' asChild>
+                  <Link href='/auth/login'>ログイン</Link>
                 </Button>
                 <Button asChild>
-                  <Link href="/auth/register">新規登録</Link>
+                  <Link href='/auth/register'>新規登録</Link>
                 </Button>
               </div>
             )}
@@ -89,5 +183,5 @@ export function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }
