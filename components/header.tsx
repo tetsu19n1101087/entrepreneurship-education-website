@@ -89,11 +89,12 @@ export function Header() {
     }
   };
 
+  // ログアウト処理
   const handleLogout = async () => {
     try {
       const supabase = createClient();
       await supabase.auth.signOut();
-      router.push('/auth/login');
+      router.push('/');
     } catch (error) {
       console.error('Logout failed:', error);
     }

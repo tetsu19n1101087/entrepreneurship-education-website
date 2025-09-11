@@ -35,20 +35,22 @@ export async function login(
   redirect('/');
 }
 
-export async function loginWithGoogle(): Promise<never> {
+export async function loginWithGoogle(): Promise<void> {
+  // console.log('loginWithGoogle called');
   const supabase = await createClient();
   const redirectTo =
-    process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ||
-    `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/`;
+    process.env.NEXT_PUBLIC_SITE_URL || // Set this to your site URL in production env.
+    process.env.NEXT_PUBLIC_VERCEL_URL || // Automatically set by Vercel.
+    'http://localhost:3000';
 
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
-    options: {
-      redirectTo,
-      queryParams: {
-        access_type: 'offline',
-      },
-    },
+    // options: {
+    //   redirectTo,
+    //   queryParams: {
+    //     access_type: 'offline',
+    //   },
+    // },
   });
 
   if (error) {
@@ -56,8 +58,8 @@ export async function loginWithGoogle(): Promise<never> {
   }
 
   // This should not be reached as OAuth redirects
-  revalidatePath('/', 'layout');
-  redirect('/');
+  // revalidatePath('/', 'layout');
+  // redirect('/');
 }
 
 export async function logout(): Promise<never> {
@@ -101,8 +103,9 @@ export async function register(
     password,
     options: {
       emailRedirectTo:
-        process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ||
-        `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}`,
+        process.env.NEXT_PUBLIC_SITE_URL || // Set this to your site URL in production env.
+        process.env.NEXT_PUBLIC_VERCEL_URL || // Automatically set by Vercel.
+        'http://localhost:3000',
       data: {
         display_name: name,
         school_name: school,
