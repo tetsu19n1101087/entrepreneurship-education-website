@@ -59,6 +59,7 @@ export function RegisterForm() {
             name='email'
             type='email'
             placeholder='teacher@example.com'
+            autoComplete='on'
             required
           />
         </div>
@@ -68,7 +69,6 @@ export function RegisterForm() {
             id='school'
             name='school'
             placeholder='千葉市立○○小学校'
-            required
           />
         </div>
         <div className='space-y-2'>
@@ -81,6 +81,7 @@ export function RegisterForm() {
               <SelectItem value='elementary'>小学校</SelectItem>
               <SelectItem value='junior_high'>中学校</SelectItem>
               <SelectItem value='high_school'>高等学校</SelectItem>
+              <SelectItem value='others'>その他</SelectItem>
             </SelectContent>
           </Select>
         </div>

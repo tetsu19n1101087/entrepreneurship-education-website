@@ -90,7 +90,7 @@ export async function register(
   const subject = formData.get('subject') as string;
   const yearsExperience = formData.get('yearsExperience') as string;
 
-  if (!name || !email || !password || !school || !schoolType) {
+  if (!name || !email || !password || !schoolType) {
     return { error: '必須項目を入力してください' };
   }
 
@@ -102,7 +102,7 @@ export async function register(
     options: {
       emailRedirectTo:
         process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ||
-        `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/`,
+        `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}`,
       data: {
         display_name: name,
         school_name: school,
@@ -114,6 +114,7 @@ export async function register(
   });
 
   if (error) {
+    console.error(error);
     return { error: error.message || '登録に失敗しました' };
   }
 
