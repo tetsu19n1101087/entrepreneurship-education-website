@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { signInWithPassword } from './auth';
 
 export interface LoginState {
   error?: string;
@@ -13,53 +14,31 @@ export async function login(
   prevState: LoginState,
   formData: FormData
 ): Promise<LoginState> {
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
+  // const email = formData.get('email') as string;
+  // const password = formData.get('password') as string;
 
-  if (!email || !password) {
-    return { error: 'メールアドレスとパスワードを入力してください' };
-  }
+  // if (!email || !password) {
+  //   return { error: 'メールアドレスとパスワードを入力してください' };
+  // }
 
-  const supabase = await createClient();
+  // const supabase = await createClient();
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  // const { error } = await supabase.auth.signInWithPassword({
+  //   email,
+  //   password,
+  // });
 
-  if (error) {
-    return { error: error.message || 'ログインに失敗しました' };
+  // if (error) {
+  //   return { error: error.message || 'ログインに失敗しました' };
+  // }
+  try {
+    await signInWithPassword(formData);
+  } catch (error: any) {
+    return { error };
   }
 
   revalidatePath('/', 'layout');
   redirect('/');
-}
-
-export async function loginWithGoogle(): Promise<void> {
-  // console.log('loginWithGoogle called');
-  const supabase = await createClient();
-  const redirectTo =
-    process.env.NEXT_PUBLIC_SITE_URL || // Set this to your site URL in production env.
-    process.env.NEXT_PUBLIC_VERCEL_URL || // Automatically set by Vercel.
-    'http://localhost:3000';
-
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    // options: {
-    //   redirectTo,
-    //   queryParams: {
-    //     access_type: 'offline',
-    //   },
-    // },
-  });
-
-  if (error) {
-    throw new Error(error.message || 'Googleログインに失敗しました');
-  }
-
-  // This should not be reached as OAuth redirects
-  // revalidatePath('/', 'layout');
-  // redirect('/');
 }
 
 export async function logout(): Promise<never> {

@@ -4,35 +4,16 @@ import { useActionState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { LoginWithGoogle } from './google-auth';
 import Link from 'next/link';
-import { login, loginWithGoogle } from '@/lib/action';
+import { login } from '@/lib/action';
 
 export function LoginForm() {
   const [state, formAction, isPending] = useActionState(login, {});
 
-  const handleGoogleLogin = async () => {
-    try {
-      await loginWithGoogle();
-    } catch (error) {
-      console.error('Google login failed:', error);
-    }
-  };
-
   return (
     <div className='space-y-4'>
-      <div className='space-y-3'>
-        <Button
-          type='button'
-          variant='outline'
-          className='w-full'
-          onClick={handleGoogleLogin}
-          disabled={isPending}
-        >
-          Googleでログイン
-        </Button>
-        <div className='text-xs text-center text-muted-foreground'>または</div>
-      </div>
-
+      <LoginWithGoogle />
       <form action={formAction} className='space-y-4'>
         <div className='space-y-2'>
           <Label htmlFor='email'>メールアドレス</Label>
