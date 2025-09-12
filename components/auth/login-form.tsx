@@ -14,6 +14,9 @@ export function LoginForm() {
   return (
     <div className='space-y-4'>
       <LoginWithGoogle />
+      <div className='text-xs text-center text-muted-foreground'>
+        または
+      </div>
       <form action={formAction} className='space-y-4'>
         <div className='space-y-2'>
           <Label htmlFor='email'>メールアドレス</Label>

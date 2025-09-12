@@ -2,7 +2,6 @@
 
 import type React from 'react';
 import { useActionState } from 'react';
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -19,11 +18,11 @@ import Link from 'next/link';
 
 export function RegisterForm() {
   const [state, formAction, isPending] = useActionState(register, {});
-  const [error, setError] = useState<string | null>(null);
 
   return (
     <>
       <LoginWithGoogle />
+      <div className='text-xs text-center text-muted-foreground'>または</div>
       <form action={formAction} className='space-y-4'>
         <div className='space-y-2'>
           <Label htmlFor='name'>氏名</Label>

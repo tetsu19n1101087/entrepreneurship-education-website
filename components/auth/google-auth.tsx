@@ -44,9 +44,6 @@ export function LoginWithGoogle() {
       <Button type='submit' variant='outline' className='w-full'>
         {isPending ? 'ログイン中' : 'Googleでログイン'}
       </Button>
-      <div className='text-xs text-center text-muted-foreground'>
-        または（メール登録）
-      </div>
       {error && (
         <div className='text-red-600 text-sm bg-red-50 p-3 rounded-md'>
           {error}
