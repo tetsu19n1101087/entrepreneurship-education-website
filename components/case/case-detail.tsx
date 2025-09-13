@@ -1,101 +1,28 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import {
-  Heart,
-  MessageSquare,
-  Calendar,
-  Clock,
-  Users,
-  Target,
-} from 'lucide-react';
+import { MessageSquare, Calendar, Clock, Users, Target } from 'lucide-react';
 import { getCaseById, type Case } from '@/lib/supabase/cases';
-import { toggleCaseLike, getUserLikes } from '@/lib/supabase/likes';
-import { createClient } from '@/lib/supabase/client';
-import type { User } from '@supabase/supabase-js';
+import { createClient } from '@/lib/supabase/server';
+import { LikesButton } from './likes';
+import { notFound } from 'next/navigation';
 
 interface CaseDetailProps {
   caseId: string;
 }
 
-export function CaseDetail({ caseId }: CaseDetailProps) {
-  const [caseData, setCaseData] = useState<Case | null>(null);
-  const [isLiked, setIsLiked] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
-  const supabase = createClient();
+export async function CaseDetail({ caseId }: CaseDetailProps) {
+  const supabase = await createClient();
 
-  useEffect(() => {
-    const getSession = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setUser(user);
-    };
-    getSession();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    loadCase();
-    if (user) {
-      loadUserLikes();
-    }
-  }, [caseId, user]);
-
-  const loadCase = async () => {
-    try {
-      const data = await getCaseById(caseId);
-      setCaseData(data);
-    } catch (error) {
-      console.error('Error loading case:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const loadUserLikes = async () => {
-    if (!user) return;
-    try {
-      const { caseLikes } = await getUserLikes(user.id);
-      setIsLiked(caseLikes.includes(caseId));
-    } catch (error) {
-      console.error('Error loading user likes:', error);
-    }
-  };
-
-  const handleLike = async () => {
-    if (!user || !caseData) return;
-
-    try {
-      const liked = await toggleCaseLike(caseId, user.id);
-      setIsLiked(liked);
-      setCaseData({
-        ...caseData,
-        likes_count: caseData.likes_count + (liked ? 1 : -1),
-      });
-    } catch (error) {
-      console.error('Error toggling like:', error);
-    }
-  };
-
-  if (loading) {
-    return <div className='text-center py-8'>読み込み中...</div>;
-  }
+  const caseData = await getCaseById(caseId);
 
   if (!caseData) {
-    return <div className='text-center py-8'>事例が見つかりませんでした。</div>;
+    notFound();
   }
 
   return (
@@ -145,16 +72,11 @@ export function CaseDetail({ caseId }: CaseDetailProps) {
             </div>
 
             <div className='flex items-center gap-2'>
-              <Button
-                variant={isLiked ? 'default' : 'outline'}
-                size='sm'
-                onClick={handleLike}
-                className='gap-1'
-                disabled={!user}
-              >
-                <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
-                {caseData.likes_count}
-              </Button>
+              <LikesButton
+                count={caseData.likes_count || 0}
+                caseId={caseId}
+                userId={user!.id}
+              />
               <Button
                 variant='outline'
                 size='sm'
