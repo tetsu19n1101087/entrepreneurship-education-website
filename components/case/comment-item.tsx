@@ -80,10 +80,7 @@ export default function CommentItem({
 
           <div className='flex items-center gap-4'>
             {/* いいねボタン */}
-            <CommentLikesButton
-              commentId={comment.id}
-              userId={user?.id}
-            />
+            <CommentLikesButton commentId={comment.id} userId={user?.id} />
 
             {!isReply && (
               <Button
@@ -127,6 +124,11 @@ export default function CommentItem({
                   required
                 />
                 <input type='hidden' name='parent_id' value={comment.id} />
+                {state?.error && (
+                  <div className='text-red-600 text-sm bg-red-50 p-3 rounded-md'>
+                    {state.error}
+                  </div>
+                )}
                 <div className='flex justify-end gap-2'>
                   <Button
                     variant='outline'
@@ -135,7 +137,7 @@ export default function CommentItem({
                   >
                     キャンセル
                   </Button>
-                  <Button size='sm' type='submit'>
+                  <Button size='sm' type='submit' disabled={isPending}>
                     返信
                   </Button>
                 </div>

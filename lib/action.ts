@@ -71,10 +71,17 @@ export async function createComment(
 ) {
   const supabase = await createClient();
 
+  const content = formData.get('comment') as string;
+  const parent_id = formData.get('parent_id') as string;
+
+  if (!content || content.trim() === '') {
+    return { error: 'コメント内容を入力してください' };
+  }
+
   const comment = {
     ...commentData,
-    content: formData.get('comment') as string,
-    parent_id: formData.get('parent_id') as string,
+    content,
+    parent_id,
   };
 
   const { data, error } = await supabase

@@ -66,8 +66,13 @@ export function CommentSection({
                   />
                 </div>
               </div>
+              {state?.error && (
+                <div className='text-red-600 text-sm bg-red-50 p-3 rounded-md'>
+                  {state.error}
+                </div>
+              )}
               <div className='flex justify-end'>
-                <Button type='submit'>コメントを投稿</Button>
+                <Button type='submit' disabled={isPending}>コメントを投稿</Button>
               </div>
             </div>
           </form>

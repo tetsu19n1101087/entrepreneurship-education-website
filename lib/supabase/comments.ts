@@ -69,24 +69,24 @@ export async function getCommentsByCase(caseId: string) {
   return commentsWithReplies as Comment[];
 }
 
-export async function createComment(
-  commentData: Omit<
-    Comment,
-    'id' | 'created_at' | 'updated_at' | 'likes_count' | 'profiles' | 'replies'
-  >
-) {
-  const supabase = createClient();
+// export async function createComment(
+//   commentData: Omit<
+//     Comment,
+//     'id' | 'created_at' | 'updated_at' | 'likes_count' | 'profiles' | 'replies'
+//   >
+// ) {
+//   const supabase = createClient();
 
-  const { data, error } = await supabase
-    .from('comments')
-    .insert([commentData])
-    .select()
-    .single();
+//   const { data, error } = await supabase
+//     .from('comments')
+//     .insert([commentData])
+//     .select()
+//     .single();
 
-  if (error) {
-    console.error('Error creating comment:', error);
-    throw error;
-  }
+//   if (error) {
+//     console.error('Error creating comment:', error);
+//     throw error;
+//   }
 
-  return data as Comment;
-}
+//   return data as Comment;
+// }
