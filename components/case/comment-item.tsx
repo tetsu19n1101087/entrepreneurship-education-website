@@ -81,7 +81,6 @@ export default function CommentItem({
           <div className='flex items-center gap-4'>
             {/* いいねボタン */}
             <CommentLikesButton
-              // count={comment.likes_count}
               commentId={comment.id}
               userId={user?.id}
             />

@@ -8,10 +8,6 @@ import { createClient } from '@/lib/supabase/server';
 import { LikesButton } from './likes';
 import { notFound } from 'next/navigation';
 
-// interface CaseDetailProps {
-//   caseId: string;
-// }
-
 export async function CaseDetail({ caseId }: { caseId: string }) {
   const supabase = await createClient();
 
@@ -72,11 +68,7 @@ export async function CaseDetail({ caseId }: { caseId: string }) {
             </div>
 
             <div className='flex items-center gap-2'>
-              <LikesButton
-                count={caseData.likes_count || 0}
-                caseId={caseId}
-                userId={user!.id}
-              />
+              <LikesButton caseId={caseId} userId={user!.id} />
               <Button
                 variant='outline'
                 size='sm'

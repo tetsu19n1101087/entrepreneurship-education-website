@@ -1,16 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { toggleCaseLike, toggleCommentLike, getUserLikes } from '@/lib/supabase/likes';
+import {
+  toggleCaseLike,
+  toggleCommentLike,
+  getUserLikes,
+} from '@/lib/supabase/likes';
 import { Button } from '@/components/ui/button';
 import { Heart } from 'lucide-react';
 
 export function LikesButton({
-  count,
   caseId,
   userId,
 }: {
-  count: number;
   caseId: string;
   userId: string | null;
 }) {
@@ -18,16 +20,16 @@ export function LikesButton({
   const [countLikes, setCountLikes] = useState(0);
 
   useEffect(() => {
+    const loadUserLikes = async () => {
+      if (!userId) return;
+
+      const { caseLikes } = await getUserLikes(userId);
+      setIsLiked(caseLikes.includes(caseId));
+      setCountLikes(caseLikes.length);
+    };
+
     loadUserLikes();
-  }, [caseId, userId, countLikes]);
-
-  const loadUserLikes = async () => {
-    if (!userId) return;
-
-    const { caseLikes } = await getUserLikes(userId);
-    setIsLiked(caseLikes.includes(caseId));
-    setCountLikes(caseLikes.length);
-  };
+  });
 
   const handleLike = async () => {
     if (!userId) return;
@@ -56,11 +58,9 @@ export function LikesButton({
 }
 
 export function CommentLikesButton({
-  count,
   commentId,
   userId,
 }: {
-  count?: number;
   commentId: string;
   userId: string | undefined | null;
 }) {
@@ -68,16 +68,16 @@ export function CommentLikesButton({
   const [countLikes, setCountLikes] = useState(0);
 
   useEffect(() => {
+    const loadUserLikes = async () => {
+      if (!userId) return;
+
+      const { commentLikes } = await getUserLikes(userId);
+      setIsLiked(commentLikes.includes(commentId));
+      setCountLikes(commentLikes.length);
+    };
+
     loadUserLikes();
-  }, [commentId, userId, countLikes]);
-
-  const loadUserLikes = async () => {
-    if (!userId) return;
-
-    const { commentLikes } = await getUserLikes(userId);
-    setIsLiked(commentLikes.includes(commentId));
-    setCountLikes(commentLikes.length);
-  };
+  });
 
   const handleLike = async () => {
     if (!userId) return;
