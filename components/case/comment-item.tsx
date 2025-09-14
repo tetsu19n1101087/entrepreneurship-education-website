@@ -43,7 +43,6 @@ export default function CommentItem({
 
   const [state, formAction, isPending] = useActionState(action, {
     error: '',
-    data: undefined,
   });
 
   return (

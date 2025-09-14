@@ -94,5 +94,7 @@ export async function createComment(
     return { error: error.message || 'コメントの投稿に失敗しました' };
   }
 
-  return { data: data as Comment };
+  // return { data: data as Comment };
+  revalidatePath(`/case/${commentData.case_id}`);
+  redirect(`/case/${commentData.case_id}`);
 }

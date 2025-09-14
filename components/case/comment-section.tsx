@@ -27,7 +27,6 @@ export function CommentSection({
 
   const [state, formAction, isPending] = useActionState(createCommentWithId, {
     error: '',
-    data: undefined,
   });
 
   const totalComments = comments.reduce(
@@ -72,7 +71,9 @@ export function CommentSection({
                 </div>
               )}
               <div className='flex justify-end'>
-                <Button type='submit' disabled={isPending}>コメントを投稿</Button>
+                <Button type='submit' disabled={isPending}>
+                  コメントを投稿
+                </Button>
               </div>
             </div>
           </form>
