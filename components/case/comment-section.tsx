@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useActionState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -22,141 +22,168 @@ import {
 import { createClient } from '@/lib/supabase/client';
 import type { User } from '@supabase/supabase-js';
 import {
-  getCommentsByCase,
-  createComment,
+  // getCommentsByCase,
+  // createComment,
   type Comment,
 } from '@/lib/supabase/comments';
 import { toggleCommentLike, getUserLikes } from '@/lib/supabase/likes';
+import { CommentLikesButton } from './likes';
+import { createComment } from '@/lib/action';
 
-interface CommentSectionProps {
+// interface CommentSectionProps {
+//   caseId: string;
+// }
+
+export function CommentSection({
+  caseId,
+  user,
+  comments,
+}: {
   caseId: string;
-}
-
-export function CommentSection({ caseId }: CommentSectionProps) {
-  const [user, setUser] = useState<User | null>(null);
-  const [newComment, setNewComment] = useState('');
+  user: User | null;
+  comments: Comment[];
+}) {
+  // const [user, setUser] = useState<User | null>(null);
+  // const [newComment, setNewComment] = useState('');
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyContent, setReplyContent] = useState('');
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [userCommentLikes, setUserCommentLikes] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
+  // const [comments, setComments] = useState<Comment[]>([]);
+  // const [userCommentLikes, setUserCommentLikes] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+
   const supabase = createClient();
 
-  useEffect(() => {
-    const getSession = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setUser(user);
-    };
-    getSession();
+  const createCommentWithId = createComment.bind(null, {
+    case_id: caseId,
+    author_id: user?.id || '',
+  });
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
-    });
+  const [state, formAction, isPending] = useActionState(createCommentWithId, {
+    error: '',
+    data: undefined,
+  });
 
-    return () => subscription.unsubscribe();
-  }, []);
+  // const {
+  //   data: { user },
+  // } = await supabase.auth.getUser();
 
-  useEffect(() => {
-    loadComments();
-    if (user) {
-      loadUserLikes();
-    }
-  }, [caseId, user]);
+  // const comments = await getCommentsByCase(caseId);
 
-  const loadComments = async () => {
-    try {
-      const data = await getCommentsByCase(caseId);
-      setComments(data);
-    } catch (error) {
-      console.error('Error loading comments:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // useEffect(() => {
+  //   const getSession = async () => {
+  //     const {
+  //       data: { user },
+  //     } = await supabase.auth.getUser();
+  //     setUser(user);
+  //   };
+  //   getSession();
 
-  const loadUserLikes = async () => {
-    if (!user) return;
-    try {
-      const { commentLikes } = await getUserLikes(user.id);
-      setUserCommentLikes(commentLikes);
-    } catch (error) {
-      console.error('Error loading user likes:', error);
-    }
-  };
+  //   const {
+  //     data: { subscription },
+  //   } = supabase.auth.onAuthStateChange((event, session) => {
+  //     setUser(session?.user ?? null);
+  //   });
 
-  const handleSubmitComment = async () => {
-    if (!newComment.trim() || !user) return;
+  //   return () => subscription.unsubscribe();
+  // }, []);
 
-    try {
-      await createComment({
-        case_id: caseId,
-        author_id: user.id,
-        content: newComment,
-      });
+  // useEffect(() => {
+  //   // loadComments();
+  //   if (user) {
+  //     loadUserLikes();
+  //   }
+  // }, [caseId, user]);
 
-      setNewComment('');
-      loadComments(); // Reload comments
-    } catch (error) {
-      console.error('Error submitting comment:', error);
-    }
-  };
+  // const loadComments = async () => {
+  //   try {
+  //     const data = await getCommentsByCase(caseId);
+  //     setComments(data);
+  //   } catch (error) {
+  //     console.error('Error loading comments:', error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  const handleSubmitReply = async (parentId: string) => {
-    if (!replyContent.trim() || !user) return;
+  // const loadUserLikes = async () => {
+  //   if (!user) return;
+  //   try {
+  //     const { commentLikes } = await getUserLikes(userId);
+  //     setUserCommentLikes(commentLikes);
+  //   } catch (error) {
+  //     console.error('Error loading user likes:', error);
+  //   }
+  // };
 
-    try {
-      await createComment({
-        case_id: caseId,
-        author_id: user.id,
-        parent_id: parentId,
-        content: replyContent,
-      });
+  // const handleSubmitComment = async () => {
+  //   if (!newComment.trim() || !user) return;
 
-      setReplyContent('');
-      setReplyingTo(null);
-      loadComments(); // Reload comments
-    } catch (error) {
-      console.error('Error submitting reply:', error);
-    }
-  };
+  //   try {
+  //     // await createComment({
+  //     //   case_id: caseId,
+  //     //   author_id: user?.id,
+  //     //   content: newComment,
+  //     // });
 
-  const handleLikeComment = async (commentId: string) => {
-    if (!user) return;
+  //     setNewComment('');
+  //     // loadComments(); // Reload comments
+  //   } catch (error) {
+  //     console.error('Error submitting comment:', error);
+  //   }
+  // };
 
-    try {
-      const isLiked = await toggleCommentLike(commentId, user.id);
+  // const handleSubmitReply = async (parentId: string) => {
+  //   if (!replyContent.trim() || !user) return;
 
-      // Update local state
-      const updateCommentLikes = (comments: Comment[]): Comment[] => {
-        return comments.map((comment) => {
-          if (comment.id === commentId) {
-            return {
-              ...comment,
-              likes_count: comment.likes_count + (isLiked ? 1 : -1),
-            };
-          }
-          if (comment.replies) {
-            return {
-              ...comment,
-              replies: updateCommentLikes(comment.replies),
-            };
-          }
-          return comment;
-        });
-      };
+  //   try {
+  //     await createComment({
+  //       case_id: caseId,
+  //       author_id: user?.id,
+  //       parent_id: parentId,
+  //       content: replyContent,
+  //     });
 
-      setComments(updateCommentLikes(comments));
-      setUserCommentLikes((prev) =>
-        isLiked ? [...prev, commentId] : prev.filter((id) => id !== commentId)
-      );
-    } catch (error) {
-      console.error('Error toggling comment like:', error);
-    }
-  };
+  //     setReplyContent('');
+  //     setReplyingTo(null);
+  //     // loadComments(); // Reload comments
+  //   } catch (error) {
+  //     console.error('Error submitting reply:', error);
+  //   }
+  // };
+
+  // const handleLikeComment = async (commentId: string) => {
+  //   if (!user) return;
+
+  //   try {
+  //     const isLiked = await toggleCommentLike(commentId, userId);
+
+  //     // Update local state
+  //     const updateCommentLikes = (comments: Comment[]): Comment[] => {
+  //       return comments.map((comment) => {
+  //         if (comment.id === commentId) {
+  //           return {
+  //             ...comment,
+  //             likes_count: comment.likes_count + (isLiked ? 1 : -1),
+  //           };
+  //         }
+  //         if (comment.replies) {
+  //           return {
+  //             ...comment,
+  //             replies: updateCommentLikes(comment.replies),
+  //           };
+  //         }
+  //         return comment;
+  //       });
+  //     };
+
+  //     setComments(updateCommentLikes(comments));
+  //     setUserCommentLikes((prev) =>
+  //       isLiked ? [...prev, commentId] : prev.filter((id) => id !== commentId)
+  //     );
+  //   } catch (error) {
+  //     console.error('Error toggling comment like:', error);
+  //   }
+  // };
 
   const CommentItem = ({
     comment,
@@ -180,7 +207,9 @@ export function CommentSection({ caseId }: CommentSectionProps) {
         </Avatar>
         <div className='flex-1'>
           <div className='flex items-center gap-2 mb-1'>
-            <p className='font-medium text-sm'>{comment.profiles?.display_name}</p>
+            <p className='font-medium text-sm'>
+              {comment.profiles?.display_name}
+            </p>
             <Badge variant='outline' className='text-xs px-1 py-0'>
               {comment.profiles?.school_name.includes('小学校')
                 ? '小'
@@ -195,7 +224,8 @@ export function CommentSection({ caseId }: CommentSectionProps) {
           <p className='text-sm mb-3'>{comment.content}</p>
 
           <div className='flex items-center gap-4'>
-            <Button
+            {/* いいねボタン */}
+            {/* <Button
               variant='ghost'
               size='sm'
               className={`gap-1 h-7 px-2 ${
@@ -212,7 +242,12 @@ export function CommentSection({ caseId }: CommentSectionProps) {
                 }`}
               />
               {comment.likes_count}
-            </Button>
+            </Button> */}
+            <CommentLikesButton
+              // count={comment.likes_count}
+              commentId={comment.id}
+              userId={user?.id}
+            />
 
             {!isReply && (
               <Button
@@ -246,31 +281,37 @@ export function CommentSection({ caseId }: CommentSectionProps) {
 
           {/* Reply Form */}
           {replyingTo === comment.id && user && (
-            <div className='mt-4 space-y-3'>
-              <Textarea
-                placeholder={`${comment.profiles?.display_name}さんに返信...`}
-                value={replyContent}
-                onChange={(e) => setReplyContent(e.target.value)}
-                rows={2}
-                className='text-sm'
-              />
-              <div className='flex justify-end gap-2'>
-                <Button
-                  variant='outline'
-                  size='sm'
-                  onClick={() => setReplyingTo(null)}
-                >
-                  キャンセル
-                </Button>
-                <Button
-                  size='sm'
-                  onClick={() => handleSubmitReply(comment.id)}
-                  disabled={!replyContent.trim()}
-                >
-                  返信
-                </Button>
+            <form action={formAction}>
+              <div className='mt-4 space-y-3'>
+                <Textarea
+                  placeholder={`${comment.profiles?.display_name}さんに返信...`}
+                  // value={replyContent}
+                  // onChange={(e) => setReplyContent(e.target.value)}
+                  rows={2}
+                  name='comment'
+                  className='text-sm'
+                  required
+                />
+                <input type='hidden' name='parent_id' value={comment.id} />
+                <div className='flex justify-end gap-2'>
+                  <Button
+                    variant='outline'
+                    size='sm'
+                    onClick={() => setReplyingTo(null)}
+                  >
+                    キャンセル
+                  </Button>
+                  <Button
+                    size='sm'
+                    // onClick={() => handleSubmitReply(comment.id)}
+                    // disabled={!replyContent.trim()}
+                    type='submit'
+                  >
+                    返信
+                  </Button>
+                </div>
               </div>
-            </div>
+            </form>
           )}
 
           {/* Replies */}
@@ -306,33 +347,39 @@ export function CommentSection({ caseId }: CommentSectionProps) {
       <CardContent className='space-y-6'>
         {/* Comment Form */}
         {user && (
-          <div className='space-y-3'>
-            <div className='flex items-start gap-3'>
-              <Avatar className='w-8 h-8'>
-                <AvatarFallback className='text-xs'>
-                  {user.user_metadata?.display_name?.charAt(0) ||
-                    user.email?.charAt(0) ||
-                    'U'}
-                </AvatarFallback>
-              </Avatar>
-              <div className='flex-1'>
-                <Textarea
-                  placeholder='この事例について質問やコメントを投稿してください...'
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-                  rows={3}
-                />
+          <form action={formAction}>
+            <div className='space-y-3'>
+              <div className='flex items-start gap-3'>
+                <Avatar className='w-8 h-8'>
+                  <AvatarFallback className='text-xs'>
+                    {user.user_metadata?.display_name?.charAt(0) ||
+                      user.email?.charAt(0) ||
+                      'U'}
+                  </AvatarFallback>
+                </Avatar>
+                <div className='flex-1'>
+                  <Textarea
+                    id='comment'
+                    name='comment'
+                    placeholder='この事例について質問やコメントを投稿してください...'
+                    // value={newComment}
+                    // onChange={(e) => setNewComment(e.target.value)}
+                    rows={3}
+                    required
+                  />
+                </div>
+              </div>
+              <div className='flex justify-end'>
+                <Button
+                  // onClick={handleSubmitComment}
+                  type='submit'
+                  // disabled={!newComment.trim()}
+                >
+                  コメントを投稿
+                </Button>
               </div>
             </div>
-            <div className='flex justify-end'>
-              <Button
-                onClick={handleSubmitComment}
-                disabled={!newComment.trim()}
-              >
-                コメントを投稿
-              </Button>
-            </div>
-          </div>
+          </form>
         )}
 
         {/* Comments List */}
@@ -342,7 +389,7 @@ export function CommentSection({ caseId }: CommentSectionProps) {
           ))}
         </div>
 
-        {!user && (
+        {/* {!user && (
           <div className='text-center py-4 text-muted-foreground'>
             <p>
               コメントを投稿するには
@@ -352,7 +399,7 @@ export function CommentSection({ caseId }: CommentSectionProps) {
               が必要です
             </p>
           </div>
-        )}
+        )} */}
       </CardContent>
     </Card>
   );

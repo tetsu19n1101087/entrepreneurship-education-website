@@ -3,10 +3,28 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signInWithPassword, signUp } from './auth';
+import { createClient } from './supabase/server';
 
 export interface AuthState {
   error?: string;
   success?: boolean;
+}
+
+export interface Comment {
+  id: string;
+  case_id: string;
+  author_id: string;
+  parent_id?: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+  likes_count: number;
+  // Joined data
+  profiles?: {
+    display_name: string;
+    school_name: string;
+  };
+  replies?: Comment[];
 }
 
 export async function login(
@@ -35,4 +53,39 @@ export async function register(
 
   revalidatePath('/', 'layout');
   redirect('/auth/check-email');
+}
+
+export async function createComment(
+  commentData: Omit<
+    Comment,
+    | 'id'
+    | 'created_at'
+    | 'updated_at'
+    | 'likes_count'
+    | 'profiles'
+    | 'replies'
+    | 'content'
+  >,
+  prevState: { error?: string; data?: Comment },
+  formData: FormData
+) {
+  const supabase = await createClient();
+
+  const comment = {
+    ...commentData,
+    content: formData.get('comment') as string,
+    parent_id: formData.get('parent_id') as string,
+  };
+
+  const { data, error } = await supabase
+    .from('comments')
+    .insert([comment])
+    .select()
+    .single();
+
+  if (error) {
+    return { error: error.message || 'コメントの投稿に失敗しました' };
+  }
+
+  return { data: data as Comment };
 }

@@ -3,16 +3,16 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { MessageSquare, Calendar, Clock, Users, Target } from 'lucide-react';
-import { getCaseById, type Case } from '@/lib/supabase/cases';
+import { getCaseById } from '@/lib/supabase/cases';
 import { createClient } from '@/lib/supabase/server';
 import { LikesButton } from './likes';
 import { notFound } from 'next/navigation';
 
-interface CaseDetailProps {
-  caseId: string;
-}
+// interface CaseDetailProps {
+//   caseId: string;
+// }
 
-export async function CaseDetail({ caseId }: CaseDetailProps) {
+export async function CaseDetail({ caseId }: { caseId: string }) {
   const supabase = await createClient();
 
   const {
