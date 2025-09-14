@@ -175,16 +175,16 @@ export function CommentSection({ caseId }: CommentSectionProps) {
       <div className='flex items-start gap-3'>
         <Avatar className='w-8 h-8'>
           <AvatarFallback className='text-xs'>
-            {comment.profiles?.full_name.charAt(0)}
+            {comment.profiles?.display_name.charAt(0)}
           </AvatarFallback>
         </Avatar>
         <div className='flex-1'>
           <div className='flex items-center gap-2 mb-1'>
-            <p className='font-medium text-sm'>{comment.profiles?.full_name}</p>
+            <p className='font-medium text-sm'>{comment.profiles?.display_name}</p>
             <Badge variant='outline' className='text-xs px-1 py-0'>
-              {comment.profiles?.school.includes('小学校')
+              {comment.profiles?.school_name.includes('小学校')
                 ? '小'
-                : comment.profiles?.school.includes('中学校')
+                : comment.profiles?.school_name.includes('中学校')
                 ? '中'
                 : '高'}
             </Badge>
@@ -248,7 +248,7 @@ export function CommentSection({ caseId }: CommentSectionProps) {
           {replyingTo === comment.id && user && (
             <div className='mt-4 space-y-3'>
               <Textarea
-                placeholder={`${comment.profiles?.full_name}さんに返信...`}
+                placeholder={`${comment.profiles?.display_name}さんに返信...`}
                 value={replyContent}
                 onChange={(e) => setReplyContent(e.target.value)}
                 rows={2}
