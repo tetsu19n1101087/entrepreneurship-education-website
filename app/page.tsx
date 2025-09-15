@@ -1,4 +1,3 @@
-import { Header } from '@/components/header';
 import { CategoryFilter } from '@/components/category-filter';
 import { SearchBar } from '@/components/search-bar';
 import { StatsOverview } from '@/components/stats-overview';
@@ -10,7 +9,6 @@ export default async function HomePage() {
   return (
     <SearchFilterProvider>
       <div className='min-h-screen bg-background'>
-        <Header />
         <main className='container mx-auto px-4 py-8'>
           <div className='mb-8'>
             <h1 className='text-3xl font-bold text-foreground mb-2'>
