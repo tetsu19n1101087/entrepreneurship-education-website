@@ -4,22 +4,16 @@ export interface Case {
   id: string;
   title: string;
   description: string;
-  category: string;
+  content: string;
+  school_type: string;
   subject: string;
-  target_grade?: string;
+  grade_level?: string;
   duration?: string;
-  objectives?: string;
-  methods?: string;
   materials?: string;
-  evaluation?: string;
-  reflection?: string;
-  advice?: string;
   tags: string[];
   author_id: string;
   created_at: string;
   updated_at: string;
-  likes_count: number;
-  comments_count: number;
   profiles?: {
     display_name: string;
     school_name: string;
@@ -75,32 +69,32 @@ export async function getCaseById(id: string) {
   return data as Case;
 }
 
-export async function createCase(
-  caseData: Omit<
-    Case,
-    | 'id'
-    | 'created_at'
-    | 'updated_at'
-    | 'likes_count'
-    | 'comments_count'
-    | 'profiles'
-  >
-) {
-  const supabase = await createClient();
+// export async function createCase(
+//   caseData: Omit<
+//     Case,
+//     | 'id'
+//     | 'created_at'
+//     | 'updated_at'
+//     | 'likes_count'
+//     | 'comments_count'
+//     | 'profiles'
+//   >
+// ) {
+//   const supabase = await createClient();
 
-  const { data, error } = await supabase
-    .from('cases')
-    .insert([caseData])
-    .select()
-    .single();
+//   const { data, error } = await supabase
+//     .from('cases')
+//     .insert([caseData])
+//     .select()
+//     .single();
 
-  if (error) {
-    console.error('Error creating case:', error);
-    throw error;
-  }
+//   if (error) {
+//     console.error('Error creating case:', error);
+//     throw error;
+//   }
 
-  return data as Case;
-}
+//   return data as Case;
+// }
 
 export async function updateCase(id: string, updates: Partial<Case>) {
   const supabase = await createClient();

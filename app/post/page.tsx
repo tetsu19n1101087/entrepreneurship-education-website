@@ -1,18 +1,32 @@
-import { PostForm } from "@/components/post/post-form"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { PostForm } from '@/components/post/post-form';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { createClient } from '@/lib/supabase/server';
 
-export default function PostPage() {
+export default async function PostPage() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-foreground mb-2">アントレプレナーシップ教育事例を投稿</h1>
-            <p className="text-muted-foreground text-lg">
+    <div className='min-h-screen bg-background'>
+      <div className='container mx-auto px-4 py-8'>
+        <div className='max-w-4xl mx-auto'>
+          <div className='mb-8'>
+            <h1 className='text-3xl font-bold text-foreground mb-2'>
+              アントレプレナーシップ教育事例を投稿
+            </h1>
+            <p className='text-muted-foreground text-lg'>
               あなたの実践事例を共有して、他の教員の皆様と学び合いましょう
             </p>
           </div>
-
           <Card>
             <CardHeader>
               <CardTitle>事例投稿フォーム</CardTitle>
@@ -21,11 +35,11 @@ export default function PostPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <PostForm />
+              <PostForm user={user} />
             </CardContent>
           </Card>
         </div>
       </div>
     </div>
-  )
+  );
 }

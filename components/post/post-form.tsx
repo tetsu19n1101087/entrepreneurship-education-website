@@ -1,8 +1,6 @@
 'use client';
 
-import type React from 'react';
-
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,75 +15,19 @@ import {
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { X } from 'lucide-react';
-import { createClient } from '@/lib/supabase/client';
 import type { User } from '@supabase/supabase-js';
-import { createCase } from '@/lib/supabase/cases';
+import { createCase } from '@/lib/action';
+import { useActionState } from 'react';
 
-export function PostForm() {
-  const [user, setUser] = useState<User | null>(null);
+export function PostForm({ user }: { user: User | null }) {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const supabase = createClient();
 
-  useEffect(() => {
-    const getSession = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setUser(user);
-    };
-    getSession();
+  const createCaseWithId = createCase.bind(null, user?.id || '');
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const [state, formAction, isPending] = useActionState(createCaseWithId, {});
+  const [isComposing, setIsComposing] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState('');
-
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    category: '',
-    subject: '',
-    target_grade: '',
-    duration: '',
-    objectives: '',
-    methods: '',
-    materials: '',
-    evaluation: '',
-    reflection: '',
-    advice: '',
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user) return;
-
-    setIsLoading(true);
-
-    try {
-      await createCase({
-        ...formData,
-        tags,
-        author_id: user.id,
-      });
-
-      router.push('/');
-    } catch (error) {
-      console.error('Post submission failed:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const updateFormData = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
 
   const addTag = () => {
     if (newTag.trim() && !tags.includes(newTag.trim())) {
@@ -99,39 +41,36 @@ export function PostForm() {
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !isComposing) {
       e.preventDefault();
       addTag();
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className='space-y-6'>
+    <form action={formAction} className='space-y-6'>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
         <div className='space-y-2'>
           <Label htmlFor='title'>事例タイトル *</Label>
           <Input
             id='title'
+            name='title'
             placeholder='例：地域課題解決プロジェクト：商店街活性化アイデアコンテスト'
-            value={formData.title}
-            onChange={(e) => updateFormData('title', e.target.value)}
             required
           />
         </div>
 
         <div className='space-y-2'>
           <Label htmlFor='category'>学校種別 *</Label>
-          <Select
-            value={formData.category}
-            onValueChange={(value) => updateFormData('category', value)}
-          >
+          <Select name='school_type'>
             <SelectTrigger>
               <SelectValue placeholder='学校種別を選択' />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value='小学校'>小学校</SelectItem>
-              <SelectItem value='中学校'>中学校</SelectItem>
-              <SelectItem value='高等学校'>高等学校</SelectItem>
+              <SelectItem value='elementary'>小学校</SelectItem>
+              <SelectItem value='junior_high'>中学校</SelectItem>
+              <SelectItem value='high_school'>高等学校</SelectItem>
+              <SelectItem value='others'>その他</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -140,10 +79,7 @@ export function PostForm() {
       <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
         <div className='space-y-2'>
           <Label htmlFor='subject'>教科・領域 *</Label>
-          <Select
-            value={formData.subject}
-            onValueChange={(value) => updateFormData('subject', value)}
-          >
+          <Select name='subject'>
             <SelectTrigger>
               <SelectValue placeholder='教科を選択' />
             </SelectTrigger>
@@ -158,12 +94,11 @@ export function PostForm() {
         </div>
 
         <div className='space-y-2'>
-          <Label htmlFor='target_grade'>対象学年</Label>
+          <Label htmlFor='grade_level'>対象学年</Label>
           <Input
-            id='target_grade'
+            id='grade_level'
+            name='grade_level'
             placeholder='例：中学3年生'
-            value={formData.target_grade}
-            onChange={(e) => updateFormData('target_grade', e.target.value)}
           />
         </div>
 
@@ -171,44 +106,30 @@ export function PostForm() {
           <Label htmlFor='duration'>実施期間</Label>
           <Input
             id='duration'
+            name='duration'
             placeholder='例：3ヶ月間（週2時間）'
-            value={formData.duration}
-            onChange={(e) => updateFormData('duration', e.target.value)}
           />
         </div>
       </div>
 
       <div className='space-y-2'>
         <Label htmlFor='description'>事例概要 *</Label>
-        <Textarea
+        <Input
           id='description'
+          name='description'
           placeholder='この事例の概要を簡潔に説明してください'
-          value={formData.description}
-          onChange={(e) => updateFormData('description', e.target.value)}
-          rows={3}
           required
         />
       </div>
 
       <div className='space-y-2'>
-        <Label htmlFor='objectives'>学習目標・ねらい</Label>
+        <Label htmlFor='content'>事例詳細 *</Label>
         <Textarea
-          id='objectives'
-          placeholder='この事例で達成したい学習目標やねらいを記述してください'
-          value={formData.objectives}
-          onChange={(e) => updateFormData('objectives', e.target.value)}
+          id='content'
+          name='content'
+          placeholder='この事例の詳細を具体的に説明してください'
           rows={3}
-        />
-      </div>
-
-      <div className='space-y-2'>
-        <Label htmlFor='methods'>実施方法・活動内容</Label>
-        <Textarea
-          id='methods'
-          placeholder='具体的な実施方法や活動内容を詳しく記述してください'
-          value={formData.methods}
-          onChange={(e) => updateFormData('methods', e.target.value)}
-          rows={4}
+          required
         />
       </div>
 
@@ -217,41 +138,6 @@ export function PostForm() {
         <Textarea
           id='materials'
           placeholder='使用した教材、参考資料、外部リソースなどを記述してください'
-          value={formData.materials}
-          onChange={(e) => updateFormData('materials', e.target.value)}
-          rows={3}
-        />
-      </div>
-
-      <div className='space-y-2'>
-        <Label htmlFor='evaluation'>評価方法・成果</Label>
-        <Textarea
-          id='evaluation'
-          placeholder='評価方法や得られた成果、生徒の反応などを記述してください'
-          value={formData.evaluation}
-          onChange={(e) => updateFormData('evaluation', e.target.value)}
-          rows={3}
-        />
-      </div>
-
-      <div className='space-y-2'>
-        <Label htmlFor='reflection'>振り返り・改善点</Label>
-        <Textarea
-          id='reflection'
-          placeholder='実施後の振り返りや今後の改善点があれば記述してください'
-          value={formData.reflection}
-          onChange={(e) => updateFormData('reflection', e.target.value)}
-          rows={3}
-        />
-      </div>
-
-      <div className='space-y-2'>
-        <Label htmlFor='advice'>他の教員へのアドバイス</Label>
-        <Textarea
-          id='advice'
-          placeholder='この事例を実施する他の教員へのアドバイスがあれば記述してください'
-          value={formData.advice}
-          onChange={(e) => updateFormData('advice', e.target.value)}
           rows={3}
         />
       </div>
@@ -263,7 +149,9 @@ export function PostForm() {
             placeholder='タグを入力してEnterキーで追加'
             value={newTag}
             onChange={(e) => setNewTag(e.target.value)}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyPress}
+            onCompositionStart={() => setIsComposing(true)}
+            onCompositionEnd={() => setIsComposing(false)}
           />
           <Button type='button' onClick={addTag} variant='outline'>
             追加
@@ -271,23 +159,32 @@ export function PostForm() {
         </div>
         <div className='flex flex-wrap gap-2'>
           {tags.map((tag, index) => (
-            <Badge key={index} variant='secondary' className='gap-1'>
-              {tag}
-              <X
-                className='w-3 h-3 cursor-pointer'
-                onClick={() => removeTag(tag)}
-              />
-            </Badge>
+            <span key={tag}>
+              <Badge variant='secondary' className='gap-1'>
+                {tag}
+                <X
+                  className='w-3 h-3 cursor-pointer'
+                  onClick={() => removeTag(tag)}
+                />
+              </Badge>
+              <input type='hidden' name='tags' value={tag} />
+            </span>
           ))}
         </div>
       </div>
+
+      {state?.error && (
+        <div className='text-red-600 text-sm bg-red-50 p-3 rounded-md'>
+          {state.error}
+        </div>
+      )}
 
       <div className='flex justify-end gap-4'>
         <Button type='button' variant='outline' onClick={() => router.back()}>
           キャンセル
         </Button>
-        <Button type='submit' disabled={isLoading}>
-          {isLoading ? '投稿中...' : '事例を投稿'}
+        <Button type='submit' disabled={isPending}>
+          {isPending ? '投稿中...' : '事例を投稿'}
         </Button>
       </div>
     </form>
