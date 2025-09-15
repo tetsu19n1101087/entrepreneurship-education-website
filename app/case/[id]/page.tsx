@@ -24,7 +24,7 @@ export default async function CasePage({
         <div className='max-w-4xl mx-auto'>
           <CaseDetail caseId={id} />
           <div className='mt-8'>
-            <CommentSection caseId={id} user={user!} comments={comments}/>
+            <CommentSection caseId={id} user={user} comments={comments}/>
           </div>
         </div>
       </div>

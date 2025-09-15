@@ -14,7 +14,7 @@ export function LikesButton({
   userId,
 }: {
   caseId: string;
-  userId: string | null;
+  userId: string | undefined | null;
 }) {
   const [isLiked, setIsLiked] = useState(false);
   const [countLikes, setCountLikes] = useState(0);

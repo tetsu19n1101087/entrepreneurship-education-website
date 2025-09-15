@@ -68,7 +68,7 @@ export async function CaseDetail({ caseId }: { caseId: string }) {
             </div>
 
             <div className='flex items-center gap-2'>
-              <LikesButton caseId={caseId} userId={user!.id} />
+              <LikesButton caseId={caseId} userId={user?.id} />
               <Button
                 variant='outline'
                 size='sm'
