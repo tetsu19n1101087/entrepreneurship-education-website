@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import type { User } from '@supabase/supabase-js';
-import { type Comment } from '@/lib/supabase/comments';
+import { type Comment } from '@/lib/definitions';
 import { CommentLikesButton } from './likes';
 
 export default function CommentItem({

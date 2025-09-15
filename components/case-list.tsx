@@ -1,7 +1,8 @@
 import { Card, CardContent } from '@/components/ui/card';
 import CaseItem from './case-item';
-import { getCases, type Case } from '@/lib/supabase/cases';
+import { getCases } from '@/lib/supabase/cases';
 import { createClient } from '@/lib/supabase/server';
+import { type Case } from '@/lib/definitions';
 
 export default async function CaseList() {
   const supabase = await createClient();

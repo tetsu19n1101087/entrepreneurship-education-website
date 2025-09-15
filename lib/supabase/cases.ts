@@ -1,24 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
-
-export interface Case {
-  id: string;
-  title: string;
-  description: string;
-  content: string;
-  school_type: string;
-  subject: string;
-  grade_level?: string;
-  duration?: string;
-  materials?: string;
-  tags: string[];
-  author_id: string;
-  created_at: string;
-  updated_at: string;
-  profiles?: {
-    display_name: string;
-    school_name: string;
-  };
-}
+import { type Case } from '@/lib/definitions';
 
 export async function getCases() {
   const supabase = await createClient();

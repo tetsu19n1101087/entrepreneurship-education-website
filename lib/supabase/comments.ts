@@ -1,21 +1,5 @@
 import { createClient } from '@/lib/supabase/client';
-
-export interface Comment {
-  id: string;
-  case_id: string;
-  author_id: string;
-  parent_id?: string;
-  content: string;
-  created_at: string;
-  updated_at: string;
-  likes_count: number;
-  // Joined data
-  profiles?: {
-    display_name: string;
-    school_name: string;
-  };
-  replies?: Comment[];
-}
+import type { Comment } from '../definitions';
 
 export async function getCommentsByCase(caseId: string) {
   const supabase = createClient();
@@ -68,25 +52,3 @@ export async function getCommentsByCase(caseId: string) {
 
   return commentsWithReplies as Comment[];
 }
-
-// export async function createComment(
-//   commentData: Omit<
-//     Comment,
-//     'id' | 'created_at' | 'updated_at' | 'likes_count' | 'profiles' | 'replies'
-//   >
-// ) {
-//   const supabase = createClient();
-
-//   const { data, error } = await supabase
-//     .from('comments')
-//     .insert([commentData])
-//     .select()
-//     .single();
-
-//   if (error) {
-//     console.error('Error creating comment:', error);
-//     throw error;
-//   }
-
-//   return data as Comment;
-// }

@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { MessageSquare } from 'lucide-react';
 import CommentItem from './comment-item';
 import type { User } from '@supabase/supabase-js';
-import { type Comment } from '@/lib/supabase/comments';
+import { type Comment } from '@/lib/definitions';
 import { createComment } from '@/lib/action';
 
 export function CommentSection({

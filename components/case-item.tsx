@@ -9,7 +9,7 @@ import { MessageSquare, BookOpen, Calendar } from 'lucide-react';
 import { LikesButton } from './case/likes';
 import Link from 'next/link';
 import { useSearchFilter } from '@/hooks/use-search-filter';
-import { type Case } from '@/lib/supabase/cases';
+import { type Case } from '@/lib/definitions';
 import type { User } from '@supabase/supabase-js';
 
 export default function CaseItem({
@@ -54,7 +54,7 @@ export default function CaseItem({
       }
 
       // Category filter
-      if (selectedCategory && caseItem.category !== selectedCategory) {
+      if (selectedCategory && caseItem.school_type !== selectedCategory) {
         return false;
       }
 
@@ -122,14 +122,22 @@ export default function CaseItem({
                   <Badge
                     variant='outline'
                     className={
-                      caseItem.category === '小学校'
+                      caseItem.school_type === 'elementary'
                         ? 'border-blue-200 text-blue-700'
-                        : caseItem.category === '中学校'
+                        : caseItem.school_type === 'junior_high'
                         ? 'border-green-200 text-green-700'
-                        : 'border-purple-200 text-purple-700'
+                        : caseItem.school_type === 'high_school'
+                        ? 'border-purple-200 text-purple-700'
+                        : 'border-red-200 text-red-700'
                     }
                   >
-                    {caseItem.category}
+                    {caseItem.school_type === 'elementary'
+                      ? '小学校'
+                      : caseItem.school_type === 'junior_high'
+                      ? '中学校'
+                      : caseItem.school_type === 'high_school'
+                      ? '高校'
+                      : 'その他'}
                   </Badge>
                   <Badge variant='outline' className='text-xs'>
                     {caseItem.subject}
@@ -164,16 +172,7 @@ export default function CaseItem({
                 </div>
 
                 <div className='flex items-center gap-4'>
-                  {/* いいねボタン */}
                   <LikesButton caseId={caseItem.id} userId={user?.id} />
-                  <Button
-                    variant='ghost'
-                    size='sm'
-                    className='gap-1 text-muted-foreground'
-                  >
-                    <MessageSquare className='w-4 h-4' />
-                    {caseItem.comments_count}
-                  </Button>
                   <Button
                     variant='outline'
                     size='sm'
