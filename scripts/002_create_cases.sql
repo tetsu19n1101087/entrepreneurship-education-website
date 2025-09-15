@@ -9,8 +9,6 @@ create table if not exists public.cases (
   grade_level text,
   duration text,
   materials text,
-  objectives text,
-  outcomes text,
   tags text[] default '{}',
   author_id uuid not null references auth.users(id) on delete cascade,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
