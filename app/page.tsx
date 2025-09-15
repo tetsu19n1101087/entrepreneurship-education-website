@@ -4,6 +4,7 @@ import { SearchBar } from '@/components/search-bar';
 import { StatsOverview } from '@/components/stats-overview';
 import { SearchFilterProvider } from '@/hooks/use-search-filter';
 import CaseList from '@/components/case-list';
+import { Suspense } from 'react';
 
 export default async function HomePage() {
   return (
@@ -26,7 +27,9 @@ export default async function HomePage() {
             </aside>
             <div className='lg:col-span-3'>
               <SearchBar />
-              <CaseList />
+              <Suspense fallback={<div>Loading cases...</div>}>
+                <CaseList />
+              </Suspense>
             </div>
           </div>
         </main>
