@@ -40,6 +40,13 @@ export async function register(
   redirect('/auth/check-email');
 }
 
+export async function logout() {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  revalidatePath('/', 'layout');
+  redirect('/');
+}
+
 // コメントに関する処理(別ファイルにまとめて、importする形にする予定)
 export async function createComment(
   commentData: Omit<
