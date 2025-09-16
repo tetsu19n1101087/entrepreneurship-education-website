@@ -86,3 +86,39 @@ export async function getUserLikes(userId: string) {
 
   return { caseLikes, commentLikes };
 }
+
+export async function getCaseLikes(caseId: string): Promise<string[]> {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from('likes')
+    .select('user_id')
+    .eq('case_id', caseId);
+
+  if (error) {
+    console.error('Error fetching user likes:', error);
+    return [];
+  }
+
+  const users = data.map((like) => like.user_id);
+
+  return users;
+}
+
+export async function getCommentLikes(commentId: string): Promise<string[]> {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from('likes')
+    .select('user_id')
+    .eq('comment_id', commentId);
+
+  if (error) {
+    console.error('Error fetching user likes:', error);
+    return [];
+  }
+
+  const users = data.map((like) => like.user_id);
+
+  return users;
+}

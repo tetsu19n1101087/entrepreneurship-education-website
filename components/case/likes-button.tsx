@@ -5,11 +5,13 @@ import {
   toggleCaseLike,
   toggleCommentLike,
   getUserLikes,
+  getCaseLikes,
+  getCommentLikes,
 } from '@/lib/supabase/likes';
 import { Button } from '@/components/ui/button';
 import { Heart } from 'lucide-react';
 
-export function LikesButton({
+export function CaseLikesButton({
   caseId,
   userId,
 }: {
@@ -23,9 +25,9 @@ export function LikesButton({
     const loadUserLikes = async () => {
       if (!userId) return;
 
-      const { caseLikes } = await getUserLikes(userId);
-      setIsLiked(caseLikes.includes(caseId));
+      const caseLikes = await getCaseLikes(caseId);
       setCountLikes(caseLikes.length);
+      setIsLiked(caseLikes.includes(userId));
     };
 
     loadUserLikes();
@@ -71,9 +73,9 @@ export function CommentLikesButton({
     const loadUserLikes = async () => {
       if (!userId) return;
 
-      const { commentLikes } = await getUserLikes(userId);
-      setIsLiked(commentLikes.includes(commentId));
+      const commentLikes = await getCommentLikes(commentId);
       setCountLikes(commentLikes.length);
+      setIsLiked(commentLikes.includes(userId));
     };
 
     loadUserLikes();

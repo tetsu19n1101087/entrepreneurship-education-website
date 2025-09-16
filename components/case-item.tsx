@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { MessageSquare, BookOpen, Calendar } from 'lucide-react';
-import { LikesButton } from './case/likes';
+import { CaseLikesButton } from './case/likes-button';
 import Link from 'next/link';
 import { useSearchFilter } from '@/hooks/use-search-filter';
 import { type Case } from '@/lib/definitions';
@@ -172,7 +172,7 @@ export default function CaseItem({
                 </div>
 
                 <div className='flex items-center gap-4'>
-                  <LikesButton caseId={caseItem.id} userId={user?.id} />
+                  <CaseLikesButton caseId={caseItem.id} userId={user?.id} />
                   <Button
                     variant='outline'
                     size='sm'
