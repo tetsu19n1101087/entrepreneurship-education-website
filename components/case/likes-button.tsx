@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import {
   toggleCaseLike,
   toggleCommentLike,
-  getUserLikes,
   getCaseLikes,
   getCommentLikes,
 } from '@/lib/supabase/likes';
