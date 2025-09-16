@@ -22,10 +22,11 @@ export function CaseLikesButton({
 
   useEffect(() => {
     const loadUserLikes = async () => {
-      if (!userId) return;
-
       const caseLikes = await getCaseLikes(caseId);
       setCountLikes(caseLikes.length);
+
+      if (!userId) return;
+
       setIsLiked(caseLikes.includes(userId));
     };
 
@@ -70,10 +71,11 @@ export function CommentLikesButton({
 
   useEffect(() => {
     const loadUserLikes = async () => {
-      if (!userId) return;
-
       const commentLikes = await getCommentLikes(commentId);
       setCountLikes(commentLikes.length);
+
+      if (!userId) return;
+      
       setIsLiked(commentLikes.includes(userId));
     };
 
