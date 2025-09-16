@@ -20,6 +20,7 @@ export async function toggleCaseLike(caseId: string, userId: string) {
       .eq('user_id', userId);
 
     if (error) throw error;
+
     return false;
   } else {
     // Add like
@@ -28,6 +29,7 @@ export async function toggleCaseLike(caseId: string, userId: string) {
       .insert([{ case_id: caseId, user_id: userId }]);
 
     if (error) throw error;
+
     return true;
   }
 }
@@ -52,6 +54,7 @@ export async function toggleCommentLike(commentId: string, userId: string) {
       .eq('user_id', userId);
 
     if (error) throw error;
+
     return false;
   } else {
     // Add like
@@ -60,29 +63,45 @@ export async function toggleCommentLike(commentId: string, userId: string) {
       .insert([{ comment_id: commentId, user_id: userId }]);
 
     if (error) throw error;
+
     return true;
   }
 }
 
-export async function getUserLikes(userId: string) {
+export async function getCaseLikes(caseId: string): Promise<string[]> {
   const supabase = createClient();
 
   const { data, error } = await supabase
     .from('likes')
-    .select('case_id, comment_id')
-    .eq('user_id', userId);
+    .select('user_id')
+    .eq('case_id', caseId);
 
   if (error) {
     console.error('Error fetching user likes:', error);
-    return { caseLikes: [], commentLikes: [] };
+
+    return [];
   }
 
-  const caseLikes = data
-    .filter((like) => like.case_id)
-    .map((like) => like.case_id);
-  const commentLikes = data
-    .filter((like) => like.comment_id)
-    .map((like) => like.comment_id);
+  const users = data.map((like) => like.user_id);
 
-  return { caseLikes, commentLikes };
+  return users;
+}
+
+export async function getCommentLikes(commentId: string): Promise<string[]> {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from('likes')
+    .select('user_id')
+    .eq('comment_id', commentId);
+
+  if (error) {
+    console.error('Error fetching user likes:', error);
+
+    return [];
+  }
+
+  const users = data.map((like) => like.user_id);
+
+  return users;
 }

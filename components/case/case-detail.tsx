@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Calendar, Clock, Users, Info, FileText, PenTool } from 'lucide-react';
 import { getCaseById } from '@/lib/supabase/cases';
 import { createClient } from '@/lib/supabase/server';
-import { LikesButton } from './likes';
+import { CaseLikesButton } from './likes-button';
 import { notFound } from 'next/navigation';
 
 export async function CaseDetail({ caseId }: { caseId: string }) {
@@ -66,7 +66,7 @@ export async function CaseDetail({ caseId }: { caseId: string }) {
             </div>
 
             <div className='flex items-center gap-2'>
-              <LikesButton caseId={caseId} userId={user?.id} />
+              <CaseLikesButton caseId={caseId} userId={user?.id} />
             </div>
           </div>
         </CardHeader>
@@ -130,7 +130,8 @@ export async function CaseDetail({ caseId }: { caseId: string }) {
           <CardHeader>
             <CardTitle className='flex items-center gap-2'>
               <PenTool className='w-5 h-5' />
-              使用教材・リソース</CardTitle>
+              使用教材・リソース
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <p className='whitespace-pre-wrap'>{caseData.materials}</p>

@@ -1,6 +1,3 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
@@ -11,94 +8,35 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { PlusCircle, User as UserIcon, LogOut, Settings } from 'lucide-react';
-import { createClient } from '@/lib/supabase/client';
+import { createClient } from '@/lib/supabase/server';
 import { NotificationCenter } from './notification-center';
 import Link from 'next/link';
-import type { User } from '@supabase/supabase-js';
-import { useRouter } from 'next/navigation';
+import { logout } from '@/lib/action';
+import type { Profile } from '@/lib/definitions';
 
-interface Profile {
-  id: string;
-  display_name: string;
-  school_name: string;
-  school_type: string;
-  subject?: string;
-  years_experience?: number;
-  bio?: string;
-  avatar_url?: string;
-}
+export async function Header() {
+  const supabase = await createClient();
 
-export function Header() {
-  const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const supabase = createClient();
-
-  const router = useRouter();
-
-  useEffect(() => {
-    const getInitialSession = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setUser(user);
-
-      if (user) {
-        await fetchProfile(user.id);
-      }
-
-      setIsLoading(false);
-    };
-
-    getInitialSession();
-
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
-      setUser(session?.user ?? null);
-
-      if (session?.user) {
-        await fetchProfile(session.user.id);
-      } else {
-        setProfile(null);
-      }
-
-      setIsLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const fetchProfile = async (userId: string) => {
-    try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single();
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single();
 
-      if (error && error.code !== 'PGRST116') {
-        console.error('Error fetching profile:', error);
-        return;
-      }
-
-      setProfile(data);
-    } catch (error) {
+    if (error) {
       console.error('Error fetching profile:', error);
+      return null;
     }
+
+    return data;
   };
 
-  // ログアウト処理
-  const handleLogout = async () => {
-    try {
-      const supabase = createClient();
-      await supabase.auth.signOut();
-      router.push('/');
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
-  };
+  const profile: Profile | null = user ? await fetchProfile(user.id) : null;
 
   return (
     <header className='border-b bg-card'>
@@ -162,13 +100,14 @@ export function Header() {
                       <Settings className='w-4 h-4 mr-2' />
                       設定
                     </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleLogout}>
-                      <LogOut className='w-4 h-4 mr-2' />
-                      ログアウト
-                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
+                <form action={logout}>
+                  <Button variant='secondary' className=''>
+                    <LogOut className='w-4 h-4 mr-2' />
+                    ログアウト
+                  </Button>
+                </form>
               </>
             ) : (
               <div className='flex items-center gap-2'>

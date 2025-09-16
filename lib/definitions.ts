@@ -34,3 +34,14 @@ export interface Comment {
   };
   replies?: Comment[];
 }
+
+export interface Profile {
+  id: string;
+  display_name: string;
+  school_name: string;
+  school_type: string;
+  subject?: string;
+  years_experience?: number;
+  bio?: string;
+  avatar_url?: string;
+}

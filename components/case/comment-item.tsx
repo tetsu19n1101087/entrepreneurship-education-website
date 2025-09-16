@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import type { User } from '@supabase/supabase-js';
 import { type Comment } from '@/lib/definitions';
-import { CommentLikesButton } from './likes';
+import { CommentLikesButton } from './likes-button';
 
 export default function CommentItem({
   comment,
