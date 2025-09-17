@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
   // if "next" is in param, use it as the redirect URL
@@ -30,7 +30,10 @@ export async function GET(request: Request) {
         return NextResponse.redirect(`${origin}${next}`);
       }
     } else {
-      throw error;
+      // ToDo: エラーページ作成
+      return NextResponse.redirect(`${origin}/auth/auth-code-error`);
     }
   }
+
+  return NextResponse.redirect('/');
 }
