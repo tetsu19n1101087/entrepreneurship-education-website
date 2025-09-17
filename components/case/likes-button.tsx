@@ -25,9 +25,7 @@ export function CaseLikesButton({
       const caseLikes = await getCaseLikes(caseId);
       setCountLikes(caseLikes.length);
 
-      if (!userId) return;
-
-      setIsLiked(caseLikes.includes(userId));
+      setIsLiked(userId ? caseLikes.includes(userId) : false);
     };
 
     loadUserLikes();
@@ -74,9 +72,7 @@ export function CommentLikesButton({
       const commentLikes = await getCommentLikes(commentId);
       setCountLikes(commentLikes.length);
 
-      if (!userId) return;
-      
-      setIsLiked(commentLikes.includes(userId));
+      setIsLiked(userId ? commentLikes.includes(userId) : false);
     };
 
     loadUserLikes();
