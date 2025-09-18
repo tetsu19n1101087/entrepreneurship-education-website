@@ -539,7 +539,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-avatar@npm:latest":
+"@radix-ui/react-avatar@npm:^1.1.10":
   version: 1.1.10
   resolution: "@radix-ui/react-avatar@npm:1.1.10"
   dependencies:
@@ -766,7 +766,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-dialog@npm:^1.1.1, @radix-ui/react-dialog@npm:^1.1.2, @radix-ui/react-dialog@npm:latest":
+"@radix-ui/react-dialog@npm:^1.1.1, @radix-ui/react-dialog@npm:^1.1.15, @radix-ui/react-dialog@npm:^1.1.2":
   version: 1.1.15
   resolution: "@radix-ui/react-dialog@npm:1.1.15"
   dependencies:
@@ -870,7 +870,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-dropdown-menu@npm:latest":
+"@radix-ui/react-dropdown-menu@npm:^2.1.16":
   version: 2.1.16
   resolution: "@radix-ui/react-dropdown-menu@npm:2.1.16"
   dependencies:
@@ -1020,7 +1020,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-label@npm:latest":
+"@radix-ui/react-label@npm:^2.1.7":
   version: 2.1.7
   resolution: "@radix-ui/react-label@npm:2.1.7"
   dependencies:
@@ -1507,7 +1507,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-select@npm:latest":
+"@radix-ui/react-select@npm:^2.2.6":
   version: 2.2.6
   resolution: "@radix-ui/react-select@npm:2.2.6"
   dependencies:
@@ -1609,7 +1609,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-slot@npm:1.2.3, @radix-ui/react-slot@npm:latest":
+"@radix-ui/react-slot@npm:1.2.3, @radix-ui/react-slot@npm:^1.2.3":
   version: 1.2.3
   resolution: "@radix-ui/react-slot@npm:1.2.3"
   dependencies:
@@ -2071,12 +2071,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@supabase/functions-js@npm:2.4.5":
-  version: 2.4.5
-  resolution: "@supabase/functions-js@npm:2.4.5"
+"@supabase/functions-js@npm:2.4.6":
+  version: 2.4.6
+  resolution: "@supabase/functions-js@npm:2.4.6"
   dependencies:
     "@supabase/node-fetch": "npm:^2.6.14"
-  checksum: 10c0/43d0a40e863e20cadae38de65930c203f50c625bad91736bf78c095e347131ea3328716a43dad58fb8d058c69b901b41fdc062e77221196d8dfc93ad772519b5
+  checksum: 10c0/ba8fa0c345277d85f575724ddaab7ef5efac8bca2c05e24f2975589057638d7795e3a4c53313c3d09741823d455e89661392662ba8be60e3a16ed9023cd8cec8
   languageName: node
   linkType: hard
 
@@ -2089,12 +2089,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@supabase/postgrest-js@npm:1.21.3":
-  version: 1.21.3
-  resolution: "@supabase/postgrest-js@npm:1.21.3"
+"@supabase/postgrest-js@npm:1.21.4":
+  version: 1.21.4
+  resolution: "@supabase/postgrest-js@npm:1.21.4"
   dependencies:
     "@supabase/node-fetch": "npm:^2.6.14"
-  checksum: 10c0/317a80efb4e4462895d6bc4ad40582aa09457cc794a2a5d97a002105057b2b90c0dc16981bf9f5bbd3392c9a4426786b0c00f7e395f415e2260005af612af101
+  checksum: 10c0/9efa19a3b56c780c63b7caebca084f8c67750349f882c3221c5547153baaa4010b736d4fdd9a024ebdf117eab7de17770fecb698b39210f9903777522d9a7bff
   languageName: node
   linkType: hard
 
@@ -2110,7 +2110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@supabase/ssr@npm:latest":
+"@supabase/ssr@npm:^0.7.0":
   version: 0.7.0
   resolution: "@supabase/ssr@npm:0.7.0"
   dependencies:
@@ -2121,26 +2121,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@supabase/storage-js@npm:^2.10.4":
-  version: 2.11.1
-  resolution: "@supabase/storage-js@npm:2.11.1"
+"@supabase/storage-js@npm:2.12.1":
+  version: 2.12.1
+  resolution: "@supabase/storage-js@npm:2.12.1"
   dependencies:
     "@supabase/node-fetch": "npm:^2.6.14"
-  checksum: 10c0/ddde532f748e5302412214478a1e9c9c89b20fdd929c0a5f35f0be9a2264d74645414c3ce112fb3cc9e78d1bdfb5e99fdd98fe742f0ea1746cd58a08187ad853
+  checksum: 10c0/c4de8d550af53f1732d17da8de780642d63a95c43b070330e6216eff0c5f9593585b89c589d1745f50d6a46091f1c9164422baafe3581e652161c53533293648
   languageName: node
   linkType: hard
 
-"@supabase/supabase-js@npm:latest":
-  version: 2.57.2
-  resolution: "@supabase/supabase-js@npm:2.57.2"
+"@supabase/supabase-js@npm:^2.57.4":
+  version: 2.57.4
+  resolution: "@supabase/supabase-js@npm:2.57.4"
   dependencies:
     "@supabase/auth-js": "npm:2.71.1"
-    "@supabase/functions-js": "npm:2.4.5"
+    "@supabase/functions-js": "npm:2.4.6"
     "@supabase/node-fetch": "npm:2.6.15"
-    "@supabase/postgrest-js": "npm:1.21.3"
+    "@supabase/postgrest-js": "npm:1.21.4"
     "@supabase/realtime-js": "npm:2.15.5"
-    "@supabase/storage-js": "npm:^2.10.4"
-  checksum: 10c0/248bd3a536bf00c40cc5b8563ab6d3f183945775df87b79b1a56d68ace477156202eee1168e8550ed687579c4af865a40584706e0a793180d674bee0d94fa8db
+    "@supabase/storage-js": "npm:2.12.1"
+  checksum: 10c0/9e3ae03d1bca5eba3c4305ff8a6d71964f63784a27e105e87deef23b717424f4a73448b5fe0156f318ae132be7509c359881aa00da71db25ec6d7820acb7932e
   languageName: node
   linkType: hard
 
@@ -2819,7 +2819,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"geist@npm:latest":
+"geist@npm:^1.5.1":
   version: 1.5.1
   resolution: "geist@npm:1.5.1"
   peerDependencies:
@@ -3061,32 +3061,32 @@ __metadata:
     "@radix-ui/react-accordion": "npm:1.2.2"
     "@radix-ui/react-alert-dialog": "npm:1.1.4"
     "@radix-ui/react-aspect-ratio": "npm:1.1.1"
-    "@radix-ui/react-avatar": "npm:latest"
+    "@radix-ui/react-avatar": "npm:^1.1.10"
     "@radix-ui/react-checkbox": "npm:1.1.3"
     "@radix-ui/react-collapsible": "npm:1.1.2"
     "@radix-ui/react-context-menu": "npm:2.2.4"
-    "@radix-ui/react-dialog": "npm:latest"
-    "@radix-ui/react-dropdown-menu": "npm:latest"
+    "@radix-ui/react-dialog": "npm:^1.1.15"
+    "@radix-ui/react-dropdown-menu": "npm:^2.1.16"
     "@radix-ui/react-hover-card": "npm:1.1.4"
-    "@radix-ui/react-label": "npm:latest"
+    "@radix-ui/react-label": "npm:^2.1.7"
     "@radix-ui/react-menubar": "npm:1.1.4"
     "@radix-ui/react-navigation-menu": "npm:1.2.3"
     "@radix-ui/react-popover": "npm:1.1.4"
     "@radix-ui/react-progress": "npm:1.1.1"
     "@radix-ui/react-radio-group": "npm:1.2.2"
     "@radix-ui/react-scroll-area": "npm:1.2.2"
-    "@radix-ui/react-select": "npm:latest"
+    "@radix-ui/react-select": "npm:^2.2.6"
     "@radix-ui/react-separator": "npm:1.1.1"
     "@radix-ui/react-slider": "npm:1.2.2"
-    "@radix-ui/react-slot": "npm:latest"
+    "@radix-ui/react-slot": "npm:^1.2.3"
     "@radix-ui/react-switch": "npm:1.1.2"
     "@radix-ui/react-tabs": "npm:1.1.2"
     "@radix-ui/react-toast": "npm:1.2.4"
     "@radix-ui/react-toggle": "npm:1.1.1"
     "@radix-ui/react-toggle-group": "npm:1.1.1"
     "@radix-ui/react-tooltip": "npm:1.1.6"
-    "@supabase/ssr": "npm:latest"
-    "@supabase/supabase-js": "npm:latest"
+    "@supabase/ssr": "npm:^0.7.0"
+    "@supabase/supabase-js": "npm:^2.57.4"
     "@tailwindcss/postcss": "npm:^4.1.9"
     "@types/node": "npm:^22"
     "@types/react": "npm:^19"
@@ -3097,11 +3097,11 @@ __metadata:
     cmdk: "npm:1.0.4"
     date-fns: "npm:4.1.0"
     embla-carousel-react: "npm:8.5.1"
-    geist: "npm:latest"
+    geist: "npm:^1.5.1"
     input-otp: "npm:1.4.1"
     lucide-react: "npm:^0.454.0"
     next: "npm:15.2.4"
-    next-themes: "npm:latest"
+    next-themes: "npm:^0.4.6"
     postcss: "npm:^8.5"
     react: "npm:^19"
     react-day-picker: "npm:9.8.0"
@@ -3111,9 +3111,9 @@ __metadata:
     recharts: "npm:2.15.4"
     sonner: "npm:^1.7.4"
     tailwind-merge: "npm:^2.5.5"
-    tailwindcss: "npm:^4.1.9"
+    tailwindcss: "npm:^4.1.13"
     tailwindcss-animate: "npm:^1.0.7"
-    tw-animate-css: "npm:1.3.3"
+    tw-animate-css: "npm:^1.3.8"
     typescript: "npm:^5"
     vaul: "npm:^0.9.9"
     zod: "npm:3.25.67"
@@ -3129,7 +3129,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-themes@npm:latest":
+"next-themes@npm:^0.4.6":
   version: 0.4.6
   resolution: "next-themes@npm:0.4.6"
   peerDependencies:
@@ -3590,7 +3590,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:4.1.13, tailwindcss@npm:^4.1.9":
+"tailwindcss@npm:4.1.13, tailwindcss@npm:^4.1.13":
   version: 4.1.13
   resolution: "tailwindcss@npm:4.1.13"
   checksum: 10c0/2b80b4b11463818fd16063b7cc13fd0f6e18d7e3c3e54bbdc98742981be807884addb1dd657bc6816cb4085197b7d583f5064f619e1039a54221ffa36b7ed4c0
@@ -3639,10 +3639,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tw-animate-css@npm:1.3.3":
-  version: 1.3.3
-  resolution: "tw-animate-css@npm:1.3.3"
-  checksum: 10c0/7e8313713d1c205fcd5baabb5086f363932faf6e738f79aa7481f5636a7a14cc971f0d5fc711d0e06b80c5329b2efb0e100b88fa488d7f658bb7ebbfd369c540
+"tw-animate-css@npm:^1.3.8":
+  version: 1.3.8
+  resolution: "tw-animate-css@npm:1.3.8"
+  checksum: 10c0/8b905ec319447e80444d88b475beb9d4bbe8f783ee4fa0f90e63c01aed3a77ab2585b25c2741ff2e741b7b9098a82268c2d30dc36f9716a9e83edfa4081be544
   languageName: node
   linkType: hard
 
