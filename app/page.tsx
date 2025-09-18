@@ -25,7 +25,40 @@ export default async function HomePage() {
             </aside>
             <div className='lg:col-span-3'>
               <SearchBar />
-              <Suspense fallback={<div>Loading cases...</div>}>
+              <Suspense
+                fallback={
+                  <div className='space-y-6 mt-6'>
+                    <div className='flex items-center justify-center py-12'>
+                      <div className='flex flex-col items-center space-y-4'>
+                        <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
+                        <p className='text-muted-foreground font-medium'>
+                          事例を読み込み中...
+                        </p>
+                      </div>
+                    </div>
+                    {/* Loading skeleton cards */}
+                    <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-1'>
+                      {[...Array(3)].map((_, i) => (
+                        <div
+                          key={i}
+                          className='border rounded-lg p-6 space-y-4 animate-pulse'
+                        >
+                          <div className='h-4 bg-muted rounded w-3/4'></div>
+                          <div className='h-3 bg-muted rounded w-1/2'></div>
+                          <div className='space-y-2'>
+                            <div className='h-3 bg-muted rounded'></div>
+                            <div className='h-3 bg-muted rounded w-5/6'></div>
+                          </div>
+                          <div className='flex space-x-2'>
+                            <div className='h-6 bg-muted rounded-full w-16'></div>
+                            <div className='h-6 bg-muted rounded-full w-20'></div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                }
+              >
                 <CaseList />
               </Suspense>
             </div>
