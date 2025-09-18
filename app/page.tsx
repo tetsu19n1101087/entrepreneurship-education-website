@@ -4,7 +4,6 @@ import { StatsOverview } from "@/components/stats-overview"
 import { SearchFilterProvider } from "@/hooks/use-search-filter"
 import CaseList from "@/components/case-list"
 import { Suspense } from "react"
-import { CaseListSkeleton } from "@/components/case-list-skeleton"
 
 export default async function HomePage() {
   return (
@@ -26,7 +25,7 @@ export default async function HomePage() {
             </aside>
             <div className="lg:col-span-3">
               <SearchBar />
-              <Suspense fallback={<CaseListSkeleton />}>
+              <Suspense fallback={<div className="text-center py-8">読み込み中...</div>}>
                 <CaseList />
               </Suspense>
             </div>
