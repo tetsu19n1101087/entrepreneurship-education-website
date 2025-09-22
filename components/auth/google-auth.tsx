@@ -11,19 +11,19 @@ export function LoginWithGoogle() {
 
   const searchParams = useSearchParams();
 
+  console.log(searchParams.toString());
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const supabase = createClient();
-
-    const params = new URLSearchParams(searchParams);
 
     const url =
       process.env.NEXT_PUBLIC_SITE_URL || // Set this to your site URL in production env.
       process.env.NEXT_PUBLIC_VERCEL_URL || // Automatically set by Vercel.
       'http://localhost:3000';
 
-    const redirectTo = `${url}/auth/callback?${params.toString()}`;
+    const redirectTo = `${url}/auth/callback?${searchParams.toString()}`;
 
     try {
       const { error } = await supabase.auth.signInWithOAuth({
