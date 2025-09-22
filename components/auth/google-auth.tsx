@@ -4,22 +4,26 @@ import type React from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { useSearchParams } from 'next/navigation';
 
 export function LoginWithGoogle() {
   const [error, setError] = useState<string | null>(null);
+
+  const searchParams = useSearchParams();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const supabase = createClient();
 
+    const params = new URLSearchParams(searchParams);
+
     const url =
       process.env.NEXT_PUBLIC_SITE_URL || // Set this to your site URL in production env.
       process.env.NEXT_PUBLIC_VERCEL_URL || // Automatically set by Vercel.
       'http://localhost:3000';
 
-    const redirectTo = `${url}/auth/callback`;
-
+    const redirectTo = `${url}/auth/callback?${params.toString()}`;
 
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -42,7 +46,11 @@ export function LoginWithGoogle() {
 
   return (
     <form className='space-y-3 mb-4' onSubmit={handleSubmit}>
-      <Button type='submit' variant='outline' className='gsi-material-button w-full'>
+      <Button
+        type='submit'
+        variant='outline'
+        className='gsi-material-button w-full'
+      >
         <div className='gsi-material-button-state'></div>
         <div className='gsi-material-button-content-wrapper'>
           <div className='gsi-material-button-icon'>
@@ -70,7 +78,9 @@ export function LoginWithGoogle() {
               <path fill='none' d='M0 0h48v48H0z'></path>
             </svg>
           </div>
-          <span className='gsi-material-button-contents'>Continue with Google</span>
+          <span className='gsi-material-button-contents'>
+            Continue with Google
+          </span>
           {/* <span style={{display: 'none'}}>Continue with Google</span> */}
         </div>
       </Button>
