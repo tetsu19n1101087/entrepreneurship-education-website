@@ -2,22 +2,26 @@ import { Card, CardContent } from '@/components/ui/card';
 import { BookOpen, Users, MessageSquare, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import { getCasesCount } from '@/lib/supabase/cases';
+import { getProfilesCount } from '@/lib/supabase/profiles';
 
 export default async function StatsOverview() {
-  const casesCount = await getCasesCount();
+  const [casesCount, profilesCount] = await Promise.all([
+    getCasesCount(),
+    getProfilesCount(),
+  ]);
 
   const stats = [
     {
       icon: BookOpen,
       label: '投稿事例数',
-      value: String(casesCount),
+      value: casesCount,
       description: '実践事例',
       href: '/',
     },
     {
       icon: Users,
       label: '参加教員数',
-      value: '89',
+      value: profilesCount,
       description: '県内教員',
       href: '/teachers',
     },
