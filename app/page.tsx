@@ -1,6 +1,6 @@
 import { CategoryFilter } from '@/components/category-filter';
 import { SearchBar } from '@/components/search-bar';
-import { StatsOverview } from '@/components/stats-overview';
+import StatsOverview from '@/components/stats-overview';
 import { SearchFilterProvider } from '@/hooks/use-search-filter';
 import CaseList from '@/components/case-list';
 import { Suspense } from 'react';
