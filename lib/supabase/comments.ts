@@ -1,8 +1,8 @@
-import { createClient } from '@/lib/supabase/client';
+import { createClient } from '@/lib/supabase/server';
 import type { Comment } from '../definitions';
 
 export async function getCommentsByCase(caseId: string) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data, error } = await supabase
     .from('comments')
@@ -51,4 +51,19 @@ export async function getCommentsByCase(caseId: string) {
   );
 
   return commentsWithReplies as Comment[];
+}
+
+export async function getCommentsCount(): Promise<number> {
+  const supabase = await createClient();
+
+  const { count, error } = await supabase
+    .from('comments')
+    .select('*', { count: 'exact', head: true });
+
+  if (error) {
+    console.error('Error fetching comments count:', error);
+    return 0;
+  }
+
+  return typeof count === 'number' ? count : 0;
 }

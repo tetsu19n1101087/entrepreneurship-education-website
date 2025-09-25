@@ -3,11 +3,13 @@ import { BookOpen, Users, MessageSquare, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import { getCasesCount } from '@/lib/supabase/cases';
 import { getProfilesCount } from '@/lib/supabase/profiles';
+import { getCommentsCount } from '@/lib/supabase/comments';
 
 export default async function StatsOverview() {
-  const [casesCount, profilesCount] = await Promise.all([
+  const [casesCount, profilesCount, commentsCount] = await Promise.all([
     getCasesCount(),
     getProfilesCount(),
+    getCommentsCount(),
   ]);
 
   const stats = [
@@ -28,7 +30,7 @@ export default async function StatsOverview() {
     {
       icon: MessageSquare,
       label: 'コメント数',
-      value: '342',
+      value: commentsCount,
       description: '意見交換',
       href: '/',
     },
