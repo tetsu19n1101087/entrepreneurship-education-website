@@ -45,50 +45,95 @@ export function CategoryFilter() {
     },
   ];
 
+  // Subjects and their display labels; counts managed in state and fetched
+  const subjectList = [
+    '総合的な学習',
+    '社会科',
+    '技術・家庭科',
+    '商業科',
+    'その他',
+  ];
+
+  const [subjectCounts, setSubjectCounts] = useState<Record<string, number>>(
+    subjectList.reduce((acc, s) => ({ ...acc, [s]: 0 }), {}) as Record<
+      string,
+      number
+    >
+  );
+
   useEffect(() => {
     const supabase = createClient();
 
-    const types = ['elementary', 'junior_high', 'high_school'];
-
-    // Fetch counts concurrently per school_type using head=true to get exact counts
     (async () => {
       try {
-        const results = await Promise.all(
-          types.map(async (t) => {
-            try {
-              const { count, error } = await supabase
-                .from('cases')
-                .select('*', { count: 'exact', head: true })
-                .eq('school_type', t);
+        const types = ['elementary', 'junior_high', 'high_school'];
 
-              if (error) {
-                console.error('Error fetching count for', t, error);
+        // Fetch school_type counts and subject counts concurrently
+        const [typeResults, subjectResults] = await Promise.all([
+          Promise.all(
+            types.map(async (t) => {
+              try {
+                const { count, error } = await supabase
+                  .from('cases')
+                  .select('*', { count: 'exact', head: true })
+                  .eq('school_type', t);
+
+                if (error) {
+                  console.error('Error fetching count for', t, error);
+                  return 0;
+                }
+
+                return typeof count === 'number' ? count : 0;
+              } catch (e) {
+                console.error('Unexpected error fetching count for', t, e);
                 return 0;
               }
+            })
+          ),
+          Promise.all(
+            subjectList.map(async (subject) => {
+              try {
+                const { count, error } = await supabase
+                  .from('cases')
+                  .select('*', { count: 'exact', head: true })
+                  .eq('subject', subject);
 
-              return typeof count === 'number' ? count : 0;
-            } catch (e) {
-              console.error('Unexpected error fetching count for', t, e);
-              return 0;
-            }
-          })
-        );
+                if (error) {
+                  console.error(
+                    'Error fetching subject count for',
+                    subject,
+                    error
+                  );
+                  return 0;
+                }
 
-        const [elementary, junior_high, high_school] = results;
+                return typeof count === 'number' ? count : 0;
+              } catch (e) {
+                console.error(
+                  'Unexpected error fetching subject count for',
+                  subject,
+                  e
+                );
+                return 0;
+              }
+            })
+          ),
+        ]);
+
+        const [elementary, junior_high, high_school] = typeResults;
         setCounts({ elementary, junior_high, high_school });
+
+        const countsObj: Record<string, number> = {};
+        subjectList.forEach((s, i) => {
+          countsObj[s] = subjectResults[i] ?? 0;
+        });
+
+        setSubjectCounts(countsObj);
       } catch (e) {
-        console.error('Error fetching school type counts', e);
+        console.error('Error fetching counts', e);
       }
     })();
   }, []);
-
-  const subjects = [
-    { name: '総合的な学習', count: 38 },
-    { name: '社会科', count: 25 },
-    { name: '技術・家庭科', count: 22 },
-    { name: '商業科', count: 18 },
-    { name: 'その他', count: 24 },
-  ];
 
   return (
     <div className='space-y-6'>
@@ -124,21 +169,21 @@ export function CategoryFilter() {
           <CardTitle className='text-lg'>教科・領域</CardTitle>
         </CardHeader>
         <CardContent className='space-y-2'>
-          {subjects.map((subject, index) => (
+          {subjectList.map((subject: string, index: number) => (
             <Button
               key={index}
-              variant={selectedSubject === subject.name ? 'default' : 'ghost'}
+              variant={selectedSubject === subject ? 'default' : 'ghost'}
               className='w-full justify-between p-2 h-auto text-sm'
               onClick={() =>
-                setSelectedSubject(
-                  selectedSubject === subject.name ? null : subject.name
-                )
+                setSelectedSubject(selectedSubject === subject ? null : subject)
               }
             >
-              <span>{subject.name}</span>
-              <Badge variant='outline' className='text-xs'>
-                {subject.count}
-              </Badge>
+              <span>{subject}</span>
+              {subjectCounts[subject] > 0 && (
+                <Badge variant='outline' className='text-xs'>
+                  {subjectCounts[subject]}
+                </Badge>
+              )}
             </Button>
           ))}
         </CardContent>
