@@ -6,11 +6,13 @@ import { getProfilesCount } from '@/lib/supabase/profiles';
 import { getCommentsCount } from '@/lib/supabase/comments';
 
 export default async function StatsOverview() {
-  const [casesCount, profilesCount, commentsCount] = await Promise.all([
-    getCasesCount(),
-    getProfilesCount(),
-    getCommentsCount(),
-  ]);
+  const [casesCount, profilesCount, commentsCount, monthlyCasesCount] =
+    await Promise.all([
+      getCasesCount(),
+      getProfilesCount(),
+      getCommentsCount(),
+      getCasesCount(new Date()),
+    ]);
 
   const stats = [
     {
@@ -25,7 +27,8 @@ export default async function StatsOverview() {
       label: '参加教員数',
       value: profilesCount,
       description: '県内教員',
-      href: '/teachers',
+      // TODO: Update href to point to the teachers page /teachers
+      href: '/',
     },
     {
       icon: MessageSquare,
@@ -37,7 +40,7 @@ export default async function StatsOverview() {
     {
       icon: TrendingUp,
       label: '今月の投稿',
-      value: '23',
+      value: monthlyCasesCount,
       description: '新規事例',
       href: '/',
     },

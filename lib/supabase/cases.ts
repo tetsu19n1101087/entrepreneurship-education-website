@@ -106,20 +106,40 @@ export async function deleteCase(id: string) {
   }
 }
 
-export async function getCasesCount(): Promise<number> {
+export async function getCasesCount(targetMonth?: Date): Promise<number> {
   const supabase = await createClient();
 
-  // Use head() with count option or select with count. Using select('*', { count: 'exact', head: true })
-  // but supabase-js typings differ, so use select with count via returning minimal data.
+  // If no targetMonth provided, return total count
+  if (!targetMonth) {
+    const { count, error } = await supabase
+      .from('cases')
+      .select('*', { count: 'exact', head: true });
+
+    if (error) {
+      console.error('Error fetching cases count:', error);
+      return 0;
+    }
+
+    return typeof count === 'number' ? count : 0;
+  }
+
+  // Compute start and end of month (UTC-safe using ISO strings)
+  const year = targetMonth.getFullYear();
+  const month = targetMonth.getMonth();
+  const monthStart = new Date(Date.UTC(year, month, 1, 0, 0, 0));
+  const monthEnd = new Date(Date.UTC(year, month + 1, 1, 0, 0, 0));
+
+  // Use created_at >= monthStart AND created_at < monthEnd
   const { count, error } = await supabase
     .from('cases')
-    .select('*', { count: 'exact', head: true });
+    .select('*', { count: 'exact', head: true })
+    .gte('created_at', monthStart.toISOString())
+    .lt('created_at', monthEnd.toISOString());
 
   if (error) {
-    console.error('Error fetching cases count:', error);
+    console.error('Error fetching monthly cases count:', error);
     return 0;
   }
 
-  // count can be null or number
   return typeof count === 'number' ? count : 0;
 }
