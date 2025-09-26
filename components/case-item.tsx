@@ -5,12 +5,13 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { MessageSquare, BookOpen, Calendar } from 'lucide-react';
+import { BookOpen, Calendar } from 'lucide-react';
 import { CaseLikesButton } from './case/likes-button';
 import Link from 'next/link';
 import { useSearchFilter } from '@/hooks/use-search-filter';
-import { type Case } from '@/lib/definitions';
+import type { Case } from '@/lib/definitions';
 import type { User } from '@supabase/supabase-js';
+import Image from 'next/image';
 
 export default function CaseItem({
   user,
@@ -96,7 +97,22 @@ export default function CaseItem({
         </Card>
       ) : (
         filteredCases.map((caseItem) => (
-          <Card key={caseItem.id} className='hover:shadow-md transition-shadow'>
+          <Card
+            key={caseItem.id}
+            className='hover:shadow-md transition-shadow overflow-hidden pt-0'
+          >
+            {caseItem.header_image_url && (
+              <div className='relative h-48 w-full'>
+                <Image
+                  src={caseItem.header_image_url || '/placeholder.svg'}
+                  alt={`${caseItem.title}のヘッダー画像`}
+                  fill
+                  className='object-cover'
+                  sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                />
+              </div>
+            )}
+
             <CardHeader className='pb-4'>
               <div className='flex items-start justify-between gap-4'>
                 <div className='flex-1'>

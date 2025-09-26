@@ -6,6 +6,7 @@ import { getCaseById } from '@/lib/supabase/cases';
 import { createClient } from '@/lib/supabase/server';
 import { CaseLikesButton } from './likes-button';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 
 export async function CaseDetail({ caseId }: { caseId: string }) {
   const supabase = await createClient();
@@ -22,6 +23,19 @@ export async function CaseDetail({ caseId }: { caseId: string }) {
 
   return (
     <div className='space-y-6'>
+      {caseData.header_image_url && (
+        <div className='relative h-64 w-full rounded-lg overflow-hidden'>
+          <Image
+            src={caseData.header_image_url || '/placeholder.svg'}
+            alt={`${caseData.title}のヘッダー画像`}
+            fill
+            className='object-cover'
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw'
+            priority
+          />
+        </div>
+      )}
+
       <Card>
         <CardHeader>
           <div className='flex items-start justify-between gap-4'>
