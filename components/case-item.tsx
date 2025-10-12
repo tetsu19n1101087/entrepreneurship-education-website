@@ -26,6 +26,7 @@ export default function CaseItem({
   const filteredCases = useMemo(() => {
     if (!cases) return [];
 
+    // 記事検索
     return cases.filter((caseItem) => {
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
