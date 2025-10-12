@@ -16,7 +16,6 @@ export function SearchBar() {
     setSelectedSubject,
     selectedTags,
     setSelectedTags,
-    isAdvancedSearchOpen,
     setIsAdvancedSearchOpen,
     clearAllFilters,
   } = useSearchFilter();
@@ -66,7 +65,7 @@ export function SearchBar() {
             </div>
           )}
           {selectedSubject && (
-            <div className='flex items-center gap-1 bg-accent/10 text-accent-foreground px-2 py-1 rounded-md text-sm'>
+            <div className='flex items-center gap-1 bg-accent/10 text-accent px-2 py-1 rounded-md text-sm'>
               {selectedSubject}
               <X
                 className='w-3 h-3 cursor-pointer'

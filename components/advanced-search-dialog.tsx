@@ -1,16 +1,28 @@
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useState } from "react"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
-import { X } from "lucide-react"
-import { useSearchFilter } from "@/hooks/use-search-filter"
+import { useState } from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
+import { X } from 'lucide-react';
+import { useSearchFilter } from '@/hooks/use-search-filter';
 
 export function AdvancedSearchDialog() {
   const {
@@ -19,169 +31,196 @@ export function AdvancedSearchDialog() {
     setSearchQuery,
     setSelectedCategory,
     setSelectedSubject,
-    selectedTags,
     setSelectedTags,
-  } = useSearchFilter()
+  } = useSearchFilter();
 
   const [localFilters, setLocalFilters] = useState({
-    keyword: "",
-    author: "",
-    school: "",
-    category: "all",
-    subject: "all",
+    keyword: '',
+    author: '',
+    school: '',
+    category: 'all',
+    subject: 'all',
     tags: [] as string[],
-  })
-  const [newTag, setNewTag] = useState("")
+  });
+  const [newTag, setNewTag] = useState('');
 
   const addTag = () => {
     if (newTag.trim() && !localFilters.tags.includes(newTag.trim())) {
       setLocalFilters((prev) => ({
         ...prev,
         tags: [...prev.tags, newTag.trim()],
-      }))
-      setNewTag("")
+      }));
+      setNewTag('');
     }
-  }
+  };
 
   const removeTag = (tagToRemove: string) => {
     setLocalFilters((prev) => ({
       ...prev,
       tags: prev.tags.filter((tag) => tag !== tagToRemove),
-    }))
-  }
+    }));
+  };
 
   const handleApplyFilters = () => {
-    setSearchQuery(localFilters.keyword)
-    setSelectedCategory(localFilters.category === "all" ? null : localFilters.category)
-    setSelectedSubject(localFilters.subject === "all" ? null : localFilters.subject)
-    setSelectedTags(localFilters.tags)
-    setIsAdvancedSearchOpen(false)
-  }
+    setSearchQuery(localFilters.keyword);
+    setSelectedCategory(
+      localFilters.category === 'all' ? null : localFilters.category,
+    );
+    setSelectedSubject(
+      localFilters.subject === 'all' ? null : localFilters.subject,
+    );
+    setSelectedTags(localFilters.tags);
+    setIsAdvancedSearchOpen(false);
+  };
 
   const handleClearFilters = () => {
     setLocalFilters({
-      keyword: "",
-      author: "",
-      school: "",
-      category: "all",
-      subject: "all",
+      keyword: '',
+      author: '',
+      school: '',
+      category: 'all',
+      subject: 'all',
       tags: [],
-    })
-  }
+    });
+  };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      e.preventDefault()
-      addTag()
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addTag();
     }
-  }
+  };
 
   return (
     <Dialog open={isAdvancedSearchOpen} onOpenChange={setIsAdvancedSearchOpen}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className='max-w-2xl'>
         <DialogHeader>
           <DialogTitle>詳細検索</DialogTitle>
-          <DialogDescription>複数の条件を組み合わせて事例を検索できます</DialogDescription>
+          <DialogDescription>
+            複数の条件を組み合わせて事例を検索できます
+          </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="keyword">キーワード</Label>
+        <div className='space-y-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className='space-y-2'>
+              <Label htmlFor='keyword'>キーワード</Label>
               <Input
-                id="keyword"
-                placeholder="タイトルや内容から検索"
+                id='keyword'
+                placeholder='タイトルや内容から検索'
                 value={localFilters.keyword}
-                onChange={(e) => setLocalFilters((prev) => ({ ...prev, keyword: e.target.value }))}
+                onChange={(e) =>
+                  setLocalFilters((prev) => ({
+                    ...prev,
+                    keyword: e.target.value,
+                  }))
+                }
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="author">投稿者名</Label>
+            <div className='space-y-2'>
+              <Label htmlFor='author'>投稿者名</Label>
               <Input
-                id="author"
-                placeholder="教員名で検索"
+                id='author'
+                placeholder='教員名で検索'
                 value={localFilters.author}
-                onChange={(e) => setLocalFilters((prev) => ({ ...prev, author: e.target.value }))}
+                onChange={(e) =>
+                  setLocalFilters((prev) => ({
+                    ...prev,
+                    author: e.target.value,
+                  }))
+                }
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="school">学校名</Label>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className='space-y-2'>
+              <Label htmlFor='school'>学校名</Label>
               <Input
-                id="school"
-                placeholder="学校名で検索"
+                id='school'
+                placeholder='学校名で検索'
                 value={localFilters.school}
-                onChange={(e) => setLocalFilters((prev) => ({ ...prev, school: e.target.value }))}
+                onChange={(e) =>
+                  setLocalFilters((prev) => ({
+                    ...prev,
+                    school: e.target.value,
+                  }))
+                }
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="category">学校種別</Label>
+            <div className='space-y-2'>
+              <Label htmlFor='category'>学校種別</Label>
               <Select
                 value={localFilters.category}
-                onValueChange={(value) => setLocalFilters((prev) => ({ ...prev, category: value }))}
+                onValueChange={(value) =>
+                  setLocalFilters((prev) => ({ ...prev, category: value }))
+                }
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="学校種別を選択" />
+                  <SelectValue placeholder='学校種別を選択' />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">すべて</SelectItem>
-                  <SelectItem value="小学校">小学校</SelectItem>
-                  <SelectItem value="中学校">中学校</SelectItem>
-                  <SelectItem value="高等学校">高等学校</SelectItem>
+                  <SelectItem value='all'>すべて</SelectItem>
+                  <SelectItem value='小学校'>小学校</SelectItem>
+                  <SelectItem value='中学校'>中学校</SelectItem>
+                  <SelectItem value='高等学校'>高等学校</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="subject">教科・領域</Label>
+          <div className='space-y-2'>
+            <Label htmlFor='subject'>教科・領域</Label>
             <Select
               value={localFilters.subject}
-              onValueChange={(value) => setLocalFilters((prev) => ({ ...prev, subject: value }))}
+              onValueChange={(value) =>
+                setLocalFilters((prev) => ({ ...prev, subject: value }))
+              }
             >
               <SelectTrigger>
-                <SelectValue placeholder="教科・領域を選択" />
+                <SelectValue placeholder='教科・領域を選択' />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">すべて</SelectItem>
-                <SelectItem value="総合的な学習">総合的な学習</SelectItem>
-                <SelectItem value="社会科">社会科</SelectItem>
-                <SelectItem value="技術・家庭科">技術・家庭科</SelectItem>
-                <SelectItem value="商業科">商業科</SelectItem>
-                <SelectItem value="その他">その他</SelectItem>
+                <SelectItem value='all'>すべて</SelectItem>
+                <SelectItem value='総合的な学習'>総合的な学習</SelectItem>
+                <SelectItem value='社会科'>社会科</SelectItem>
+                <SelectItem value='技術・家庭科'>技術・家庭科</SelectItem>
+                <SelectItem value='商業科'>商業科</SelectItem>
+                <SelectItem value='その他'>その他</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
-          <div className="space-y-2">
+          <div className='space-y-2'>
             <Label>タグ</Label>
-            <div className="flex gap-2 mb-2">
+            <div className='flex gap-2 mb-2'>
               <Input
-                placeholder="タグを入力してEnterキーで追加"
+                placeholder='タグを入力してEnterキーで追加'
                 value={newTag}
                 onChange={(e) => setNewTag(e.target.value)}
                 onKeyPress={handleKeyPress}
               />
-              <Button type="button" onClick={addTag} variant="outline">
+              <Button type='button' onClick={addTag} variant='outline'>
                 追加
               </Button>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className='flex flex-wrap gap-2'>
               {localFilters.tags.map((tag, index) => (
-                <Badge key={index} variant="secondary" className="gap-1">
+                <Badge key={index} variant='secondary' className='gap-1'>
                   {tag}
-                  <X className="w-3 h-3 cursor-pointer" onClick={() => removeTag(tag)} />
+                  <X
+                    className='w-3 h-3 cursor-pointer'
+                    onClick={() => removeTag(tag)}
+                  />
                 </Badge>
               ))}
             </div>
           </div>
 
-          <div className="flex justify-end gap-3">
-            <Button variant="outline" onClick={handleClearFilters}>
+          <div className='flex justify-end gap-3'>
+            <Button variant='outline' onClick={handleClearFilters}>
               クリア
             </Button>
             <Button onClick={handleApplyFilters}>検索実行</Button>
@@ -189,5 +228,5 @@ export function AdvancedSearchDialog() {
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
