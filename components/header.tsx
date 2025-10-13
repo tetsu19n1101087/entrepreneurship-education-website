@@ -100,14 +100,17 @@ export async function Header() {
                       <Settings className='w-4 h-4 mr-2' />
                       設定
                     </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <form action={logout}>
+                        <button type="submit" className="w-full text-left flex items-center gap-2">
+                          <LogOut className='w-4 h-4 mr-2' />
+                          ログアウト
+                        </button>
+                      </form>
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
-                <form action={logout}>
-                  <Button variant='secondary' className=''>
-                    <LogOut className='w-4 h-4 mr-2' />
-                    ログアウト
-                  </Button>
-                </form>
               </>
             ) : (
               <div className='flex items-center gap-2'>
