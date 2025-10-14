@@ -10,7 +10,7 @@ import { RegisterForm } from '@/components/auth/register-form';
 
 export default function RegisterPage() {
   return (
-    <div className='min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-green-50 p-4'>
+    <div className='h-full flex-1 flex items-center justify-center bg-gradient-to-br from-blue-50 to-green-50 p-4'>
       <Card className='w-full max-w-md'>
         <CardHeader className='text-center'>
           <CardTitle className='text-2xl font-bold text-blue-900'>
