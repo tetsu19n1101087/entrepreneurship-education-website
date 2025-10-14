@@ -39,8 +39,9 @@ export function LoginWithGoogle() {
       if (error) {
         throw new Error(error.message);
       }
-    } catch (error: any) {
-      setError(error || 'Googleでの登録に失敗しました');
+    } catch (error) {
+      console.error('Error during Google sign-in:', error);
+      setError('Googleでの登録に失敗しました');
     }
   }
 

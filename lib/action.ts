@@ -6,6 +6,7 @@ import { signInWithPassword, signUp } from './auth';
 import { createClient } from './supabase/server';
 import type { Case } from '@/lib/definitions';
 import type { Comment } from '@/lib/definitions';
+import { AuthError } from '@supabase/supabase-js';
 
 export interface State {
   error?: string;
@@ -14,12 +15,16 @@ export interface State {
 
 export async function login(
   prevState: State,
-  formData: FormData
+  formData: FormData,
 ): Promise<State> {
   try {
     await signInWithPassword(formData);
-  } catch (error: any) {
-    return { error: error.message || 'ログインに失敗しました' };
+  } catch (error) {
+    if (error instanceof AuthError) {
+      return { error: error.message };
+    } else {
+      return { error: 'ログインに失敗しました' };
+    }
   }
 
   revalidatePath('/', 'layout');
@@ -28,12 +33,16 @@ export async function login(
 
 export async function register(
   prevState: State,
-  formData: FormData
+  formData: FormData,
 ): Promise<State> {
   try {
     await signUp(formData);
-  } catch (error: any) {
-    return { error: error.message || '登録に失敗しました' };
+  } catch (error) {
+    if (error instanceof AuthError) {
+      return { error: error.message };
+    } else {
+      return { error: '登録に失敗しました' };
+    }
   }
 
   revalidatePath('/', 'layout');
@@ -60,7 +69,7 @@ export async function createComment(
     | 'content'
   >,
   prevState: { error?: string; data?: Comment },
-  formData: FormData
+  formData: FormData,
 ) {
   const supabase = await createClient();
 
@@ -77,7 +86,7 @@ export async function createComment(
     parent_id,
   };
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from('comments')
     .insert([comment])
     .select()
@@ -96,7 +105,7 @@ export async function createComment(
 export async function createCase(
   author_id: string,
   prevState: State,
-  formData: FormData
+  formData: FormData,
 ): Promise<State> {
   const supabase = await createClient();
 
