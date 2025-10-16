@@ -27,8 +27,7 @@ export default async function StatsOverview() {
       label: '参加教員数',
       value: profilesCount,
       description: '県内教員',
-      // TODO: Update href to point to the teachers page /teachers
-      href: '/',
+      href: '/teachers',
     },
     {
       icon: MessageSquare,
