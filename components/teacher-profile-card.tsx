@@ -1,11 +1,8 @@
-"use client"
-
 import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { UserPlus, MessageCircle, BookOpen } from "lucide-react"
-import { useState } from "react"
+import { BookOpen } from "lucide-react"
+import TeacherProfileActions from "@/components/teacher-profile-actions"
 
 interface TeacherProfileCardProps {
   teacher: {
@@ -21,14 +18,6 @@ interface TeacherProfileCardProps {
 }
 
 export function TeacherProfileCard({ teacher }: TeacherProfileCardProps) {
-  const [isFollowing, setIsFollowing] = useState(teacher.isFollowing || false)
-  const [followersCount, setFollowersCount] = useState(teacher.followersCount)
-
-  const handleFollow = () => {
-    setIsFollowing(!isFollowing)
-    setFollowersCount((prev) => (isFollowing ? prev - 1 : prev + 1))
-  }
-
   return (
     <Card className="hover:shadow-md transition-shadow">
       <CardContent className="p-6">
@@ -53,21 +42,18 @@ export function TeacherProfileCard({ teacher }: TeacherProfileCardProps) {
                 {teacher.postsCount}件の投稿
               </div>
               <div className="flex items-center gap-1">
-                <UserPlus className="w-3 h-3" />
-                {followersCount}人がフォロー
+                {/* followers count is provided from server data */}
+                <span className="sr-only">フォロワー数</span>
+                {teacher.followersCount}人がフォロー
               </div>
             </div>
 
-            <div className="flex gap-2">
-              <Button variant={isFollowing ? "outline" : "default"} size="sm" onClick={handleFollow} className="gap-1">
-                <UserPlus className="w-3 h-3" />
-                {isFollowing ? "フォロー中" : "フォロー"}
-              </Button>
-              <Button variant="outline" size="sm" className="gap-1 bg-transparent">
-                <MessageCircle className="w-3 h-3" />
-                メッセージ
-              </Button>
-            </div>
+            {/* Interactive parts live in a client component so this file can be a Server Component */}
+            <TeacherProfileActions
+              teacherId={teacher.id}
+              initialIsFollowing={teacher.isFollowing}
+              initialFollowersCount={teacher.followersCount}
+            />
           </div>
         </div>
       </CardContent>

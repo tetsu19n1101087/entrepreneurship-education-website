@@ -40,9 +40,11 @@ export interface Profile {
   id: string
   display_name: string
   school_name: string
-  school_type: string
+  school_type: 'elementary' | 'junior_high' | 'high_school'
   subject?: string
   years_experience?: number
   bio?: string
   avatar_url?: string
+  created_at?: string
+  updated_at?: string
 }
