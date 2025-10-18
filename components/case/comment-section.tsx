@@ -10,15 +10,18 @@ import CommentItem from './comment-item';
 import type { User } from '@supabase/supabase-js';
 import { type Comment } from '@/lib/definitions';
 import { createComment } from '@/lib/action';
+import type { Profile } from '@/lib/definitions';
 
 export function CommentSection({
   caseId,
   user,
   comments,
+  profile,
 }: {
   caseId: string;
   user: User | null;
   comments: Comment[];
+  profile?: Profile | null;
 }) {
   const createCommentWithId = createComment.bind(null, {
     case_id: caseId,
@@ -31,7 +34,7 @@ export function CommentSection({
 
   const totalComments = comments.reduce(
     (total, comment) => total + 1 + (comment.replies?.length || 0),
-    0
+    0,
   );
 
   return (
@@ -50,7 +53,8 @@ export function CommentSection({
               <div className='flex items-start gap-3'>
                 <Avatar className='w-8 h-8'>
                   <AvatarFallback className='text-xs'>
-                    {user.user_metadata?.display_name?.charAt(0) ||
+                    {profile?.display_name?.charAt(0) ||
+                      user.user_metadata?.display_name?.charAt(0) ||
                       user.email?.charAt(0) ||
                       'U'}
                   </AvatarFallback>
