@@ -11,7 +11,7 @@ import { Mail } from 'lucide-react';
 
 export default function CheckEmailPage() {
   return (
-    <div className='min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-green-50 p-4'>
+    <div className='h-full flex-1 flex items-center justify-center bg-gradient-to-br from-blue-50 to-green-50 p-4'>
       <Card className='w-full max-w-md text-center'>
         <CardHeader>
           <div className='mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100'>

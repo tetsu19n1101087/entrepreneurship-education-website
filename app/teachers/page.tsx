@@ -14,8 +14,10 @@ export default async function TeachersPage() {
       p.school_type === 'elementary'
         ? '小学校'
         : p.school_type === 'junior_high'
-        ? '中学校'
-        : '高等学校',
+          ? '中学校'
+          : p.school_type === 'high_school'
+            ? '高等学校'
+            : 'その他',
     position: p.subject ?? '',
     postsCount: 0, // keep default until we wire posts count
     followersCount: 0, // default; follower system not yet implemented
@@ -24,7 +26,7 @@ export default async function TeachersPage() {
 
   return (
     <SearchFilterProvider>
-      <div className='min-h-screen bg-background'>
+      <div className='h-full flex-1 bg-background'>
         <main className='container mx-auto px-4 py-8'>
           <div className='mb-8'>
             <h1 className='text-3xl font-bold text-foreground mb-2'>
