@@ -1,6 +1,5 @@
 'use client';
 
-import { useMemo } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -23,61 +22,56 @@ export default function CaseItem({
   const { searchQuery, selectedCategory, selectedSubject, selectedTags } =
     useSearchFilter();
 
-  const filteredCases = useMemo(() => {
-    if (!cases) return [];
+  const filteredCases = (cases ?? []).filter((caseItem) => {
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      const matchesTitle = caseItem.title.toLowerCase().includes(query);
+      const matchesDescription = caseItem.description
+        .toLowerCase()
+        .includes(query);
+      const matchesAuthor = caseItem.profiles?.display_name
+        .toLowerCase()
+        .includes(query);
+      const matchesSchool = caseItem.profiles?.school_name
+        .toLowerCase()
+        .includes(query);
+      const matchesTags = caseItem.tags?.some((tag: string) =>
+        tag.toLowerCase().includes(query),
+      );
 
-    // 記事検索
-    return cases.filter((caseItem) => {
-      if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        const matchesTitle = caseItem.title.toLowerCase().includes(query);
-        const matchesDescription = caseItem.description
-          .toLowerCase()
-          .includes(query);
-        const matchesAuthor = caseItem.profiles?.display_name
-          .toLowerCase()
-          .includes(query);
-        const matchesSchool = caseItem.profiles?.school_name
-          .toLowerCase()
-          .includes(query);
-        const matchesTags = caseItem.tags?.some((tag: string) =>
-          tag.toLowerCase().includes(query)
-        );
-
-        if (
-          !matchesTitle &&
-          !matchesDescription &&
-          !matchesAuthor &&
-          !matchesSchool &&
-          !matchesTags
-        ) {
-          return false;
-        }
-      }
-
-      // Category filter
-      if (selectedCategory && caseItem.school_type !== selectedCategory) {
+      if (
+        !matchesTitle &&
+        !matchesDescription &&
+        !matchesAuthor &&
+        !matchesSchool &&
+        !matchesTags
+      ) {
         return false;
       }
+    }
 
-      // Subject filter
-      if (selectedSubject && caseItem.subject !== selectedSubject) {
+    // Category filter
+    if (selectedCategory && caseItem.school_type !== selectedCategory) {
+      return false;
+    }
+
+    // Subject filter
+    if (selectedSubject && caseItem.subject !== selectedSubject) {
+      return false;
+    }
+
+    // Tags filter
+    if (selectedTags.length > 0) {
+      const hasMatchingTag = selectedTags.some((selectedTag) =>
+        caseItem.tags?.includes(selectedTag),
+      );
+      if (!hasMatchingTag) {
         return false;
       }
+    }
 
-      // Tags filter
-      if (selectedTags.length > 0) {
-        const hasMatchingTag = selectedTags.some((selectedTag) =>
-          caseItem.tags?.includes(selectedTag)
-        );
-        if (!hasMatchingTag) {
-          return false;
-        }
-      }
-
-      return true;
-    });
-  }, [cases, searchQuery, selectedCategory, selectedSubject, selectedTags]);
+    return true;
+  });
 
   return (
     <div className='space-y-6'>
@@ -142,19 +136,19 @@ export default function CaseItem({
                       caseItem.school_type === 'elementary'
                         ? 'border-blue-200 text-blue-700'
                         : caseItem.school_type === 'junior_high'
-                        ? 'border-green-200 text-green-700'
-                        : caseItem.school_type === 'high_school'
-                        ? 'border-purple-200 text-purple-700'
-                        : 'border-red-200 text-red-700'
+                          ? 'border-green-200 text-green-700'
+                          : caseItem.school_type === 'high_school'
+                            ? 'border-purple-200 text-purple-700'
+                            : 'border-red-200 text-red-700'
                     }
                   >
                     {caseItem.school_type === 'elementary'
                       ? '小学校'
                       : caseItem.school_type === 'junior_high'
-                      ? '中学校'
-                      : caseItem.school_type === 'high_school'
-                      ? '高校'
-                      : 'その他'}
+                        ? '中学校'
+                        : caseItem.school_type === 'high_school'
+                          ? '高校'
+                          : 'その他'}
                   </Badge>
                   <Badge variant='outline' className='text-xs'>
                     {caseItem.subject}
