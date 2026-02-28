@@ -2,9 +2,8 @@
 
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { BookOpen, Calendar } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { CaseLikesButton } from './case/likes-button';
 import Link from 'next/link';
 import { useSearchFilter } from '@/hooks/use-search-filter';
@@ -94,8 +93,14 @@ export default function CaseItem({
         filteredCases.map((caseItem) => (
           <Card
             key={caseItem.id}
-            className='hover:shadow-md transition-shadow overflow-hidden pt-0'
+            className='relative hover:shadow-lg transition-shadow overflow-hidden pt-0'
           >
+            <Link
+              href={`/case/${caseItem.id}`}
+              aria-label={`${caseItem.title}の詳細を表示`}
+              className='absolute inset-0 z-10'
+            />
+
             {caseItem.header_image_url && (
               <div className='relative h-48 w-full'>
                 <Image
@@ -183,18 +188,9 @@ export default function CaseItem({
                 </div>
 
                 <div className='flex items-center gap-4'>
-                  <CaseLikesButton caseId={caseItem.id} userId={user?.id} />
-                  <Button
-                    variant='outline'
-                    size='sm'
-                    className='gap-1 bg-transparent'
-                    asChild
-                  >
-                    <Link href={`/case/${caseItem.id}`}>
-                      <BookOpen className='w-4 h-4' />
-                      詳細を見る
-                    </Link>
-                  </Button>
+                  <div className='relative z-20'>
+                    <CaseLikesButton caseId={caseItem.id} userId={user?.id} />
+                  </div>
                 </div>
               </div>
             </CardContent>
