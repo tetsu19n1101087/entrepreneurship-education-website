@@ -21,12 +21,21 @@ export async function CaseDetail({ caseId }: { caseId: string }) {
     notFound();
   }
 
+  const resolvedHeaderImageUrl = caseData.header_image_url
+    ? caseData.header_image_url.startsWith('/') ||
+      caseData.header_image_url.startsWith('http://') ||
+      caseData.header_image_url.startsWith('https://')
+      ? caseData.header_image_url
+      : supabase.storage.from('images').getPublicUrl(caseData.header_image_url)
+          .data.publicUrl
+    : null;
+
   return (
     <div className='space-y-6'>
-      {caseData.header_image_url && (
+      {resolvedHeaderImageUrl && (
         <div className='relative h-64 w-full rounded-lg overflow-hidden'>
           <Image
-            src={caseData.header_image_url || '/placeholder.svg'}
+            src={resolvedHeaderImageUrl}
             alt={`${caseData.title}のヘッダー画像`}
             fill
             className='object-cover'
