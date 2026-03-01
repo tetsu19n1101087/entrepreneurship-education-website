@@ -108,9 +108,11 @@ export async function createCase(
   formData: FormData,
 ): Promise<State> {
   const supabase = await createClient();
+  const title = (formData.get('title') as string) || '';
+  const headerImage = formData.get('header_image');
 
   const caseData: Omit<Case, 'id' | 'created_at' | 'updated_at'> = {
-    title: formData.get('title') as string,
+    title,
     description: formData.get('description') as string,
     content: formData.get('content') as string,
     school_type: formData.get('school_type') as
@@ -125,6 +127,37 @@ export async function createCase(
     tags: formData.getAll('tags') as string[],
     author_id,
   };
+
+  if (headerImage instanceof File && headerImage.size > 0) {
+    const sanitizedTitle = title
+      .normalize('NFKC')
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-_]/g, '');
+
+    const fileBaseName = sanitizedTitle || 'case-image';
+    const fileExtension =
+      headerImage.type === 'image/png'
+        ? 'png'
+        : headerImage.type === 'image/webp'
+          ? 'webp'
+          : 'jpg';
+    const filePath = `public/${fileBaseName}-${Date.now()}-${crypto.randomUUID()}.${fileExtension}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('images')
+      .upload(filePath, await headerImage.arrayBuffer(), {
+        contentType: headerImage.type || 'image/jpeg',
+        upsert: false,
+      });
+
+    if (uploadError) {
+      return { error: uploadError.message || '画像のアップロードに失敗しました' };
+    }
+
+    caseData.header_image_url = filePath;
+  }
 
   const { data, error } = await supabase
     .from('cases')

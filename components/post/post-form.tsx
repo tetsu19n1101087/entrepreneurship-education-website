@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -20,6 +20,7 @@ import { createCase } from '@/lib/action';
 import { useActionState } from 'react';
 
 export function PostForm({ user }: { user: User | null }) {
+  const MAX_HEADER_IMAGE_SIZE_BYTES = 10 * 1024 * 1024;
   const router = useRouter();
 
   const createCaseWithId = createCase.bind(null, user?.id || '');
@@ -28,6 +29,8 @@ export function PostForm({ user }: { user: User | null }) {
   const [isComposing, setIsComposing] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState('');
+  const [headerImageError, setHeaderImageError] = useState('');
+  const headerImageInputRef = useRef<HTMLInputElement>(null);
 
   const addTag = () => {
     if (newTag.trim() && !tags.includes(newTag.trim())) {
@@ -45,6 +48,30 @@ export function PostForm({ user }: { user: User | null }) {
       e.preventDefault();
       addTag();
     }
+  };
+
+  const handleHeaderImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (!file) {
+      setHeaderImageError('');
+      return;
+    }
+
+    if (file.size > MAX_HEADER_IMAGE_SIZE_BYTES) {
+      setHeaderImageError('画像サイズは10MB以下にしてください');
+      e.target.value = '';
+      return;
+    }
+
+    setHeaderImageError('');
+  };
+
+  const handleResetHeaderImage = () => {
+    if (headerImageInputRef.current) {
+      headerImageInputRef.current.value = '';
+    }
+    setHeaderImageError('');
   };
 
   return (
@@ -136,10 +163,35 @@ export function PostForm({ user }: { user: User | null }) {
       <div className='space-y-2'>
         <Label htmlFor='materials'>使用教材・リソース</Label>
         <Textarea
+          name='materials'
           id='materials'
           placeholder='使用した教材、参考資料、外部リソースなどを記述してください'
           rows={3}
         />
+      </div>
+
+      <div className='space-y-2'>
+        <Label htmlFor='header_image'>ヘッダー画像</Label>
+        <div className='flex items-center gap-2'>
+          <Input
+            ref={headerImageInputRef}
+            id='header_image'
+            name='header_image'
+            type='file'
+            accept='image/*'
+            onChange={handleHeaderImageChange}
+          />
+          <Button
+            type='button'
+            variant='outline'
+            onClick={handleResetHeaderImage}
+          >
+            選択をリセット
+          </Button>
+        </div>
+        {headerImageError && (
+          <p className='text-red-600 text-sm'>{headerImageError}</p>
+        )}
       </div>
 
       <div className='space-y-2'>
@@ -158,7 +210,7 @@ export function PostForm({ user }: { user: User | null }) {
           </Button>
         </div>
         <div className='flex flex-wrap gap-2'>
-          {tags.map((tag, index) => (
+          {tags.map((tag) => (
             <span key={tag}>
               <Badge variant='secondary' className='gap-1'>
                 {tag}

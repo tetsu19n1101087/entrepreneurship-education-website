@@ -10,6 +10,7 @@ import { useSearchFilter } from '@/hooks/use-search-filter';
 import type { Case } from '@/lib/definitions';
 import type { User } from '@supabase/supabase-js';
 import Image from 'next/image';
+import { createClient } from '@/lib/supabase/client';
 
 export default function CaseItem({
   user,
@@ -20,6 +21,7 @@ export default function CaseItem({
 }) {
   const { searchQuery, selectedCategory, selectedSubject, selectedTags } =
     useSearchFilter();
+  const supabase = createClient();
 
   const filteredCases = (cases ?? []).filter((caseItem) => {
     if (searchQuery) {
@@ -90,112 +92,126 @@ export default function CaseItem({
           </CardContent>
         </Card>
       ) : (
-        filteredCases.map((caseItem) => (
-          <Card
-            key={caseItem.id}
-            className='relative hover:shadow-lg transition-shadow overflow-hidden pt-0'
-          >
-            <Link
-              href={`/case/${caseItem.id}`}
-              aria-label={`${caseItem.title}の詳細を表示`}
-              className='absolute inset-0 z-10'
-            />
+        filteredCases.map((caseItem) => {
+          const imageUrl = caseItem.header_image_url
+            ? caseItem.header_image_url.startsWith('/') ||
+              caseItem.header_image_url.startsWith('http://') ||
+              caseItem.header_image_url.startsWith('https://')
+              ? caseItem.header_image_url
+              : supabase.storage
+                  .from('images')
+                  .getPublicUrl(caseItem.header_image_url).data.publicUrl
+            : null;
 
-            {caseItem.header_image_url && (
-              <div className='relative h-48 w-full'>
-                <Image
-                  src={caseItem.header_image_url || '/placeholder.svg'}
-                  alt={`${caseItem.title}のヘッダー画像`}
-                  fill
-                  className='object-cover'
-                  sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                />
-              </div>
-            )}
+          return (
+            <Card
+              key={caseItem.id}
+              className='relative hover:shadow-lg transition-shadow overflow-hidden pt-0'
+            >
+              <Link
+                href={`/case/${caseItem.id}`}
+                aria-label={`${caseItem.title}の詳細を表示`}
+                className='absolute inset-0 z-10'
+              />
 
-            <CardHeader className='pb-4'>
-              <div className='flex items-start justify-between gap-4'>
-                <div className='flex-1'>
-                  <h3 className='text-xl font-semibold text-foreground mb-2 line-clamp-2'>
-                    {caseItem.title}
-                  </h3>
-                  <p className='text-muted-foreground text-sm line-clamp-3 mb-3'>
-                    {caseItem.description}
-                  </p>
-                  <div className='flex flex-wrap gap-2 mb-3'>
-                    {caseItem.tags?.map((tag: string, index: number) => (
-                      <Badge
-                        key={index}
-                        variant='secondary'
-                        className='text-xs'
-                      >
-                        {tag}
-                      </Badge>
-                    ))}
+              {imageUrl && (
+                <div className='relative h-48 w-full'>
+                  <Image
+                    src={imageUrl || '/placeholder.svg'}
+                    alt={`${caseItem.title}のヘッダー画像`}
+                    fill
+                    className='object-cover'
+                    sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                  />
+                </div>
+              )}
+
+              <CardHeader className='pb-4'>
+                <div className='flex items-start justify-between gap-4'>
+                  <div className='flex-1'>
+                    <h3 className='text-xl font-semibold text-foreground mb-2 line-clamp-2'>
+                      {caseItem.title}
+                    </h3>
+                    <p className='text-muted-foreground text-sm line-clamp-3 mb-3'>
+                      {caseItem.description}
+                    </p>
+                    <div className='flex flex-wrap gap-2 mb-3'>
+                      {caseItem.tags?.map((tag: string, index: number) => (
+                        <Badge
+                          key={index}
+                          variant='secondary'
+                          className='text-xs'
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div className='flex flex-col items-end gap-2'>
+                    <Badge
+                      variant='outline'
+                      className={
+                        caseItem.school_type === 'elementary'
+                          ? 'border-blue-200 text-blue-700'
+                          : caseItem.school_type === 'junior_high'
+                            ? 'border-green-200 text-green-700'
+                            : caseItem.school_type === 'high_school'
+                              ? 'border-purple-200 text-purple-700'
+                              : 'border-red-200 text-red-700'
+                      }
+                    >
+                      {caseItem.school_type === 'elementary'
+                        ? '小学校'
+                        : caseItem.school_type === 'junior_high'
+                          ? '中学校'
+                          : caseItem.school_type === 'high_school'
+                            ? '高校'
+                            : 'その他'}
+                    </Badge>
+                    <Badge variant='outline' className='text-xs'>
+                      {caseItem.subject}
+                    </Badge>
                   </div>
                 </div>
-                <div className='flex flex-col items-end gap-2'>
-                  <Badge
-                    variant='outline'
-                    className={
-                      caseItem.school_type === 'elementary'
-                        ? 'border-blue-200 text-blue-700'
-                        : caseItem.school_type === 'junior_high'
-                          ? 'border-green-200 text-green-700'
-                          : caseItem.school_type === 'high_school'
-                            ? 'border-purple-200 text-purple-700'
-                            : 'border-red-200 text-red-700'
-                    }
-                  >
-                    {caseItem.school_type === 'elementary'
-                      ? '小学校'
-                      : caseItem.school_type === 'junior_high'
-                        ? '中学校'
-                        : caseItem.school_type === 'high_school'
-                          ? '高校'
-                          : 'その他'}
-                  </Badge>
-                  <Badge variant='outline' className='text-xs'>
-                    {caseItem.subject}
-                  </Badge>
-                </div>
-              </div>
-            </CardHeader>
+              </CardHeader>
 
-            <CardContent className='pt-0'>
-              <div className='flex items-center justify-between'>
-                <div className='flex items-center gap-4'>
-                  <div className='flex items-center gap-2'>
-                    <Avatar className='w-8 h-8'>
-                      <AvatarFallback className='text-xs'>
-                        {caseItem.profiles?.display_name.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <p className='text-sm font-medium text-foreground'>
-                        {caseItem.profiles?.display_name}
-                      </p>
-                      <p className='text-xs text-muted-foreground'>
-                        {caseItem.profiles?.school_name}
-                      </p>
+              <CardContent className='pt-0'>
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center gap-4'>
+                    <div className='flex items-center gap-2'>
+                      <Avatar className='w-8 h-8'>
+                        <AvatarFallback className='text-xs'>
+                          {caseItem.profiles?.display_name.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className='text-sm font-medium text-foreground'>
+                          {caseItem.profiles?.display_name}
+                        </p>
+                        <p className='text-xs text-muted-foreground'>
+                          {caseItem.profiles?.school_name}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className='flex items-center gap-1 text-xs text-muted-foreground'>
+                      <Calendar className='w-3 h-3' />
+                      {new Date(caseItem.created_at).toLocaleDateString(
+                        'ja-JP',
+                      )}
                     </div>
                   </div>
 
-                  <div className='flex items-center gap-1 text-xs text-muted-foreground'>
-                    <Calendar className='w-3 h-3' />
-                    {new Date(caseItem.created_at).toLocaleDateString('ja-JP')}
+                  <div className='flex items-center gap-4'>
+                    <div className='relative z-20'>
+                      <CaseLikesButton caseId={caseItem.id} userId={user?.id} />
+                    </div>
                   </div>
                 </div>
-
-                <div className='flex items-center gap-4'>
-                  <div className='relative z-20'>
-                    <CaseLikesButton caseId={caseItem.id} userId={user?.id} />
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))
+              </CardContent>
+            </Card>
+          );
+        })
       )}
     </div>
   );
