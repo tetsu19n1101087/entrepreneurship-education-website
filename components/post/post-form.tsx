@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { X } from 'lucide-react';
+import { Trash2, Upload, X } from 'lucide-react';
 import type { User } from '@supabase/supabase-js';
 import { createCase } from '@/lib/action';
 import { useActionState } from 'react';
@@ -30,6 +30,8 @@ export function PostForm({ user }: { user: User | null }) {
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState('');
   const [headerImageError, setHeaderImageError] = useState('');
+  const [headerImageName, setHeaderImageName] = useState('');
+  const [isDragActive, setIsDragActive] = useState(false);
   const headerImageInputRef = useRef<HTMLInputElement>(null);
 
   const addTag = () => {
@@ -50,21 +52,55 @@ export function PostForm({ user }: { user: User | null }) {
     }
   };
 
-  const handleHeaderImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
+  const validateHeaderImage = (file?: File) => {
     if (!file) {
       setHeaderImageError('');
-      return;
+      setHeaderImageName('');
+      return true;
     }
 
     if (file.size > MAX_HEADER_IMAGE_SIZE_BYTES) {
       setHeaderImageError('画像サイズは10MB以下にしてください');
-      e.target.value = '';
-      return;
+      setHeaderImageName('');
+      return false;
     }
 
     setHeaderImageError('');
+    setHeaderImageName(file.name);
+    return true;
+  };
+
+  const handleHeaderImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (!validateHeaderImage(file) && e.target) {
+      e.target.value = '';
+    }
+  };
+
+  const handleDropHeaderImage = (e: React.DragEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setIsDragActive(false);
+
+    const file = e.dataTransfer.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    const isValid = validateHeaderImage(file);
+
+    if (!isValid) {
+      if (headerImageInputRef.current) {
+        headerImageInputRef.current.value = '';
+      }
+      return;
+    }
+
+    if (headerImageInputRef.current) {
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+      headerImageInputRef.current.files = dataTransfer.files;
+    }
   };
 
   const handleResetHeaderImage = () => {
@@ -72,6 +108,7 @@ export function PostForm({ user }: { user: User | null }) {
       headerImageInputRef.current.value = '';
     }
     setHeaderImageError('');
+    setHeaderImageName('');
   };
 
   return (
@@ -172,23 +209,58 @@ export function PostForm({ user }: { user: User | null }) {
 
       <div className='space-y-2'>
         <Label htmlFor='header_image'>ヘッダー画像</Label>
-        <div className='flex items-center gap-2'>
-          <Input
-            ref={headerImageInputRef}
-            id='header_image'
-            name='header_image'
-            type='file'
-            accept='image/*'
-            onChange={handleHeaderImageChange}
-          />
-          <Button
-            type='button'
-            variant='outline'
-            onClick={handleResetHeaderImage}
-          >
-            選択をリセット
-          </Button>
-        </div>
+        <Input
+          ref={headerImageInputRef}
+          id='header_image'
+          name='header_image'
+          type='file'
+          accept='image/*'
+          onChange={handleHeaderImageChange}
+          className='hidden'
+        />
+        <Button
+          type='button'
+          variant='outline'
+          className={`group h-auto w-full p-0 bg-transparent hover:bg-muted/10 hover:text-foreground ${
+            isDragActive ? 'border-primary' : 'border-border'
+          }`}
+          onClick={() => headerImageInputRef.current?.click()}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setIsDragActive(true);
+          }}
+          onDragLeave={() => setIsDragActive(false)}
+          onDrop={handleDropHeaderImage}
+        >
+          <div className='w-full rounded-md border border-dashed border-muted-foreground/40 bg-muted/30 px-4 py-10 text-center'>
+            <div className='mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-muted'>
+              <Upload className='h-6 w-6 text-muted-foreground' />
+            </div>
+            <p className='text-base font-medium transition-opacity group-hover:opacity-50'>
+              画像をアップロード
+            </p>
+            <p className='mt-1 text-sm text-muted-foreground'>
+              ドラッグ&ドロップ または クリックして選択
+            </p>
+          </div>
+        </Button>
+
+        {headerImageName && (
+          <div className='flex items-center justify-between rounded-full border bg-muted/30 px-4 py-2'>
+            <p className='truncate text-sm font-medium'>{headerImageName}</p>
+            <Button
+              type='button'
+              variant='default'
+              size='icon'
+              onClick={handleResetHeaderImage}
+              aria-label='選択した画像をリセット'
+              className='h-9 w-9 rounded-full'
+            >
+              <Trash2 className='h-4 w-4' />
+            </Button>
+          </div>
+        )}
+
         {headerImageError && (
           <p className='text-red-600 text-sm'>{headerImageError}</p>
         )}
@@ -235,7 +307,7 @@ export function PostForm({ user }: { user: User | null }) {
         <Button type='button' variant='outline' onClick={() => router.back()}>
           キャンセル
         </Button>
-        <Button type='submit' disabled={isPending}>
+        <Button type='submit' disabled={isPending || !!headerImageError}>
           {isPending ? '投稿中...' : '事例を投稿'}
         </Button>
       </div>
