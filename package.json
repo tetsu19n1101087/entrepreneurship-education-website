@@ -5,6 +5,9 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "dev:local": "trap 'yarn supabase:stop' EXIT INT TERM; yarn supabase:start && next dev",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
     "lint": "eslint .",
     "lint:markup": "markuplint \"**/*.{tsx,jsx}\"",
     "format": "prettier --write .",
