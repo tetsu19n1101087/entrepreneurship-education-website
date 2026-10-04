@@ -1,4 +1,4 @@
-import type React from 'react';
+import { RegisterForm } from '@/components/auth/register-form';
 import {
   Card,
   CardContent,
@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { RegisterForm } from '@/components/auth/register-form';
 
 export default function RegisterPage() {
   return (
