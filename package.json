@@ -114,5 +114,8 @@
     "baseline-browser-mapping": "^2.9.19"
   },
   "packageManager": "yarn@4.9.4",
+  "engines": {
+    "node": "24.x"
+  },
   "type": "module"
 }
