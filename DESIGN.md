@@ -31,52 +31,61 @@ typography:
     fontSize: 28px
     fontWeight: 700
     lineHeight: 1.57
+    letterSpacing: 0.1em
   heading-lg:
     fontFamily: Noto Sans JP
     fontSize: 20px
     fontWeight: 700
     lineHeight: 1.6
+    letterSpacing: 0.1em
   heading-md:
     fontFamily: Noto Sans JP
     fontSize: 16px
     fontWeight: 700
     lineHeight: 1.75
+    letterSpacing: 0.1em
   body-md:
     fontFamily: Noto Sans JP
     fontSize: 16px
     fontWeight: 400
     lineHeight: 1.75
+    letterSpacing: 0em
   body-sm:
     fontFamily: Noto Sans JP
     fontSize: 14px
     fontWeight: 400
     lineHeight: 1.71
+    letterSpacing: 0em
   body-xs:
     fontFamily: Noto Sans JP
     fontSize: 12px
     fontWeight: 400
     lineHeight: 1.67
+    letterSpacing: 0em
   label-md:
     fontFamily: Noto Sans JP
     fontSize: 14px
     fontWeight: 700
     lineHeight: 1.71
+    letterSpacing: 0.02em
   label-sm:
     fontFamily: Noto Sans JP
     fontSize: 12px
     fontWeight: 400
     lineHeight: 1
-    letterSpacing: 0px
+    letterSpacing: 0em
   button-lg:
     fontFamily: Noto Sans JP
     fontSize: 20px
     fontWeight: 700
     lineHeight: 1
+    letterSpacing: 0em
   button-sm:
     fontFamily: Noto Sans JP
     fontSize: 12px
     fontWeight: 700
     lineHeight: 1
+    letterSpacing: 0em
 rounded:
   md: 8px
   full: 9999px
@@ -302,20 +311,26 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 
 倍率は小数第2位までなので、実際の高さは 20.04px のようにわずかにずれるが、表示上は4の倍数として扱う。Figma のテキストスタイルにも同じ倍率（167% など）を設定し、line-height のバリアブルは作らない。
 
+字間（letter spacing）は、見出しとナビだけを少し広げ、ほかは 0 にする。Figma ではテキストスタイルに % で直接設定し、コードでは同じ値を em に換算して書く（10% = 0.1em）。Figma のバリアブルは px でしか紐づかないため、字間のバリアブルは作らない。
+
+- heading-xl / heading-lg / heading-md: 10%（0.1em）。暫定値で、画面に当てて調整する
+- label-md: 2%（0.02em）
+- body-md / body-sm / body-xs / label-sm / button-sm / button-lg: 0%
+
 ### テキストスタイル
 
-文字の指定は、サイズ・太さ・行の高さをまとめた「テキストスタイル」で行う。系統は heading（見出し）・body（本文）・label（UI の見出しラベルやバッジ）・button（ボタン）の4つで、サイズの段階は `xl` `lg` `md` `sm` `xs` で表す。`md` は標準の段階を指す。button だけはボタンのサイズ（小・大）に合わせて `sm` と `lg` の2段階にする。
+文字の指定は、サイズ・太さ・行の高さ・字間をまとめた「テキストスタイル」で行う。系統は heading（見出し）・body（本文）・label（UI の見出しラベルやバッジ）・button（ボタン）の4つで、サイズの段階は `xl` `lg` `md` `sm` `xs` で表す。`md` は標準の段階を指す。button だけはボタンのサイズ（小・大）に合わせて `sm` と `lg` の2段階にする。
 
-- **heading-xl（28px / bold / 1.57）**: ページ見出し（h1）と統計カードの数値。h1 はホームのサイトタイトルなど、1ページに1つ。
-- **heading-lg（20px / bold / 1.6）**: 事例カードのタイトル、ヘッダーのサイト名。
-- **heading-md（16px / bold / 1.75）**: `CardTitle` を使ったセクション見出し（「学校種別」「教科・領域」など）。
-- **body-md（16px / regular / 1.75）**: 本文の標準。`<body>` に指定し、クラスを付けない文字はこのスタイルになる。事例詳細の本文、ページ見出し直下の説明文など、読ませる文章に使う。
-- **body-sm（14px / regular / 1.71）**: 情報が詰まった UI の文字。カードの説明文、フォームのラベル、サイドバー、ドロップダウンの項目など。
-- **body-xs（12px / regular / 1.67）**: 日付、学校名、件数などの補足情報。
-- **label-md（14px / bold / 1.71）**: UI の見出しラベル。メニューの見出し、タブなど。フォームのラベルは body-sm を使う。
-- **label-sm（12px / regular / 1）**: Figma のテキストスタイル `label/sm`。バッジのように1行で収まるラベル専用。行の高さが文字サイズと同じなので、複数行になる文章には使わない。
-- **button-sm（12px / bold / 1）**: 小ボタンのラベル。ボタンは基本このサイズ。
-- **button-lg（20px / bold / 1）**: 大ボタンのラベル。使う場面は画面のデザイン時に決める。
+- **heading-xl（28px / bold / 1.57 / 10%）**: ページ見出し（h1）と統計カードの数値。h1 はホームのサイトタイトルなど、1ページに1つ。
+- **heading-lg（20px / bold / 1.6 / 10%）**: 事例カードのタイトル、ヘッダーのサイト名。
+- **heading-md（16px / bold / 1.75 / 10%）**: `CardTitle` を使ったセクション見出し（「学校種別」「教科・領域」など）。
+- **body-md（16px / regular / 1.75 / 0%）**: 本文の標準。`<body>` に指定し、クラスを付けない文字はこのスタイルになる。事例詳細の本文、ページ見出し直下の説明文など、読ませる文章に使う。
+- **body-sm（14px / regular / 1.71 / 0%）**: 情報が詰まった UI の文字。カードの説明文、フォームのラベル、サイドバーなど。
+- **body-xs（12px / regular / 1.67 / 0%）**: 日付、学校名、件数などの補足情報。
+- **label-md（14px / bold / 1.71 / 2%）**: UI の見出しラベル。ヘッダーのナビ、メニュー項目、メニューの見出し、タブなど。フォームのラベルは body-sm を使う。
+- **label-sm（12px / regular / 1 / 0%）**: Figma のテキストスタイル `label/sm`。バッジのように1行で収まるラベル専用。行の高さが文字サイズと同じなので、複数行になる文章には使わない。
+- **button-sm（12px / bold / 1 / 0%）**: 小ボタンのラベル。ボタンは基本このサイズ。
+- **button-lg（20px / bold / 1 / 0%）**: 大ボタンのラベル。使う場面は画面のデザイン時に決める。
 
 使い分けに迷ったら、文章として読ませるものは body-md、一覧やフォームの中で並ぶものは body-sm を選ぶ。
 
@@ -327,6 +342,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
   --text-heading-lg: 1.25rem;
   --text-heading-lg--line-height: 1.6;
   --text-heading-lg--font-weight: 700;
+  --text-heading-lg--letter-spacing: 0.1em;
   /* 他のスタイルも同様に定義する */
 }
 ```
@@ -391,7 +407,7 @@ UI 部品は `components/ui/` の shadcn/ui をベースにし、追加のスタ
 - **統計カード（`stats-overview.tsx`）**: 左に primary subtle（`bg/primary/subtle`）のアイコンタイル（48px 角、内側 16px、角丸 8px）、右に数値（heading-xl）、ラベル（body-sm）、説明（body-xs / muted）。
 - **Badge**: 文字は label-sm、内側は上下 4px・左右 8px。タグは primary subtle の背景に on primary subtle の文字、学校種別は「学校種別の色」の3色、教科は `outline`。
 - **Input / Textarea / Select**: 高さ 36px、左右の内側 16px、`border-input`、フォーカス時は `ring-ring/50` の 3px リング。エラー時は `aria-invalid` を付けると destructive のリングになる。
-- **Header**: `bg-card border-b`。左にロゴ（背景なしで、シンボルとサイト名をエイリアスの `primary/600` で表示）、中央にナビ、右にログイン状態に応じたボタン群（投稿ボタン、通知、アバターのドロップダウン）。ナビとメニュー項目はホバーで文字色だけ primary に変わる。
+- **Header**: `bg-card border-b`。左にロゴ（背景なしで、シンボルとサイト名をエイリアスの `primary/600` で表示）、中央にナビ（label-md）、右にログイン状態に応じたボタン群（投稿ボタン、通知、アバターのドロップダウン）。ナビとメニュー項目はホバーで文字色だけ primary に変わる。
 - **Footer**: inverse（#2C2C2C）の背景に白の文字とリンク（下線付き）。ロゴを置く場合はエイリアスの `neutral/white`。
 - **ローディング**: 一覧の読み込み中は primary 色のスピナー（`animate-spin rounded-full border-b-2 border-primary`）と、`bg-skeleton animate-pulse` のスケルトンカード（skeleton #C9E6FF）を併用する。
 - **空状態**: 中央寄せの Card に、muted foreground の説明文と次の行動のヒント（「検索条件を変更してお試しください。」）を置く。
