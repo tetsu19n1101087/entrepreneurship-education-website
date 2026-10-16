@@ -1,12 +1,11 @@
 'use server';
 
+import type { Case, Comment } from '@/lib/definitions';
+import { AuthError } from '@supabase/supabase-js';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signInWithPassword, signUp } from './auth';
 import { createClient } from './supabase/server';
-import type { Case } from '@/lib/definitions';
-import type { Comment } from '@/lib/definitions';
-import { AuthError } from '@supabase/supabase-js';
 
 export interface State {
   error?: string;
@@ -17,6 +16,7 @@ export async function login(
   prevState: State,
   formData: FormData,
 ): Promise<State> {
+  void prevState;
   try {
     await signInWithPassword(formData);
   } catch (error) {
@@ -35,6 +35,7 @@ export async function register(
   prevState: State,
   formData: FormData,
 ): Promise<State> {
+  void prevState;
   try {
     await signUp(formData);
   } catch (error) {
@@ -71,6 +72,7 @@ export async function createComment(
   prevState: { error?: string; data?: Comment },
   formData: FormData,
 ) {
+  void prevState;
   const supabase = await createClient();
 
   const content = formData.get('comment') as string;
@@ -107,6 +109,7 @@ export async function createCase(
   prevState: State,
   formData: FormData,
 ): Promise<State> {
+  void prevState;
   const supabase = await createClient();
   const title = (formData.get('title') as string) || '';
   const headerImage = formData.get('header_image');
@@ -153,7 +156,9 @@ export async function createCase(
       });
 
     if (uploadError) {
-      return { error: uploadError.message || '画像のアップロードに失敗しました' };
+      return {
+        error: uploadError.message || '画像のアップロードに失敗しました',
+      };
     }
 
     caseData.header_image_url = filePath;
