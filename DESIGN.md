@@ -194,7 +194,11 @@ components:
 
 実装は Next.js App Router + shadcn/ui（`new-york` スタイル）+ Tailwind CSS v4。トークンの出どころは次のとおり。
 
-- **色・文字・余白・角丸**: `design/tokens.json` が正。Figma ファイル「アントレ」のバリアブルとテキストスタイルは、ここから生成した `design/dist/figma-tokens.json` を読み込んだもの。生成と検証（参照の整合性・コントラスト比・行の高さ）は design-system-setup スキルの `build.mjs` で行う（`node ~/workspace/dev-env/design-system-setup/scripts/build.mjs design/tokens.json`）。値を変えるときは tokens.json を直して生成し直し、この文書にも反映する（2026-10-19 時点）。
+- **色・文字・余白・角丸**: `tokens/tokens.json` が正。`yarn tokens`（`tokens/build.mjs`）で次の3つを生成する。値を変えるときは tokens.json を直して生成し直し、この文書にも反映する（2026-10-19 時点）。
+  - `app/tokens.css`: アプリが読み込む CSS（色の CSS 変数、テキストスタイル、余白、角丸）。手で編集しない
+  - `tokens/dist/figma-tokens.json`: Figma の Token Import プラグインで読み込む JSON
+  - `tokens/dist/preview.html`: 色と文字を目で確認する一覧ページ
+- **生成の確認**: コミット時に lint-staged が `tokens/` か `app/tokens.css` の変更を見つけると、生成し直した結果と比べる。違えば（生成し忘れ・手編集）コミットが止まるので、`yarn tokens` を実行する。アプリのビルドは生成済みの `app/tokens.css` だけを読み、`tokens/` には依存しない
 
 新しい UI を作るときは、hex や px を直書きせず、`bg-primary` `text-muted-foreground` のような Tailwind のセマンティッククラスやテーマのトークンを使うこと。Figma のバリアブル名と CSS 変数の対応は Colors 節の対応表を見る。
 
@@ -202,13 +206,12 @@ components:
 
 この文書は Figma に合わせた「目標のデザイン」を表している。現行のコードはまだ追いついていないので、改修時は次の差分を解消する。
 
-- **フォント**: コードは Geist Sans。Figma は日本語が Noto Sans JP、英数字が Inter。
-- **文字サイズ**: コードは Tailwind 標準の `text-xs`〜`text-3xl` を使っている。30px（`text-3xl`）・24px（`text-2xl`）・18px（`text-lg`）は Figma のスケールにないので、それぞれ 28px・28px・16px に寄せる。`app/globals.css` の `@theme` に後述のテキストスタイル（`--text-heading-xl` など）を定義し、標準サイズは `--text-*: initial` で無効化して、すべてテキストスタイルのクラスに置き換える。トップページのセクション見出し（`CardTitle` の「学校種別」「教科・領域」など）は heading-lg-wide にするので、16px から 20px に大きくなる。
+- **文字サイズ**: コードは Tailwind 標準の `text-xs`〜`text-3xl` を使っている。30px（`text-3xl`）・24px（`text-2xl`）・18px（`text-lg`）は Figma のスケールにないので、それぞれ 28px・28px・16px に寄せる。テキストスタイルは `app/tokens.css` に定義済み。すべてテキストスタイルのクラスに置き換えたら、`tokens/tokens.json` の `css.reset.text` を true にして標準サイズを無効化する（角丸も同様に `css.reset.radius`）。トップページのセクション見出し（`CardTitle` の「学校種別」「教科・領域」など）は heading-lg-wide にするので、16px から 20px に大きくなる。
 - **太さ**: コードの 500（`font-medium`）・600（`font-semibold`）は Figma にない。700 に寄せる。
 - **余白**: コードの 12px（`p-3` `gap-3` `px-3`）は Figma のスケールにない。16px に寄せる。
 - **角丸**: コードは 6 / 8 / 10 / 14px を使い分けているが、Figma は `border/radius` = 8px の1種類だけ。ボタンと円形の部品（アバターなど）以外はすべて 8px にし、ボタンは `rounded-full` にする。
 - **ボタン**: コードは標準 `h-9`・小 `h-8`・大 `h-10` の3サイズ。Figma は小（最小の高さ 40px）と大（同 60px）の2サイズで、ラベルは button 系統のテキストスタイル。アイコンのみのボタンは `size-9` から直径 40px の円にする。
-- **色**: `app/globals.css` の CSS 変数は旧ブランドカラー（#005B9F）のまま。Colors 節の対応表に沿って値を入れ替える。accent の緑（#00774B）は廃止し、`--accent` には bg/surface/hover を入れる。
+- **色**: CSS 変数は新しい値になっている（`app/tokens.css`）。ただし画面の中には Tailwind の生パレット（`blue-100` `red-600` など）や透過指定（`bg-primary/10`）が残っているので、用途別のクラスに置き換える。shadcn の `secondary` は青緑（#006A60）になったので、タグのバッジは primary subtle に切り替える。
 - **学校種別とエラー表示の色**: コードは Tailwind の標準パレット（`blue-*` `red-*` など）を直接指定している。学校種別の色は変わる（小学校は青から黄、中学校は緑からミント、高等学校は紫からペリウィンクル、その他は赤からローズ）ので、トークンに置き換える。
 
 ## Colors
@@ -351,7 +354,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 
 見出し（heading-xl / heading-lg / heading-lg-wide / heading-md）には、OpenType 機能の palt（プロポーショナル幅の約物・かな）を当てて、日本語の字面を詰める。字間（4% / 10%）は palt なしで決めた値なので、画面に当てて見直す。本文には当てない（長い文章では等幅の方が読みやすい）。
 
-- Figma: テキストスタイルの「Type details」→「Details」で palt をオンにする。Plugin API が OpenType 機能を書き込めないため、`design/tokens.json` には `openTypeFeatures: ["palt"]` として記録するが、Figma 用 JSON には含まれない。スタイルを作り直したときは手作業で設定し直す
+- Figma: テキストスタイルの「Type details」→「Details」で palt をオンにする。Plugin API が OpenType 機能を書き込めないため、`tokens/tokens.json` には `openTypeFeatures: ["palt"]` として記録するが、Figma 用 JSON には含まれない。スタイルを作り直したときは手作業で設定し直す
 - コード: Tailwind v4 の `--text-*` は font-feature-settings を持てないので、`app/globals.css` で見出しのクラスに当てる
 
 ### テキストスタイル
@@ -373,7 +376,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 
 使い分けに迷ったら、文章として読ませるものは body-md、一覧やフォームの中で並ぶものは body-sm を選ぶ。
 
-実装では、`app/globals.css` の `@theme` に Tailwind v4 の `--text-*` として定義し、`text-heading-lg` のように1クラスでサイズ・太さ・行の高さが揃うようにする。Tailwind 標準の `text-xs`〜`text-3xl` は `--text-*: initial` で無効化し、使えないようにする。
+実装では、`app/tokens.css`（生成）の `@theme` に Tailwind v4 の `--text-*` として定義し、`text-heading-lg` のように1クラスでサイズ・太さ・行の高さが揃うようにする。Tailwind 標準の `text-xs`〜`text-3xl` は `--text-*: initial` で無効化し、使えないようにする。
 
 ```css
 @theme {
@@ -388,7 +391,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
   --font-en: var(--font-inter), sans-serif;
 }
 
-/* 見出しだけ palt を当てる（--text-* では指定できないため） */
+/* 見出しだけ palt を当てる（--text-* では指定できないため）。生成時に @layer utilities に入る */
 .text-heading-xl,
 .text-heading-lg,
 .text-heading-lg-wide,
@@ -399,7 +402,9 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 
 Figma 側のテキストスタイルも `heading/lg` `body/md` のように同じ名前で作り、デザインとコードの対応を名前だけで分かるようにする。
 
-フォントは `next/font/google` で Inter と Noto Sans JP を読み込み、太さは 400 と 700 だけに絞る。
+フォントは `app/layout.tsx` で `next/font/google` の Inter（`--font-inter`）と Noto Sans JP（`--font-noto-sans-jp`、preload しない）を読み込み、太さは 400 と 700 だけに絞る。`app/globals.css` の `@theme inline` で `--font-sans` に「Inter → Noto Sans JP」の順で割り当てる。
+
+`cn()`（`lib/utils.ts`）は tailwind-merge v3 の `extendTailwindMerge` で、テキストスタイルと余白の名前を登録している。テキストスタイルや余白の段階を増やしたら、ここにも足す（足さないと `cn("text-heading-lg", "text-primary")` で片方が消える）。
 
 `Input` の文字サイズは、`md` 未満で body-md（16px）、`md` 以上で body-sm（14px）にする。iOS Safari でのフォーカス時ズームを防ぐための指定なので変更しない。
 
@@ -414,18 +419,18 @@ Figma 側のテキストスタイルも `heading/lg` `body/md` のように同�
 
 ### 余白
 
-余白は Figma のバリアブル `space/*` の8段階だけを使う。Tailwind のクラスとの対応は次のとおり。
+余白は Figma のバリアブル `space/*` の8段階だけを使う。コードでは同じ名前の `space-*` を、余白のクラス（`p-` `m-` `gap-` `space-x-` `space-y-` など）に付けて使う（例: `p-space-16`、`gap-space-8`）。
 
-- `space/4`（4px）: `1`。アイコンと文字の間など、ごく近い要素
-- `space/8`（8px）: `2`。ボタン内のアイコンと文字、タグ同士
-- `space/16`（16px）: `4`。要素間の標準。コンテナの左右、カード内の要素同士
-- `space/24`（24px）: `6`。カードの内側、カード同士、セクション内の区切り
-- `space/32`（32px）: `8`。ページの上下、セクション間の大きな区切り
-- `space/48`（48px）: `12`。空状態の上下など
-- `space/64`（64px）: `16`
-- `space/80`（80px）: `20`。ページ単位の大きな区切り
+- `space-4`（4px）: アイコンと文字の間など、ごく近い要素
+- `space-8`（8px）: ボタン内のアイコンと文字、タグ同士
+- `space-16`（16px）: 要素間の標準。コンテナの左右、カード内の要素同士
+- `space-24`（24px）: カードの内側、カード同士、セクション内の区切り
+- `space-32`（32px）: ページの上下、セクション間の大きな区切り
+- `space-48`（48px）: 空状態の上下など
+- `space-64`（64px）
+- `space-80`（80px）: ページ単位の大きな区切り
 
-12px（`3`）はスケールにないので使わない。
+Tailwind 標準の数字（`p-4` `gap-3` など）は、大きさの指定（`w-*` `h-*` `size-*`）のために残しているが、余白には使わない。12px はスケールにないので使わない。
 
 ## Elevation & Depth
 

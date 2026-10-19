@@ -1,0 +1,155 @@
+/* 自動生成ファイル。手で編集しない。../tokens/tokens.json を直して生成し直す（yarn tokens） */
+
+:root {
+  --background: #eff1f5; /* bg/default */
+  --muted: #eff1f5; /* bg/default */
+  --card: #ffffff; /* bg/surface/default */
+  --popover: #ffffff; /* bg/surface/default */
+  --accent: #eff1f5; /* bg/surface/hover */
+  --skeleton: #c9e6ff; /* bg/skeleton */
+  --inverse: #2c2c2c; /* bg/inverse */
+  --primary: #10648f; /* bg/primary/default */
+  --primary-subtle: #e5f2ff; /* bg/primary/subtle */
+  --secondary: #006a60; /* bg/secondary/default */
+  --destructive: #ab3140; /* bg/destructive/default */
+  --destructive-subtle: #ffedec; /* bg/destructive/subtle */
+  --disabled: #e1e2e6; /* bg/disabled */
+  --elementary-subtle: #fff0c1; /* bg/elementary/subtle */
+  --junior-high-subtle: #cbfbee; /* bg/junior-high/subtle */
+  --high-school-subtle: #eef0ff; /* bg/high-school/subtle */
+  --other-school-subtle: #ffedea; /* bg/other-school/subtle */
+  --foreground: #191c1f; /* text/default */
+  --card-foreground: #191c1f; /* text/default */
+  --popover-foreground: #191c1f; /* text/default */
+  --accent-foreground: #191c1f; /* text/default */
+  --muted-foreground: #5c5f62; /* text/muted */
+  --on-inverse: #ffffff; /* text/inverse */
+  --disabled-foreground: #8e9194; /* text/disabled */
+  --primary-foreground: #ffffff; /* text/primary/on-primary */
+  --on-primary-subtle: #00344e; /* text/primary/on-subtle */
+  --secondary-foreground: #ffffff; /* text/secondary/on-secondary */
+  --destructive-foreground: #ffffff; /* text/destructive/on-destructive */
+  --elementary: #544600; /* text/elementary */
+  --junior-high: #214e45; /* text/junior-high */
+  --high-school: #204291; /* text/high-school */
+  --other-school: #5e3f3a; /* text/other-school */
+  --border: #e1e2e6; /* border/default */
+  --input: #8e9194; /* border/input */
+  --ring: #10648f; /* border/focus */
+  --elementary-border: #e8c400; /* border/elementary */
+  --junior-high-border: #a1d0c4; /* border/junior-high */
+  --high-school-border: #b3c5ff; /* border/high-school */
+  --other-school-border: #e8bcb5; /* border/other-school */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-popover: var(--popover);
+  --color-accent: var(--accent);
+  --color-skeleton: var(--skeleton);
+  --color-inverse: var(--inverse);
+  --color-primary: var(--primary);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-secondary: var(--secondary);
+  --color-destructive: var(--destructive);
+  --color-destructive-subtle: var(--destructive-subtle);
+  --color-disabled: var(--disabled);
+  --color-elementary-subtle: var(--elementary-subtle);
+  --color-junior-high-subtle: var(--junior-high-subtle);
+  --color-high-school-subtle: var(--high-school-subtle);
+  --color-other-school-subtle: var(--other-school-subtle);
+  --color-foreground: var(--foreground);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-on-inverse: var(--on-inverse);
+  --color-disabled-foreground: var(--disabled-foreground);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-on-primary-subtle: var(--on-primary-subtle);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-elementary: var(--elementary);
+  --color-junior-high: var(--junior-high);
+  --color-high-school: var(--high-school);
+  --color-other-school: var(--other-school);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-elementary-border: var(--elementary-border);
+  --color-junior-high-border: var(--junior-high-border);
+  --color-high-school-border: var(--high-school-border);
+  --color-other-school-border: var(--other-school-border);
+  --font-en: var(--font-inter), sans-serif;
+}
+
+@theme {
+  --text-heading-xl: 1.75rem;
+  --text-heading-xl--line-height: 1.57;
+  --text-heading-xl--font-weight: 700;
+  --text-heading-xl--letter-spacing: 0.04em;
+  --text-heading-lg: 1.25rem;
+  --text-heading-lg--line-height: 1.6;
+  --text-heading-lg--font-weight: 700;
+  --text-heading-lg--letter-spacing: 0.04em;
+  --text-heading-lg-wide: 1.25rem;
+  --text-heading-lg-wide--line-height: 1.6;
+  --text-heading-lg-wide--font-weight: 700;
+  --text-heading-lg-wide--letter-spacing: 0.1em;
+  --text-heading-md: 1rem;
+  --text-heading-md--line-height: 1.75;
+  --text-heading-md--font-weight: 700;
+  --text-heading-md--letter-spacing: 0.04em;
+  --text-body-md: 1rem;
+  --text-body-md--line-height: 1.75;
+  --text-body-md--font-weight: 400;
+  --text-body-md--letter-spacing: 0em;
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.71;
+  --text-body-sm--font-weight: 400;
+  --text-body-sm--letter-spacing: 0em;
+  --text-body-xs: 0.75rem;
+  --text-body-xs--line-height: 1.67;
+  --text-body-xs--font-weight: 400;
+  --text-body-xs--letter-spacing: 0em;
+  --text-label-md: 0.875rem;
+  --text-label-md--line-height: 1.71;
+  --text-label-md--font-weight: 700;
+  --text-label-md--letter-spacing: 0.02em;
+  --text-label-sm: 0.75rem;
+  --text-label-sm--line-height: 1;
+  --text-label-sm--font-weight: 400;
+  --text-label-sm--letter-spacing: 0em;
+  --text-button-sm: 0.75rem;
+  --text-button-sm--line-height: 1;
+  --text-button-sm--font-weight: 700;
+  --text-button-sm--letter-spacing: 0em;
+  --text-button-lg: 1.25rem;
+  --text-button-lg--line-height: 1;
+  --text-button-lg--font-weight: 700;
+  --text-button-lg--letter-spacing: 0em;
+  --text-meta-sm: 0.75rem;
+  --text-meta-sm--line-height: 1.67;
+  --text-meta-sm--font-weight: 700;
+  --text-meta-sm--letter-spacing: 0em;
+  --spacing-space-4: 0.25rem;
+  --spacing-space-8: 0.5rem;
+  --spacing-space-16: 1rem;
+  --spacing-space-24: 1.5rem;
+  --spacing-space-32: 2rem;
+  --spacing-space-48: 3rem;
+  --spacing-space-64: 4rem;
+  --spacing-space-80: 5rem;
+  --radius-md: 0.5rem;
+}
+
+@layer utilities {
+  .text-heading-xl,
+  .text-heading-lg,
+  .text-heading-lg-wide,
+  .text-heading-md {
+    font-feature-settings: 'palt';
+  }
+}
