@@ -31,14 +31,20 @@ typography:
     fontSize: 28px
     fontWeight: 700
     lineHeight: 1.57
-    letterSpacing: 0.1em
+    letterSpacing: 0.04em
   heading-lg:
     fontFamily: Noto Sans JP
     fontSize: 20px
     fontWeight: 700
     lineHeight: 1.6
-    letterSpacing: 0.1em
+    letterSpacing: 0.04em
   heading-md:
+    fontFamily: Noto Sans JP
+    fontSize: 16px
+    fontWeight: 700
+    lineHeight: 1.75
+    letterSpacing: 0.04em
+  heading-md-wide:
     fontFamily: Noto Sans JP
     fontSize: 16px
     fontWeight: 700
@@ -178,7 +184,7 @@ components:
 
 実装は Next.js App Router + shadcn/ui（`new-york` スタイル）+ Tailwind CSS v4。トークンの出どころは次のとおり。
 
-- **色・文字・余白・角丸**: Figma ファイル「アントレ」のバリアブルとテキストスタイルが正。この文書の値は、Figma に読み込んだ DTCG 形式の JSON と同じもの（2026-10-16 時点）。
+- **色・文字・余白・角丸**: `design/tokens.json` が正。Figma ファイル「アントレ」のバリアブルとテキストスタイルは、ここから生成した `design/dist/figma-tokens.json` を読み込んだもの。生成と検証（参照の整合性・コントラスト比・行の高さ）は design-system-setup スキルの `build.mjs` で行う（`node ~/workspace/dev-env/design-system-setup/scripts/build.mjs design/tokens.json`）。値を変えるときは tokens.json を直して生成し直し、この文書にも反映する（2026-10-19 時点）。
 
 新しい UI を作るときは、hex や px を直書きせず、`bg-primary` `text-muted-foreground` のような Tailwind のセマンティッククラスやテーマのトークンを使うこと。Figma のバリアブル名と CSS 変数の対応は Colors 節の対応表を見る。
 
@@ -311,9 +317,10 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 
 倍率は小数第2位までなので、実際の高さは 20.04px のようにわずかにずれるが、表示上は4の倍数として扱う。Figma のテキストスタイルにも同じ倍率（167% など）を設定し、line-height のバリアブルは作らない。
 
-字間（letter spacing）は、見出しとナビだけを少し広げ、ほかは 0 にする。Figma ではテキストスタイルに % で直接設定し、コードでは同じ値を em に換算して書く（10% = 0.1em）。Figma のバリアブルは px でしか紐づかないため、字間のバリアブルは作らない。
+字間（letter spacing）は、見出しとナビだけを少し広げ、ほかは 0 にする。同じサイズでも用途によって字間を変えたいときは、値を上書きせずに別のスタイル（`-wide`）を作る。Figma ではテキストスタイルに % で直接設定し、コードでは同じ値を em に換算して書く（10% = 0.1em）。Figma のバリアブルは px でしか紐づかないため、字間のバリアブルは作らない。
 
-- heading-xl / heading-lg / heading-md: 10%（0.1em）。暫定値で、画面に当てて調整する
+- heading-xl / heading-lg / heading-md: 4%（0.04em）
+- heading-md-wide: 10%（0.1em）。トップページのセクション見出しだけに使う
 - label-md: 2%（0.02em）
 - body-md / body-sm / body-xs / label-sm / button-sm / button-lg: 0%
 
@@ -321,9 +328,10 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 
 文字の指定は、サイズ・太さ・行の高さ・字間をまとめた「テキストスタイル」で行う。系統は heading（見出し）・body（本文）・label（UI の見出しラベルやバッジ）・button（ボタン）の4つで、サイズの段階は `xl` `lg` `md` `sm` `xs` で表す。`md` は標準の段階を指す。button だけはボタンのサイズ（小・大）に合わせて `sm` と `lg` の2段階にする。
 
-- **heading-xl（28px / bold / 1.57 / 10%）**: ページ見出し（h1）と統計カードの数値。h1 はホームのサイトタイトルなど、1ページに1つ。
-- **heading-lg（20px / bold / 1.6 / 10%）**: 事例カードのタイトル、ヘッダーのサイト名。
-- **heading-md（16px / bold / 1.75 / 10%）**: `CardTitle` を使ったセクション見出し（「学校種別」「教科・領域」など）。
+- **heading-xl（28px / bold / 1.57 / 4%）**: ページ見出し（h1）と統計カードの数値。h1 はホームのサイトタイトルなど、1ページに1つ。
+- **heading-lg（20px / bold / 1.6 / 4%）**: 事例カードのタイトル、ヘッダーのサイト名。
+- **heading-md（16px / bold / 1.75 / 4%）**: 記事・ページ内の見出し（事例詳細の本文中の見出しなど）。
+- **heading-md-wide（16px / bold / 1.75 / 10%）**: Figma のテキストスタイル `heading/md-wide`。トップページのセクション見出し（`CardTitle` の「学校種別」「教科・領域」など）。字間が広いので、記事の中では使わない。
 - **body-md（16px / regular / 1.75 / 0%）**: 本文の標準。`<body>` に指定し、クラスを付けない文字はこのスタイルになる。事例詳細の本文、ページ見出し直下の説明文など、読ませる文章に使う。
 - **body-sm（14px / regular / 1.71 / 0%）**: 情報が詰まった UI の文字。カードの説明文、フォームのラベル、サイドバーなど。
 - **body-xs（12px / regular / 1.67 / 0%）**: 日付、学校名、件数などの補足情報。
@@ -342,7 +350,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
   --text-heading-lg: 1.25rem;
   --text-heading-lg--line-height: 1.6;
   --text-heading-lg--font-weight: 700;
-  --text-heading-lg--letter-spacing: 0.1em;
+  --text-heading-lg--letter-spacing: 0.04em;
   /* 他のスタイルも同様に定義する */
 }
 ```

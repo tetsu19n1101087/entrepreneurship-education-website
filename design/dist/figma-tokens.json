@@ -1,0 +1,1851 @@
+{
+  "Typography": {
+    "font-family": {
+      "ja": {
+        "$type": "fontFamily",
+        "$value": "Noto Sans JP"
+      },
+      "en": {
+        "$type": "fontFamily",
+        "$value": "Inter"
+      }
+    },
+    "font-size": {
+      "50": {
+        "$type": "dimension",
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        }
+      },
+      "75": {
+        "$type": "dimension",
+        "$value": {
+          "value": 14,
+          "unit": "px"
+        }
+      },
+      "100": {
+        "$type": "dimension",
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        }
+      },
+      "200": {
+        "$type": "dimension",
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        }
+      },
+      "300": {
+        "$type": "dimension",
+        "$value": {
+          "value": 28,
+          "unit": "px"
+        }
+      }
+    },
+    "font-weight": {
+      "normal": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "bold": {
+        "$type": "fontWeight",
+        "$value": 700
+      }
+    }
+  },
+  "PrimitiveColor": {
+    "white": {
+      "$type": "color",
+      "$value": "#FFFFFF",
+      "$extensions": {
+        "com.figma": {
+          "resolvedType": "COLOR",
+          "scopes": []
+        }
+      }
+    },
+    "charcoal": {
+      "$type": "color",
+      "$value": "#2C2C2C",
+      "$extensions": {
+        "com.figma": {
+          "resolvedType": "COLOR",
+          "scopes": []
+        }
+      }
+    },
+    "blue": {
+      "25": {
+        "$type": "color",
+        "$value": "#F6FAFF",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "#E5F2FF",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#C9E6FF",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#8CCEFE",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#70B2E1",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#5497C5",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#367DA9",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#10648F",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#004B6E",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#00344E",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#001E2F",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      }
+    },
+    "teal": {
+      "25": {
+        "$type": "color",
+        "$value": "#E4FFF9",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "#B4FFF2",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#89F5E5",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#6BD8C9",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#4DBCAD",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#29A193",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#008679",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#006A60",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#005048",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#003731",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#00201C",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      }
+    },
+    "gray": {
+      "25": {
+        "$type": "color",
+        "$value": "#F8F9FD",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "#EFF1F5",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#E1E2E6",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#C4C6CA",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#A9ABAF",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#8E9194",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#75777B",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#5C5F62",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#44474A",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#2E3134",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#191C1F",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      }
+    },
+    "red": {
+      "25": {
+        "$type": "color",
+        "$value": "#FFF8F7",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "#FFEDEC",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#FFDADA",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#FFB3B5",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#FF888F",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#EE626F",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#CD4957",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#AB3140",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#8B172B",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#680018",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#40000C",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      }
+    },
+    "yellow": {
+      "25": {
+        "$type": "color",
+        "$value": "#FFF9EE",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "#FFF0C1",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#FFE169",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#E8C400",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#C8A900",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#AA8F00",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#8C7600",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#6F5D00",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#544600",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#3A3000",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#221B00",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      }
+    },
+    "mint": {
+      "25": {
+        "$type": "color",
+        "$value": "#E5FFF7",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "#CBFBEE",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#BDECE0",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#A1D0C4",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#87B4A9",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#6C998F",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#537F75",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#3A665D",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#214E45",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#04372F",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#00201B",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      }
+    },
+    "periwinkle": {
+      "25": {
+        "$type": "color",
+        "$value": "#FAF8FF",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "#EEF0FF",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#DBE1FF",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#B3C5FF",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#8BA8FD",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#718EE1",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#5674C5",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#3C5AAA",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#204291",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#002A76",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#00184A",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      }
+    },
+    "rose": {
+      "25": {
+        "$type": "color",
+        "$value": "#FFF8F6",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "#FFEDEA",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#FFDAD4",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#E8BCB5",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#CBA29B",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#AF8781",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#936E68",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#785650",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#5E3F3A",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#452925",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#2D1511",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      }
+    }
+  },
+  "AliasColor": {
+    "primary": {
+      "50": {
+        "$type": "color",
+        "$value": "{PrimitiveColor.blue.50}"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "{PrimitiveColor.blue.100}"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "{PrimitiveColor.blue.600}"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "{PrimitiveColor.blue.800}"
+      }
+    },
+    "secondary": {
+      "600": {
+        "$type": "color",
+        "$value": "{PrimitiveColor.teal.600}"
+      }
+    },
+    "neutral": {
+      "50": {
+        "$type": "color",
+        "$value": "{PrimitiveColor.gray.50}"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "{PrimitiveColor.gray.100}"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "{PrimitiveColor.gray.400}"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "{PrimitiveColor.gray.600}"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "{PrimitiveColor.gray.900}"
+      },
+      "white": {
+        "$type": "color",
+        "$value": "{PrimitiveColor.white}"
+      },
+      "charcoal": {
+        "$type": "color",
+        "$value": "{PrimitiveColor.charcoal}"
+      }
+    },
+    "danger": {
+      "50": {
+        "$type": "color",
+        "$value": "{PrimitiveColor.red.50}"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "{PrimitiveColor.red.600}"
+      }
+    },
+    "school": {
+      "elementary": {
+        "50": {
+          "$type": "color",
+          "$value": "{PrimitiveColor.yellow.50}"
+        },
+        "200": {
+          "$type": "color",
+          "$value": "{PrimitiveColor.yellow.200}"
+        },
+        "700": {
+          "$type": "color",
+          "$value": "{PrimitiveColor.yellow.700}"
+        }
+      },
+      "junior-high": {
+        "50": {
+          "$type": "color",
+          "$value": "{PrimitiveColor.mint.50}"
+        },
+        "200": {
+          "$type": "color",
+          "$value": "{PrimitiveColor.mint.200}"
+        },
+        "700": {
+          "$type": "color",
+          "$value": "{PrimitiveColor.mint.700}"
+        }
+      },
+      "high-school": {
+        "50": {
+          "$type": "color",
+          "$value": "{PrimitiveColor.periwinkle.50}"
+        },
+        "200": {
+          "$type": "color",
+          "$value": "{PrimitiveColor.periwinkle.200}"
+        },
+        "700": {
+          "$type": "color",
+          "$value": "{PrimitiveColor.periwinkle.700}"
+        }
+      },
+      "other-school": {
+        "50": {
+          "$type": "color",
+          "$value": "{PrimitiveColor.rose.50}"
+        },
+        "200": {
+          "$type": "color",
+          "$value": "{PrimitiveColor.rose.200}"
+        },
+        "700": {
+          "$type": "color",
+          "$value": "{PrimitiveColor.rose.700}"
+        }
+      }
+    }
+  },
+  "SemanticColor": {
+    "bg": {
+      "default": {
+        "$type": "color",
+        "$value": "{AliasColor.neutral.50}",
+        "$description": "ページの背景",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+          }
+        }
+      },
+      "surface": {
+        "default": {
+          "$type": "color",
+          "$value": "{AliasColor.neutral.white}",
+          "$description": "カード、ヘッダー、ポップオーバー",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{AliasColor.neutral.50}",
+          "$description": "outline / ghost ボタン、サイドバーの絞り込みボタンのホバー",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        }
+      },
+      "skeleton": {
+        "$type": "color",
+        "$value": "{AliasColor.primary.100}",
+        "$description": "読み込み中のスケルトン",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+          }
+        }
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "{AliasColor.neutral.charcoal}",
+        "$description": "フッターなどの暗い面",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+          }
+        }
+      },
+      "primary": {
+        "default": {
+          "$type": "color",
+          "$value": "{AliasColor.primary.600}",
+          "$description": "主要ボタン",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{AliasColor.neutral.white}",
+          "$description": "主要ボタンのホバー（背景と文字を反転）",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        },
+        "subtle": {
+          "$type": "color",
+          "$value": "{AliasColor.primary.50}",
+          "$description": "タグ、統計カードのアイコンタイル",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        }
+      },
+      "secondary": {
+        "default": {
+          "$type": "color",
+          "$value": "{AliasColor.secondary.600}",
+          "$description": "副次ボタン（使いどころは保留）",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{AliasColor.neutral.white}",
+          "$description": "副次ボタンのホバー（背景と文字を反転）",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        }
+      },
+      "destructive": {
+        "default": {
+          "$type": "color",
+          "$value": "{AliasColor.danger.600}",
+          "$description": "削除ボタン",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{AliasColor.neutral.white}",
+          "$description": "削除ボタンのホバー（背景と文字を反転）",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        },
+        "subtle": {
+          "$type": "color",
+          "$value": "{AliasColor.danger.50}",
+          "$description": "エラーボックスの背景",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        }
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{AliasColor.neutral.100}",
+        "$description": "無効なボタン・入力欄",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+          }
+        }
+      },
+      "elementary": {
+        "subtle": {
+          "$type": "color",
+          "$value": "{AliasColor.school.elementary.50}",
+          "$description": "小学校のバッジの背景",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        }
+      },
+      "junior-high": {
+        "subtle": {
+          "$type": "color",
+          "$value": "{AliasColor.school.junior-high.50}",
+          "$description": "中学校のバッジの背景",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        }
+      },
+      "high-school": {
+        "subtle": {
+          "$type": "color",
+          "$value": "{AliasColor.school.high-school.50}",
+          "$description": "高等学校のバッジの背景",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        }
+      },
+      "other-school": {
+        "subtle": {
+          "$type": "color",
+          "$value": "{AliasColor.school.other-school.50}",
+          "$description": "その他のバッジの背景",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+            }
+          }
+        }
+      }
+    },
+    "text": {
+      "default": {
+        "$type": "color",
+        "$value": "{AliasColor.neutral.900}",
+        "$description": "本文、見出し",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["TEXT_FILL"]
+          }
+        }
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{AliasColor.neutral.600}",
+        "$description": "説明文、日付、学校名",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["TEXT_FILL"]
+          }
+        }
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "{AliasColor.neutral.white}",
+        "$description": "bg/inverse の上の文字・リンク（リンクは下線で示す）",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["TEXT_FILL"]
+          }
+        }
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{AliasColor.neutral.400}",
+        "$description": "無効な部品の文字（基準の対象外）",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["TEXT_FILL"]
+          }
+        }
+      },
+      "primary": {
+        "default": {
+          "$type": "color",
+          "$value": "{AliasColor.primary.600}",
+          "$description": "リンク（下線あり）、アイコン、メニュー項目と主要ボタンのホバー時の文字",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["TEXT_FILL"]
+            }
+          }
+        },
+        "on-primary": {
+          "$type": "color",
+          "$value": "{AliasColor.neutral.white}",
+          "$description": "主要ボタンの文字",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["TEXT_FILL"]
+            }
+          }
+        },
+        "on-subtle": {
+          "$type": "color",
+          "$value": "{AliasColor.primary.800}",
+          "$description": "タグの文字",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["TEXT_FILL"]
+            }
+          }
+        }
+      },
+      "secondary": {
+        "on-secondary": {
+          "$type": "color",
+          "$value": "{AliasColor.neutral.white}",
+          "$description": "副次ボタンの文字",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["TEXT_FILL"]
+            }
+          }
+        },
+        "on-secondary-hover": {
+          "$type": "color",
+          "$value": "{AliasColor.secondary.600}",
+          "$description": "副次ボタンのホバー時の文字",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["TEXT_FILL"]
+            }
+          }
+        }
+      },
+      "destructive": {
+        "default": {
+          "$type": "color",
+          "$value": "{AliasColor.danger.600}",
+          "$description": "エラーメッセージ",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["TEXT_FILL"]
+            }
+          }
+        },
+        "on-destructive": {
+          "$type": "color",
+          "$value": "{AliasColor.neutral.white}",
+          "$description": "削除ボタンの文字",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["TEXT_FILL"]
+            }
+          }
+        },
+        "on-destructive-hover": {
+          "$type": "color",
+          "$value": "{AliasColor.danger.600}",
+          "$description": "削除ボタンのホバー時の文字",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["TEXT_FILL"]
+            }
+          }
+        }
+      },
+      "elementary": {
+        "$type": "color",
+        "$value": "{AliasColor.school.elementary.700}",
+        "$description": "小学校のバッジの文字",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["TEXT_FILL"]
+          }
+        }
+      },
+      "junior-high": {
+        "$type": "color",
+        "$value": "{AliasColor.school.junior-high.700}",
+        "$description": "中学校のバッジの文字",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["TEXT_FILL"]
+          }
+        }
+      },
+      "high-school": {
+        "$type": "color",
+        "$value": "{AliasColor.school.high-school.700}",
+        "$description": "高等学校のバッジの文字",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["TEXT_FILL"]
+          }
+        }
+      },
+      "other-school": {
+        "$type": "color",
+        "$value": "{AliasColor.school.other-school.700}",
+        "$description": "その他のバッジの文字",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["TEXT_FILL"]
+          }
+        }
+      }
+    },
+    "border": {
+      "default": {
+        "$type": "color",
+        "$value": "{AliasColor.neutral.100}",
+        "$description": "カード、区切り線（装飾なので基準の対象外）",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["STROKE_COLOR"]
+          }
+        }
+      },
+      "input": {
+        "$type": "color",
+        "$value": "{AliasColor.neutral.400}",
+        "$description": "入力欄の枠",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["STROKE_COLOR"]
+          }
+        }
+      },
+      "text-stroke": {
+        "$type": "color",
+        "$value": "{AliasColor.neutral.900}",
+        "$description": "文字の縁取り（-webkit-text-stroke。text/default と同じ色）",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["STROKE_COLOR"]
+          }
+        }
+      },
+      "focus": {
+        "$type": "color",
+        "$value": "{AliasColor.primary.600}",
+        "$description": "フォーカスリング",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": []
+          }
+        }
+      },
+      "primary": {
+        "$type": "color",
+        "$value": "{AliasColor.primary.600}",
+        "$description": "主要ボタンの枠（ホバー時に白背景の縁として見える）",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["STROKE_COLOR"]
+          }
+        }
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "{AliasColor.secondary.600}",
+        "$description": "副次ボタンの枠（ホバー時に白背景の縁として見える）",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["STROKE_COLOR"]
+          }
+        }
+      },
+      "destructive": {
+        "default": {
+          "$type": "color",
+          "$value": "{AliasColor.danger.600}",
+          "$description": "入力エラーの枠、削除ボタンの枠",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["STROKE_COLOR"]
+            }
+          }
+        },
+        "focus": {
+          "$type": "color",
+          "$value": "{AliasColor.danger.600}",
+          "$description": "エラー時のフォーカスリング",
+          "$extensions": {
+            "com.figma": {
+              "resolvedType": "COLOR",
+              "scopes": ["STROKE_COLOR"]
+            }
+          }
+        }
+      },
+      "elementary": {
+        "$type": "color",
+        "$value": "{AliasColor.school.elementary.200}",
+        "$description": "小学校のバッジの枠（背景があるので装飾扱い）",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["STROKE_COLOR"]
+          }
+        }
+      },
+      "junior-high": {
+        "$type": "color",
+        "$value": "{AliasColor.school.junior-high.200}",
+        "$description": "中学校のバッジの枠（背景があるので装飾扱い）",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["STROKE_COLOR"]
+          }
+        }
+      },
+      "high-school": {
+        "$type": "color",
+        "$value": "{AliasColor.school.high-school.200}",
+        "$description": "高等学校のバッジの枠（背景があるので装飾扱い）",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["STROKE_COLOR"]
+          }
+        }
+      },
+      "other-school": {
+        "$type": "color",
+        "$value": "{AliasColor.school.other-school.200}",
+        "$description": "その他のバッジの枠（背景があるので装飾扱い）",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "COLOR",
+            "scopes": ["STROKE_COLOR"]
+          }
+        }
+      }
+    }
+  },
+  "styles": {
+    "typography": {
+      "heading": {
+        "xl": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{Typography.font-family.ja}",
+            "fontSize": "{Typography.font-size.300}",
+            "fontWeight": "{Typography.font-weight.bold}",
+            "lineHeight": 1.57
+          },
+          "$description": "ページ見出し（h1）、統計カードの数値",
+          "$extensions": {
+            "com.figma": {
+              "letterSpacing": {
+                "unit": "PERCENT",
+                "value": 4
+              }
+            }
+          }
+        },
+        "lg": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{Typography.font-family.ja}",
+            "fontSize": "{Typography.font-size.200}",
+            "fontWeight": "{Typography.font-weight.bold}",
+            "lineHeight": 1.6
+          },
+          "$description": "事例カードのタイトル、ヘッダーのサイト名",
+          "$extensions": {
+            "com.figma": {
+              "letterSpacing": {
+                "unit": "PERCENT",
+                "value": 4
+              }
+            }
+          }
+        },
+        "md": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{Typography.font-family.ja}",
+            "fontSize": "{Typography.font-size.100}",
+            "fontWeight": "{Typography.font-weight.bold}",
+            "lineHeight": 1.75
+          },
+          "$description": "記事・ページ内の見出し",
+          "$extensions": {
+            "com.figma": {
+              "letterSpacing": {
+                "unit": "PERCENT",
+                "value": 4
+              }
+            }
+          }
+        },
+        "md-wide": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{Typography.font-family.ja}",
+            "fontSize": "{Typography.font-size.100}",
+            "fontWeight": "{Typography.font-weight.bold}",
+            "lineHeight": 1.75
+          },
+          "$description": "トップページのセクション見出し",
+          "$extensions": {
+            "com.figma": {
+              "letterSpacing": {
+                "unit": "PERCENT",
+                "value": 10
+              }
+            }
+          }
+        }
+      },
+      "body": {
+        "md": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{Typography.font-family.ja}",
+            "fontSize": "{Typography.font-size.100}",
+            "fontWeight": "{Typography.font-weight.normal}",
+            "lineHeight": 1.75
+          },
+          "$description": "本文の標準。読ませる文章",
+          "$extensions": {
+            "com.figma": {
+              "letterSpacing": {
+                "unit": "PERCENT",
+                "value": 0
+              }
+            }
+          }
+        },
+        "sm": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{Typography.font-family.ja}",
+            "fontSize": "{Typography.font-size.75}",
+            "fontWeight": "{Typography.font-weight.normal}",
+            "lineHeight": 1.71
+          },
+          "$description": "情報が詰まった UI（カード説明、フォームラベルなど）",
+          "$extensions": {
+            "com.figma": {
+              "letterSpacing": {
+                "unit": "PERCENT",
+                "value": 0
+              }
+            }
+          }
+        },
+        "xs": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{Typography.font-family.ja}",
+            "fontSize": "{Typography.font-size.50}",
+            "fontWeight": "{Typography.font-weight.normal}",
+            "lineHeight": 1.67
+          },
+          "$description": "日付、学校名、件数などの補足",
+          "$extensions": {
+            "com.figma": {
+              "letterSpacing": {
+                "unit": "PERCENT",
+                "value": 0
+              }
+            }
+          }
+        }
+      },
+      "label": {
+        "md": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{Typography.font-family.ja}",
+            "fontSize": "{Typography.font-size.75}",
+            "fontWeight": "{Typography.font-weight.bold}",
+            "lineHeight": 1.71
+          },
+          "$description": "UI の見出しラベル（ヘッダーのナビ、メニュー項目、メニューの見出し、タブなど）",
+          "$extensions": {
+            "com.figma": {
+              "letterSpacing": {
+                "unit": "PERCENT",
+                "value": 2
+              }
+            }
+          }
+        },
+        "sm": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{Typography.font-family.ja}",
+            "fontSize": "{Typography.font-size.50}",
+            "fontWeight": "{Typography.font-weight.normal}",
+            "lineHeight": 1
+          },
+          "$description": "バッジ専用（1行のみ）",
+          "$extensions": {
+            "com.figma": {
+              "letterSpacing": {
+                "unit": "PERCENT",
+                "value": 0
+              }
+            }
+          }
+        }
+      },
+      "button": {
+        "sm": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{Typography.font-family.ja}",
+            "fontSize": "{Typography.font-size.50}",
+            "fontWeight": "{Typography.font-weight.bold}",
+            "lineHeight": 1
+          },
+          "$description": "小ボタンのラベル（ボタンの標準）",
+          "$extensions": {
+            "com.figma": {
+              "letterSpacing": {
+                "unit": "PERCENT",
+                "value": 0
+              }
+            }
+          }
+        },
+        "lg": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{Typography.font-family.ja}",
+            "fontSize": "{Typography.font-size.200}",
+            "fontWeight": "{Typography.font-weight.bold}",
+            "lineHeight": 1
+          },
+          "$description": "大ボタンのラベル",
+          "$extensions": {
+            "com.figma": {
+              "letterSpacing": {
+                "unit": "PERCENT",
+                "value": 0
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
