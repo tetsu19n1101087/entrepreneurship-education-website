@@ -38,18 +38,18 @@ typography:
     fontWeight: 700
     lineHeight: 1.6
     letterSpacing: 0.04em
+  heading-lg-wide:
+    fontFamily: Noto Sans JP
+    fontSize: 20px
+    fontWeight: 700
+    lineHeight: 1.6
+    letterSpacing: 0.1em
   heading-md:
     fontFamily: Noto Sans JP
     fontSize: 16px
     fontWeight: 700
     lineHeight: 1.75
     letterSpacing: 0.04em
-  heading-md-wide:
-    fontFamily: Noto Sans JP
-    fontSize: 16px
-    fontWeight: 700
-    lineHeight: 1.75
-    letterSpacing: 0.1em
   body-md:
     fontFamily: Noto Sans JP
     fontSize: 16px
@@ -193,7 +193,7 @@ components:
 この文書は Figma に合わせた「目標のデザイン」を表している。現行のコードはまだ追いついていないので、改修時は次の差分を解消する。
 
 - **フォント**: コードは Geist Sans。Figma は日本語が Noto Sans JP、英数字が Inter。
-- **文字サイズ**: コードは Tailwind 標準の `text-xs`〜`text-3xl` を使っている。30px（`text-3xl`）・24px（`text-2xl`）・18px（`text-lg`）は Figma のスケールにないので、それぞれ 28px・28px・16px に寄せる。`app/globals.css` の `@theme` に後述のテキストスタイル（`--text-heading-xl` など）を定義し、標準サイズは `--text-*: initial` で無効化して、すべてテキストスタイルのクラスに置き換える。
+- **文字サイズ**: コードは Tailwind 標準の `text-xs`〜`text-3xl` を使っている。30px（`text-3xl`）・24px（`text-2xl`）・18px（`text-lg`）は Figma のスケールにないので、それぞれ 28px・28px・16px に寄せる。`app/globals.css` の `@theme` に後述のテキストスタイル（`--text-heading-xl` など）を定義し、標準サイズは `--text-*: initial` で無効化して、すべてテキストスタイルのクラスに置き換える。トップページのセクション見出し（`CardTitle` の「学校種別」「教科・領域」など）は heading-lg-wide にするので、16px から 20px に大きくなる。
 - **太さ**: コードの 500（`font-medium`）・600（`font-semibold`）は Figma にない。700 に寄せる。
 - **余白**: コードの 12px（`p-3` `gap-3` `px-3`）は Figma のスケールにない。16px に寄せる。
 - **角丸**: コードは 6 / 8 / 10 / 14px を使い分けているが、Figma は `border/radius` = 8px の1種類だけ。ボタンと円形の部品（アバターなど）以外はすべて 8px にし、ボタンは `rounded-full` にする。
@@ -320,7 +320,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 字間（letter spacing）は、見出しとナビだけを少し広げ、ほかは 0 にする。同じサイズでも用途によって字間を変えたいときは、値を上書きせずに別のスタイル（`-wide`）を作る。Figma ではテキストスタイルに % で直接設定し、コードでは同じ値を em に換算して書く（10% = 0.1em）。Figma のバリアブルは px でしか紐づかないため、字間のバリアブルは作らない。
 
 - heading-xl / heading-lg / heading-md: 4%（0.04em）
-- heading-md-wide: 10%（0.1em）。トップページのセクション見出しだけに使う
+- heading-lg-wide: 10%（0.1em）。トップページのセクション見出しだけに使う
 - label-md: 2%（0.02em）
 - body-md / body-sm / body-xs / label-sm / button-sm / button-lg: 0%
 
@@ -330,8 +330,8 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 
 - **heading-xl（28px / bold / 1.57 / 4%）**: ページ見出し（h1）と統計カードの数値。h1 はホームのサイトタイトルなど、1ページに1つ。
 - **heading-lg（20px / bold / 1.6 / 4%）**: 事例カードのタイトル、ヘッダーのサイト名。
+- **heading-lg-wide（20px / bold / 1.6 / 10%）**: Figma のテキストスタイル `heading/lg-wide`。トップページのセクション見出し（`CardTitle` の「学校種別」「教科・領域」など）。字間が広いので、記事の中では使わない。
 - **heading-md（16px / bold / 1.75 / 4%）**: 記事・ページ内の見出し（事例詳細の本文中の見出しなど）。
-- **heading-md-wide（16px / bold / 1.75 / 10%）**: Figma のテキストスタイル `heading/md-wide`。トップページのセクション見出し（`CardTitle` の「学校種別」「教科・領域」など）。字間が広いので、記事の中では使わない。
 - **body-md（16px / regular / 1.75 / 0%）**: 本文の標準。`<body>` に指定し、クラスを付けない文字はこのスタイルになる。事例詳細の本文、ページ見出し直下の説明文など、読ませる文章に使う。
 - **body-sm（14px / regular / 1.71 / 0%）**: 情報が詰まった UI の文字。カードの説明文、フォームのラベル、サイドバーなど。
 - **body-xs（12px / regular / 1.67 / 0%）**: 日付、学校名、件数などの補足情報。
