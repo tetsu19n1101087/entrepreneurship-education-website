@@ -96,6 +96,12 @@ typography:
     fontWeight: 700
     lineHeight: 1
     letterSpacing: 0em
+  meta-sm:
+    fontFamily: Inter
+    fontSize: 12px
+    fontWeight: 700
+    lineHeight: 1.67
+    letterSpacing: 0em
 rounded:
   md: 8px
   full: 9999px
@@ -301,7 +307,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 
 ## Typography
 
-フォントは Figma のバリアブル `font-family/ja`（Noto Sans JP）と `font-family/en`（Inter）の2つ。日本語は Noto Sans JP、英数字は Inter で表示する。CSS では `font-family: Inter, "Noto Sans JP", sans-serif` のように Inter を先に指定し、Inter にない日本語の文字を Noto Sans JP で表示させる。
+フォントは Figma のバリアブル `font-family/ja`（Noto Sans JP）と `font-family/en`（Inter）の2つ。日本語は Noto Sans JP、英数字は Inter で表示する。CSS では `font-family: Inter, "Noto Sans JP", sans-serif` のように Inter を先に指定し、Inter にない日本語の文字を Noto Sans JP で表示させる。Figma のテキストスタイルはフォントを1つしか持てないので、ほとんどのスタイルは `font-family/ja` を使い、日本語を含まない日時・数字用の meta 系統だけ `font-family/en` を使う。
 
 文字サイズは Figma のバリアブル `font-size/*` の5段階だけを使う。任意の値（`text-[15px]` など）は使わない。
 
@@ -326,7 +332,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 - heading-xl / heading-lg / heading-md: 4%（0.04em）
 - heading-lg-wide: 10%（0.1em）。トップページのセクション見出しだけに使う
 - label-md: 2%（0.02em）
-- body-md / body-sm / body-xs / label-sm / button-sm / button-lg: 0%
+- body-md / body-sm / body-xs / label-sm / button-sm / button-lg / meta-sm: 0%
 
 見出し（heading-xl / heading-lg / heading-lg-wide / heading-md）には、OpenType 機能の palt（プロポーショナル幅の約物・かな）を当てて、日本語の字面を詰める。字間（4% / 10%）は palt なしで決めた値なので、画面に当てて見直す。本文には当てない（長い文章では等幅の方が読みやすい）。
 
@@ -335,7 +341,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 
 ### テキストスタイル
 
-文字の指定は、サイズ・太さ・行の高さ・字間をまとめた「テキストスタイル」で行う。系統は heading（見出し）・body（本文）・label（UI の見出しラベルやバッジ）・button（ボタン）の4つで、サイズの段階は `xl` `lg` `md` `sm` `xs` で表す。`md` は標準の段階を指す。button だけはボタンのサイズ（小・大）に合わせて `sm` と `lg` の2段階にする。
+文字の指定は、サイズ・太さ・行の高さ・字間をまとめた「テキストスタイル」で行う。系統は heading（見出し）・body（本文）・label（UI の見出しラベルやバッジ）・button（ボタン）・meta（日時・数字）の5つで、サイズの段階は `xl` `lg` `md` `sm` `xs` で表す。`md` は標準の段階を指す。button だけはボタンのサイズ（小・大）に合わせて `sm` と `lg` の2段階にする。meta は今のところ `sm` だけ。
 
 - **heading-xl（28px / bold / 1.57 / 4% / palt）**: ページ見出し（h1）と統計カードの数値。h1 はホームのサイトタイトルなど、1ページに1つ。
 - **heading-lg（20px / bold / 1.6 / 4% / palt）**: 事例カードのタイトル、ヘッダーのサイト名。
@@ -343,11 +349,12 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 - **heading-md（16px / bold / 1.75 / 4% / palt）**: 記事・ページ内の見出し（事例詳細の本文中の見出しなど）。
 - **body-md（16px / regular / 1.75 / 0%）**: 本文の標準。`<body>` に指定し、クラスを付けない文字はこのスタイルになる。事例詳細の本文、ページ見出し直下の説明文など、読ませる文章に使う。
 - **body-sm（14px / regular / 1.71 / 0%）**: 情報が詰まった UI の文字。カードの説明文、フォームのラベル、サイドバーなど。
-- **body-xs（12px / regular / 1.67 / 0%）**: 日付、学校名、件数などの補足情報。
+- **body-xs（12px / regular / 1.67 / 0%）**: 学校名などの日本語の補足情報。日付や件数の数字は meta-sm を使う。
 - **label-md（14px / bold / 1.71 / 2%）**: UI の見出しラベル。ヘッダーのナビ、メニュー項目、メニューの見出し、タブなど。フォームのラベルは body-sm を使う。
 - **label-sm（12px / regular / 1 / 0%）**: Figma のテキストスタイル `label/sm`。バッジのように1行で収まるラベル専用。行の高さが文字サイズと同じなので、複数行になる文章には使わない。
 - **button-sm（12px / bold / 1 / 0%）**: 小ボタンのラベル。ボタンは基本このサイズ。
 - **button-lg（20px / bold / 1 / 0%）**: 大ボタンのラベル。使う場面は画面のデザイン時に決める。
+- **meta-sm（Inter / 12px / bold / 1.67 / 0%）**: Figma のテキストスタイル `meta/sm`（フォントは `font-family/en`）。記事カードの日時、事例詳細の投稿日・更新日、いいね数・コメント数などの数字。日付は `2026.10.15` の形で書く。Inter には日本語の文字がないので、「件」「年」などの日本語を含むものには使わない。コードでは必ず `font-en` と一緒に指定する（`class="text-meta-sm font-en"`）。
 
 使い分けに迷ったら、文章として読ませるものは body-md、一覧やフォームの中で並ぶものは body-sm を選ぶ。
 
@@ -361,6 +368,9 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
   --text-heading-lg--font-weight: 700;
   --text-heading-lg--letter-spacing: 0.04em;
   /* 他のスタイルも同様に定義する */
+
+  /* 欧文フォント。meta 系統と一緒に使う（--text-* ではフォントを指定できないため） */
+  --font-en: var(--font-inter), sans-serif;
 }
 
 /* 見出しだけ palt を当てる（--text-* では指定できないため） */
@@ -428,7 +438,7 @@ UI 部品は `components/ui/` の shadcn/ui をベースにし、追加のスタ
   - 大: ラベル button-lg（20px / bold）、内側は上下 8px・左右 16px、最小の高さ 60px。使う場面は画面のデザイン時に決める。
   - アイコンのみ: 直径 40px の円（`size-10 rounded-full`）。アイコンは 16px。
 - **Card**: 白背景、角丸 8px、`border`、`shadow-sm`、内側 24px。`CardHeader` / `CardTitle` / `CardContent` で構成する。
-- **事例カード（`case-item.tsx`）**: 全体がリンク（`absolute inset-0` の `Link` を重ねる）。上部に任意の 192px（`h-48`）のヘッダー画像（`next/image`、`object-cover`）。タイトル（heading-lg）は2行、説明（body-sm）は3行で切る（`line-clamp`）。右上に学校種別バッジと教科バッジ、下部に投稿者アバター・氏名・学校名・投稿日、右下にいいねボタン（`z-20` でカードのリンクより前面に出す）。
+- **事例カード（`case-item.tsx`）**: 全体がリンク（`absolute inset-0` の `Link` を重ねる）。上部に任意の 192px（`h-48`）のヘッダー画像（`next/image`、`object-cover`）。タイトル（heading-lg）は2行、説明（body-sm）は3行で切る（`line-clamp`）。右上に学校種別バッジと教科バッジ、下部に投稿者アバター・氏名・学校名・投稿日、右下にいいねボタン（`z-20` でカードのリンクより前面に出す）。投稿日といいね数は meta-sm（`2026.10.15`）。
 - **統計カード（`stats-overview.tsx`）**: 左に primary subtle（`bg/primary/subtle`）のアイコンタイル（48px 角、内側 16px、角丸 8px）、右に数値（heading-xl）、ラベル（body-sm）、説明（body-xs / muted）。
 - **Badge**: 文字は label-sm、内側は上下 4px・左右 8px。タグは primary subtle の背景に on primary subtle の文字、学校種別は「学校種別の色」の3色、教科は `outline`。
 - **Input / Textarea / Select**: 高さ 36px、左右の内側 16px、`border-input`、フォーカス時は `ring-ring/50` の 3px リング。エラー時は `aria-invalid` を付けると destructive のリングになる。

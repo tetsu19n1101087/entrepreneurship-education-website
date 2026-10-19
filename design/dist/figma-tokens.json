@@ -1759,7 +1759,7 @@
             "fontWeight": "{Typography.font-weight.normal}",
             "lineHeight": 1.67
           },
-          "$description": "日付、学校名、件数などの補足",
+          "$description": "学校名などの日本語の補足",
           "$extensions": {
             "com.figma": {
               "letterSpacing": {
@@ -1836,6 +1836,26 @@
             "lineHeight": 1
           },
           "$description": "大ボタンのラベル",
+          "$extensions": {
+            "com.figma": {
+              "letterSpacing": {
+                "unit": "PERCENT",
+                "value": 0
+              }
+            }
+          }
+        }
+      },
+      "meta": {
+        "sm": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{Typography.font-family.en}",
+            "fontSize": "{Typography.font-size.50}",
+            "fontWeight": "{Typography.font-weight.bold}",
+            "lineHeight": 1.67
+          },
+          "$description": "記事カードの日時、事例詳細の投稿日・更新日、いいね数・コメント数などの数字（日本語を含まないもの。日付は 2026.10.15 の形）",
           "$extensions": {
             "com.figma": {
               "letterSpacing": {
