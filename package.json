@@ -10,6 +10,7 @@
     "supabase:stop": "supabase stop",
     "lint": "eslint .",
     "lint:markup": "markuplint \"**/*.{tsx,jsx}\"",
+    "tokens": "node tokens/build.mjs tokens/tokens.json",
     "format": "prettier --write .",
     "prepare": "husky",
     "start": "next start"
@@ -45,13 +46,11 @@
     "@radix-ui/react-tooltip": "1.1.6",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
-    "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
     "date-fns": "4.1.0",
     "embla-carousel-react": "8.5.1",
-    "geist": "latest",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
     "next": "^16.3.8",
@@ -63,8 +62,7 @@
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.4",
     "sonner": "^1.7.4",
-    "tailwind-merge": "^2.5.5",
-    "tailwindcss-animate": "^1.0.7",
+    "tailwind-merge": "^3.7.0",
     "vaul": "^0.9.9",
     "zod": "3.25.67"
   },
@@ -108,7 +106,8 @@
     ],
     "*.{json,md,css}": [
       "prettier --write"
-    ]
+    ],
+    "{tokens/**,app/tokens.css}": "node tokens/build.mjs tokens/tokens.json --check"
   },
   "resolutions": {
     "baseline-browser-mapping": "^2.9.19"
