@@ -32,24 +32,28 @@ typography:
     fontWeight: 700
     lineHeight: 1.57
     letterSpacing: 0.04em
+    fontFeature: '"palt"'
   heading-lg:
     fontFamily: Noto Sans JP
     fontSize: 20px
     fontWeight: 700
     lineHeight: 1.6
     letterSpacing: 0.04em
+    fontFeature: '"palt"'
   heading-lg-wide:
     fontFamily: Noto Sans JP
     fontSize: 20px
     fontWeight: 700
     lineHeight: 1.6
     letterSpacing: 0.1em
+    fontFeature: '"palt"'
   heading-md:
     fontFamily: Noto Sans JP
     fontSize: 16px
     fontWeight: 700
     lineHeight: 1.75
     letterSpacing: 0.04em
+    fontFeature: '"palt"'
   body-md:
     fontFamily: Noto Sans JP
     fontSize: 16px
@@ -324,14 +328,19 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 - label-md: 2%（0.02em）
 - body-md / body-sm / body-xs / label-sm / button-sm / button-lg: 0%
 
+見出し（heading-xl / heading-lg / heading-lg-wide / heading-md）には、OpenType 機能の palt（プロポーショナル幅の約物・かな）を当てて、日本語の字面を詰める。字間（4% / 10%）は palt なしで決めた値なので、画面に当てて見直す。本文には当てない（長い文章では等幅の方が読みやすい）。
+
+- Figma: テキストスタイルの「Type details」→「Details」で palt をオンにする。Plugin API が OpenType 機能を書き込めないため、`design/tokens.json` には `openTypeFeatures: ["palt"]` として記録するが、Figma 用 JSON には含まれない。スタイルを作り直したときは手作業で設定し直す
+- コード: Tailwind v4 の `--text-*` は font-feature-settings を持てないので、`app/globals.css` で見出しのクラスに当てる
+
 ### テキストスタイル
 
 文字の指定は、サイズ・太さ・行の高さ・字間をまとめた「テキストスタイル」で行う。系統は heading（見出し）・body（本文）・label（UI の見出しラベルやバッジ）・button（ボタン）の4つで、サイズの段階は `xl` `lg` `md` `sm` `xs` で表す。`md` は標準の段階を指す。button だけはボタンのサイズ（小・大）に合わせて `sm` と `lg` の2段階にする。
 
-- **heading-xl（28px / bold / 1.57 / 4%）**: ページ見出し（h1）と統計カードの数値。h1 はホームのサイトタイトルなど、1ページに1つ。
-- **heading-lg（20px / bold / 1.6 / 4%）**: 事例カードのタイトル、ヘッダーのサイト名。
-- **heading-lg-wide（20px / bold / 1.6 / 10%）**: Figma のテキストスタイル `heading/lg-wide`。トップページのセクション見出し（`CardTitle` の「学校種別」「教科・領域」など）。字間が広いので、記事の中では使わない。
-- **heading-md（16px / bold / 1.75 / 4%）**: 記事・ページ内の見出し（事例詳細の本文中の見出しなど）。
+- **heading-xl（28px / bold / 1.57 / 4% / palt）**: ページ見出し（h1）と統計カードの数値。h1 はホームのサイトタイトルなど、1ページに1つ。
+- **heading-lg（20px / bold / 1.6 / 4% / palt）**: 事例カードのタイトル、ヘッダーのサイト名。
+- **heading-lg-wide（20px / bold / 1.6 / 10% / palt）**: Figma のテキストスタイル `heading/lg-wide`。トップページのセクション見出し（`CardTitle` の「学校種別」「教科・領域」など）。字間が広いので、記事の中では使わない。
+- **heading-md（16px / bold / 1.75 / 4% / palt）**: 記事・ページ内の見出し（事例詳細の本文中の見出しなど）。
 - **body-md（16px / regular / 1.75 / 0%）**: 本文の標準。`<body>` に指定し、クラスを付けない文字はこのスタイルになる。事例詳細の本文、ページ見出し直下の説明文など、読ませる文章に使う。
 - **body-sm（14px / regular / 1.71 / 0%）**: 情報が詰まった UI の文字。カードの説明文、フォームのラベル、サイドバーなど。
 - **body-xs（12px / regular / 1.67 / 0%）**: 日付、学校名、件数などの補足情報。
@@ -352,6 +361,14 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
   --text-heading-lg--font-weight: 700;
   --text-heading-lg--letter-spacing: 0.04em;
   /* 他のスタイルも同様に定義する */
+}
+
+/* 見出しだけ palt を当てる（--text-* では指定できないため） */
+.text-heading-xl,
+.text-heading-lg,
+.text-heading-lg-wide,
+.text-heading-md {
+  font-feature-settings: 'palt';
 }
 ```
 
