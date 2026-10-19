@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useSearchFilter } from '@/hooks/use-search-filter';
 import { createClient } from '@/lib/supabase/client';
+import { useEffect, useState } from 'react';
 
 export function CategoryFilter() {
   const {
@@ -58,7 +58,7 @@ export function CategoryFilter() {
     subjectList.reduce((acc, s) => ({ ...acc, [s]: 0 }), {}) as Record<
       string,
       number
-    >
+    >,
   );
 
   useEffect(() => {
@@ -88,7 +88,7 @@ export function CategoryFilter() {
                 console.error('Unexpected error fetching count for', t, e);
                 return 0;
               }
-            })
+            }),
           ),
           Promise.all(
             subjectList.map(async (subject) => {
@@ -102,7 +102,7 @@ export function CategoryFilter() {
                   console.error(
                     'Error fetching subject count for',
                     subject,
-                    error
+                    error,
                   );
                   return 0;
                 }
@@ -112,11 +112,11 @@ export function CategoryFilter() {
                 console.error(
                   'Unexpected error fetching subject count for',
                   subject,
-                  e
+                  e,
                 );
                 return 0;
               }
-            })
+            }),
           ),
         ]);
 
@@ -146,16 +146,14 @@ export function CategoryFilter() {
             <Button
               key={index}
               variant={selectedCategory === category.name ? 'default' : 'ghost'}
-              className='w-full justify-between p-space-16 h-auto'
+              className='h-auto w-full justify-between p-space-16'
               onClick={() =>
                 setSelectedCategory(
-                  selectedCategory === category.name ? null : category.name
+                  selectedCategory === category.name ? null : category.name,
                 )
               }
             >
-              <span>
-                {category.label ?? category.name}
-              </span>
+              <span>{category.label ?? category.name}</span>
               {category.count > 0 && (
                 <Badge variant='secondary'>{category.count}</Badge>
               )}
@@ -173,16 +171,14 @@ export function CategoryFilter() {
             <Button
               key={index}
               variant={selectedSubject === subject ? 'default' : 'ghost'}
-              className='w-full justify-between p-space-8 h-auto'
+              className='h-auto w-full justify-between p-space-8'
               onClick={() =>
                 setSelectedSubject(selectedSubject === subject ? null : subject)
               }
             >
               <span>{subject}</span>
               {subjectCounts[subject] > 0 && (
-                <Badge variant='outline'>
-                  {subjectCounts[subject]}
-                </Badge>
+                <Badge variant='outline'>{subjectCounts[subject]}</Badge>
               )}
             </Button>
           ))}

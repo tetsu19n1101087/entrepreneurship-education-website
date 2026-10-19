@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -5,13 +6,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { Mail } from 'lucide-react';
+import Link from 'next/link';
 
 export default function CheckEmailPage() {
   return (
-    <div className='h-full flex-1 flex items-center justify-center bg-background p-space-16'>
+    <div className='flex h-full flex-1 items-center justify-center bg-background p-space-16'>
       <Card className='w-full max-w-md text-center'>
         <CardHeader>
           <div className='mx-auto mb-space-16 flex h-12 w-12 items-center justify-center rounded-full bg-primary-subtle'>

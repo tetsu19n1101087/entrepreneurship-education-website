@@ -11,7 +11,7 @@ export async function getCommentsByCase(caseId: string) {
       profiles (
         display_name,
         school_name
-      )`
+      )`,
     )
     .eq('case_id', caseId)
     .is('parent_id', null)
@@ -38,7 +38,7 @@ export async function getCommentsByCase(caseId: string) {
             display_name,
             school_name
           )
-        `
+        `,
         )
         .eq('parent_id', comment.id)
         .order('created_at', { ascending: true });
@@ -47,7 +47,7 @@ export async function getCommentsByCase(caseId: string) {
         ...comment,
         replies: replies || [],
       };
-    })
+    }),
   );
 
   return commentsWithReplies as Comment[];

@@ -9,7 +9,7 @@ import {
 
 export default function RegisterPage() {
   return (
-    <div className='h-full flex-1 flex items-center justify-center bg-background p-space-16'>
+    <div className='flex h-full flex-1 items-center justify-center bg-background p-space-16'>
       <Card className='w-full max-w-md'>
         <CardHeader className='text-center'>
           <CardTitle className='text-heading-xl text-foreground'>

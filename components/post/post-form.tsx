@@ -1,11 +1,9 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
@@ -13,11 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { Trash2, Upload, X } from 'lucide-react';
-import type { User } from '@supabase/supabase-js';
+import { Textarea } from '@/components/ui/textarea';
 import { createCase } from '@/lib/action';
-import { useActionState } from 'react';
+import type { User } from '@supabase/supabase-js';
+import { Trash2, Upload, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useActionState, useRef, useState } from 'react';
 
 export function PostForm({ user }: { user: User | null }) {
   const MAX_HEADER_IMAGE_SIZE_BYTES = 10 * 1024 * 1024;
@@ -113,7 +112,7 @@ export function PostForm({ user }: { user: User | null }) {
 
   return (
     <form action={formAction} className='space-y-space-24'>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-space-24'>
+      <div className='grid grid-cols-1 gap-space-24 md:grid-cols-2'>
         <div className='space-y-space-8'>
           <Label htmlFor='title'>事例タイトル *</Label>
           <Input
@@ -140,7 +139,7 @@ export function PostForm({ user }: { user: User | null }) {
         </div>
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-space-16'>
+      <div className='grid grid-cols-1 gap-space-16 md:grid-cols-3'>
         <div className='space-y-space-8'>
           <Label htmlFor='subject'>教科・領域 *</Label>
           <Select name='subject'>
@@ -221,7 +220,7 @@ export function PostForm({ user }: { user: User | null }) {
         <Button
           type='button'
           variant='outline'
-          className={`group h-auto w-full p-0 rounded-md bg-transparent hover:bg-accent hover:text-foreground ${
+          className={`group h-auto w-full rounded-md bg-transparent p-0 hover:bg-accent hover:text-foreground ${
             isDragActive ? 'border-primary' : 'border-border'
           }`}
           onClick={() => headerImageInputRef.current?.click()}
@@ -261,13 +260,13 @@ export function PostForm({ user }: { user: User | null }) {
         )}
 
         {headerImageError && (
-          <p className='text-destructive text-body-sm'>{headerImageError}</p>
+          <p className='text-body-sm text-destructive'>{headerImageError}</p>
         )}
       </div>
 
       <div className='space-y-space-8'>
         <Label>タグ</Label>
-        <div className='flex gap-space-8 mb-space-8'>
+        <div className='mb-space-8 flex gap-space-8'>
           <Input
             placeholder='タグを入力してEnterキーで追加'
             value={newTag}
@@ -286,7 +285,7 @@ export function PostForm({ user }: { user: User | null }) {
               <Badge variant='secondary' className='gap-space-4'>
                 {tag}
                 <X
-                  className='w-3 h-3 cursor-pointer'
+                  className='h-3 w-3 cursor-pointer'
                   onClick={() => removeTag(tag)}
                 />
               </Badge>
@@ -297,7 +296,7 @@ export function PostForm({ user }: { user: User | null }) {
       </div>
 
       {state?.error && (
-        <div className='text-destructive text-body-sm bg-destructive-subtle p-space-16 rounded-md'>
+        <div className='rounded-md bg-destructive-subtle p-space-16 text-body-sm text-destructive'>
           {state.error}
         </div>
       )}

@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,12 +7,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { PlusCircle, User as UserIcon, LogOut, Settings } from 'lucide-react';
-import { createClient } from '@/lib/supabase/server';
-import { NotificationCenter } from './notification-center';
-import Link from 'next/link';
 import { logout } from '@/lib/action';
 import type { Profile } from '@/lib/definitions';
+import { createClient } from '@/lib/supabase/server';
+import { LogOut, PlusCircle, Settings, User as UserIcon } from 'lucide-react';
+import Link from 'next/link';
+import { NotificationCenter } from './notification-center';
 
 export async function Header() {
   const supabase = await createClient();
@@ -43,8 +43,8 @@ export async function Header() {
       <div className='container mx-auto px-space-16 py-space-16'>
         <div className='flex items-center justify-between'>
           <Link href='/' className='flex items-center gap-space-16'>
-            <div className='w-10 h-10 bg-primary rounded-md flex items-center justify-center'>
-              <span className='text-primary-foreground text-heading-md'>
+            <div className='flex h-10 w-10 items-center justify-center rounded-md bg-primary'>
+              <span className='text-heading-md text-primary-foreground'>
                 千
               </span>
             </div>
@@ -63,7 +63,7 @@ export async function Header() {
               <>
                 <Button variant='default' className='gap-space-8' asChild>
                   <Link href='/post'>
-                    <PlusCircle className='w-4 h-4' />
+                    <PlusCircle className='h-4 w-4' />
                     事例を投稿
                   </Link>
                 </Button>
@@ -73,7 +73,7 @@ export async function Header() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant='outline' size='icon'>
-                      <Avatar className='w-6 h-6'>
+                      <Avatar className='h-6 w-6'>
                         <AvatarFallback className='text-body-xs'>
                           {profile?.display_name?.charAt(0) ||
                             user?.email?.charAt(0) ||
@@ -93,18 +93,21 @@ export async function Header() {
                     </div>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
-                      <UserIcon className='w-4 h-4 mr-space-8' />
+                      <UserIcon className='mr-space-8 h-4 w-4' />
                       プロフィール
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                      <Settings className='w-4 h-4 mr-space-8' />
+                      <Settings className='mr-space-8 h-4 w-4' />
                       設定
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
                       <form action={logout}>
-                        <button type="submit" className="w-full text-left flex items-center gap-space-8">
-                          <LogOut className='w-4 h-4 mr-space-8' />
+                        <button
+                          type='submit'
+                          className='flex w-full items-center gap-space-8 text-left'
+                        >
+                          <LogOut className='mr-space-8 h-4 w-4' />
                           ログアウト
                         </button>
                       </form>

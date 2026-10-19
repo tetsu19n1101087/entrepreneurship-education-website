@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
 const badgeVariants = cva(
-  'inline-flex items-center justify-center rounded-md border px-space-8 py-space-4 text-label-sm w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-space-4 [&>svg]:pointer-events-auto focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden',
+  'inline-flex w-fit shrink-0 items-center justify-center gap-space-4 overflow-hidden rounded-md border px-space-8 py-space-4 text-label-sm whitespace-nowrap transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 [&>svg]:pointer-events-auto [&>svg]:size-3',
   {
     variants: {
       variant: {
@@ -14,7 +14,7 @@ const badgeVariants = cva(
         secondary:
           'border-transparent bg-primary-subtle text-on-primary-subtle',
         destructive:
-          'border-transparent bg-destructive text-destructive-foreground [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20',
+          'border-transparent bg-destructive text-destructive-foreground focus-visible:ring-destructive/20 [a&]:hover:bg-destructive/90',
         outline:
           'text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground',
       },
@@ -22,7 +22,7 @@ const badgeVariants = cva(
     defaultVariants: {
       variant: 'default',
     },
-  }
+  },
 );
 
 function Badge({

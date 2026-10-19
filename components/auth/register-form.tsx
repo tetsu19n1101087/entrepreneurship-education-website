@@ -21,7 +21,9 @@ export function RegisterForm() {
   return (
     <>
       <LoginWithGoogle />
-      <div className='text-body-xs text-center text-muted-foreground'>または</div>
+      <div className='text-center text-body-xs text-muted-foreground'>
+        または
+      </div>
       <form action={formAction} className='space-y-space-16'>
         <div className='space-y-space-8'>
           <Label htmlFor='name'>氏名</Label>
@@ -65,7 +67,7 @@ export function RegisterForm() {
           <Input id='password' name='password' type='password' required />
         </div>
         {state?.error && (
-          <div className='text-destructive text-body-sm bg-destructive-subtle p-space-16 rounded-md'>
+          <div className='rounded-md bg-destructive-subtle p-space-16 text-body-sm text-destructive'>
             {state.error}
           </div>
         )}

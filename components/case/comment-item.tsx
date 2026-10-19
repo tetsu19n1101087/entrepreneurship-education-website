@@ -1,19 +1,19 @@
 'use client';
 
-import { useState, useActionState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Reply, MoreHorizontal, Flag } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import type { User } from '@supabase/supabase-js';
+import { Textarea } from '@/components/ui/textarea';
 import { type Comment } from '@/lib/definitions';
+import type { User } from '@supabase/supabase-js';
+import { Flag, MoreHorizontal, Reply } from 'lucide-react';
+import { useActionState, useState } from 'react';
 import { CommentLikesButton } from './likes-button';
 
 export default function CommentItem({
@@ -27,7 +27,7 @@ export default function CommentItem({
   user: User | null;
   action: (
     prevState: { error?: string; data?: Comment },
-    formData: FormData
+    formData: FormData,
   ) => Promise<
     | {
         error: string;
@@ -54,28 +54,26 @@ export default function CommentItem({
       }`}
     >
       <div className='flex items-start gap-space-16'>
-        <Avatar className='w-8 h-8'>
+        <Avatar className='h-8 w-8'>
           <AvatarFallback className='text-body-xs'>
             {comment.profiles?.display_name.charAt(0)}
           </AvatarFallback>
         </Avatar>
         <div className='flex-1'>
-          <div className='flex items-center gap-space-8 mb-space-4'>
-            <p className='text-body-sm'>
-              {comment.profiles?.display_name}
-            </p>
+          <div className='mb-space-4 flex items-center gap-space-8'>
+            <p className='text-body-sm'>{comment.profiles?.display_name}</p>
             <Badge variant='outline' className='px-space-4 py-0'>
               {comment.profiles?.school_name.includes('小学校')
                 ? '小'
                 : comment.profiles?.school_name.includes('中学校')
-                ? '中'
-                : '高'}
+                  ? '中'
+                  : '高'}
             </Badge>
-            <p className='text-meta-sm font-en text-muted-foreground'>
+            <p className='font-en text-meta-sm text-muted-foreground'>
               • {new Date(comment.created_at).toLocaleDateString('ja-JP')}
             </p>
           </div>
-          <p className='text-body-sm mb-space-16'>{comment.content}</p>
+          <p className='mb-space-16 text-body-sm'>{comment.content}</p>
 
           <div className='flex items-center gap-space-16'>
             {/* いいねボタン */}
@@ -91,7 +89,7 @@ export default function CommentItem({
                 }
                 disabled={!user}
               >
-                <Reply className='w-3 h-3' />
+                <Reply className='h-3 w-3' />
                 返信
               </Button>
             )}
@@ -99,12 +97,12 @@ export default function CommentItem({
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant='ghost' size='icon'>
-                  <MoreHorizontal className='w-3 h-3' />
+                  <MoreHorizontal className='h-3 w-3' />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end'>
                 <DropdownMenuItem className='gap-space-8'>
-                  <Flag className='w-3 h-3' />
+                  <Flag className='h-3 w-3' />
                   報告
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -124,7 +122,7 @@ export default function CommentItem({
                 />
                 <input type='hidden' name='parent_id' value={comment.id} />
                 {state?.error && (
-                  <div className='text-destructive text-body-sm bg-destructive-subtle p-space-16 rounded-md'>
+                  <div className='rounded-md bg-destructive-subtle p-space-16 text-body-sm text-destructive'>
                     {state.error}
                   </div>
                 )}

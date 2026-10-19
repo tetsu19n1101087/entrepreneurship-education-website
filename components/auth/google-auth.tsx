@@ -1,10 +1,10 @@
 'use client';
 
-import type React from 'react';
-import { createClient } from '@/lib/supabase/client';
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { createClient } from '@/lib/supabase/client';
 import { useSearchParams } from 'next/navigation';
+import type React from 'react';
+import { useState } from 'react';
 
 export function LoginWithGoogle() {
   const [error, setError] = useState<string | null>(null);
@@ -46,7 +46,7 @@ export function LoginWithGoogle() {
   }
 
   return (
-    <form className='space-y-space-16 mb-space-16' onSubmit={handleSubmit}>
+    <form className='mb-space-16 space-y-space-16' onSubmit={handleSubmit}>
       <Button
         type='submit'
         variant='outline'
@@ -86,7 +86,7 @@ export function LoginWithGoogle() {
         </div>
       </Button>
       {error && (
-        <div className='text-destructive text-body-sm bg-destructive-subtle p-space-16 rounded-md'>
+        <div className='rounded-md bg-destructive-subtle p-space-16 text-body-sm text-destructive'>
           {error}
         </div>
       )}

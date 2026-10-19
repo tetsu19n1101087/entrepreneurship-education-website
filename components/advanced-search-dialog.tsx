@@ -2,7 +2,8 @@
 
 import type React from 'react';
 
-import { useState } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -10,7 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -20,9 +20,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { X } from 'lucide-react';
 import { useSearchFilter } from '@/hooks/use-search-filter';
+import { X } from 'lucide-react';
+import { useState } from 'react';
 
 export function AdvancedSearchDialog() {
   const {
@@ -102,7 +102,7 @@ export function AdvancedSearchDialog() {
         </DialogHeader>
 
         <div className='space-y-space-24'>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-space-16'>
+          <div className='grid grid-cols-1 gap-space-16 md:grid-cols-2'>
             <div className='space-y-space-8'>
               <Label htmlFor='keyword'>キーワード</Label>
               <Input
@@ -134,7 +134,7 @@ export function AdvancedSearchDialog() {
             </div>
           </div>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-space-16'>
+          <div className='grid grid-cols-1 gap-space-16 md:grid-cols-2'>
             <div className='space-y-space-8'>
               <Label htmlFor='school'>学校名</Label>
               <Input
@@ -195,7 +195,7 @@ export function AdvancedSearchDialog() {
 
           <div className='space-y-space-8'>
             <Label>タグ</Label>
-            <div className='flex gap-space-8 mb-space-8'>
+            <div className='mb-space-8 flex gap-space-8'>
               <Input
                 placeholder='タグを入力してEnterキーで追加'
                 value={newTag}
@@ -211,7 +211,7 @@ export function AdvancedSearchDialog() {
                 <Badge key={index} variant='secondary' className='gap-space-4'>
                   {tag}
                   <X
-                    className='w-3 h-3 cursor-pointer'
+                    className='h-3 w-3 cursor-pointer'
                     onClick={() => removeTag(tag)}
                   />
                 </Badge>

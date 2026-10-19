@@ -1,16 +1,16 @@
 'use client';
 
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Calendar } from 'lucide-react';
-import { CaseLikesButton } from './case/likes-button';
-import Link from 'next/link';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { useSearchFilter } from '@/hooks/use-search-filter';
 import type { Case } from '@/lib/definitions';
-import type { User } from '@supabase/supabase-js';
-import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
+import type { User } from '@supabase/supabase-js';
+import { Calendar } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { CaseLikesButton } from './case/likes-button';
 
 export default function CaseItem({
   user,
@@ -81,12 +81,12 @@ export default function CaseItem({
       </div>
 
       {filteredCases.length === 0 ? (
-        <Card className='text-center py-space-48'>
+        <Card className='py-space-48 text-center'>
           <CardContent>
             <p className='text-body-md text-muted-foreground'>
               検索条件に一致する事例が見つかりませんでした。
             </p>
-            <p className='text-body-sm text-muted-foreground mt-space-8'>
+            <p className='mt-space-8 text-body-sm text-muted-foreground'>
               検索条件を変更してお試しください。
             </p>
           </CardContent>
@@ -106,7 +106,7 @@ export default function CaseItem({
           return (
             <Card
               key={caseItem.id}
-              className='relative hover:shadow-lg transition-shadow overflow-hidden pt-0'
+              className='relative overflow-hidden pt-0 transition-shadow hover:shadow-lg'
             >
               <Link
                 href={`/case/${caseItem.id}`}
@@ -129,18 +129,15 @@ export default function CaseItem({
               <CardHeader className='pb-space-16'>
                 <div className='flex items-start justify-between gap-space-16'>
                   <div className='flex-1'>
-                    <h3 className='text-heading-lg text-foreground mb-space-8 line-clamp-2'>
+                    <h3 className='mb-space-8 line-clamp-2 text-heading-lg text-foreground'>
                       {caseItem.title}
                     </h3>
-                    <p className='text-muted-foreground text-body-sm line-clamp-3 mb-space-16'>
+                    <p className='mb-space-16 line-clamp-3 text-body-sm text-muted-foreground'>
                       {caseItem.description}
                     </p>
-                    <div className='flex flex-wrap gap-space-8 mb-space-16'>
+                    <div className='mb-space-16 flex flex-wrap gap-space-8'>
                       {caseItem.tags?.map((tag: string, index: number) => (
-                        <Badge
-                          key={index}
-                          variant='secondary'
-                        >
+                        <Badge key={index} variant='secondary'>
                           {tag}
                         </Badge>
                       ))}
@@ -151,12 +148,12 @@ export default function CaseItem({
                       variant='outline'
                       className={
                         caseItem.school_type === 'elementary'
-                          ? 'bg-elementary-subtle text-elementary border-elementary-border'
+                          ? 'border-elementary-border bg-elementary-subtle text-elementary'
                           : caseItem.school_type === 'junior_high'
-                            ? 'bg-junior-high-subtle text-junior-high border-junior-high-border'
+                            ? 'border-junior-high-border bg-junior-high-subtle text-junior-high'
                             : caseItem.school_type === 'high_school'
-                              ? 'bg-high-school-subtle text-high-school border-high-school-border'
-                              : 'bg-other-school-subtle text-other-school border-other-school-border'
+                              ? 'border-high-school-border bg-high-school-subtle text-high-school'
+                              : 'border-other-school-border bg-other-school-subtle text-other-school'
                       }
                     >
                       {caseItem.school_type === 'elementary'
@@ -167,9 +164,7 @@ export default function CaseItem({
                             ? '高校'
                             : 'その他'}
                     </Badge>
-                    <Badge variant='outline'>
-                      {caseItem.subject}
-                    </Badge>
+                    <Badge variant='outline'>{caseItem.subject}</Badge>
                   </div>
                 </div>
               </CardHeader>
@@ -178,7 +173,7 @@ export default function CaseItem({
                 <div className='flex items-center justify-between'>
                   <div className='flex items-center gap-space-16'>
                     <div className='flex items-center gap-space-8'>
-                      <Avatar className='w-8 h-8'>
+                      <Avatar className='h-8 w-8'>
                         <AvatarFallback className='text-body-xs'>
                           {caseItem.profiles?.display_name.charAt(0)}
                         </AvatarFallback>
@@ -193,8 +188,8 @@ export default function CaseItem({
                       </div>
                     </div>
 
-                    <div className='flex items-center gap-space-4 text-meta-sm font-en text-muted-foreground'>
-                      <Calendar className='w-3 h-3' />
+                    <div className='flex items-center gap-space-4 font-en text-meta-sm text-muted-foreground'>
+                      <Calendar className='h-3 w-3' />
                       {new Date(caseItem.created_at).toLocaleDateString(
                         'ja-JP',
                       )}

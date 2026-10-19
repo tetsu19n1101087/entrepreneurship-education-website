@@ -1,16 +1,16 @@
 'use client';
 
-import { useActionState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { MessageSquare } from 'lucide-react';
-import CommentItem from './comment-item';
-import type { User } from '@supabase/supabase-js';
-import { type Comment } from '@/lib/definitions';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
 import { createComment } from '@/lib/action';
 import type { Profile } from '@/lib/definitions';
+import { type Comment } from '@/lib/definitions';
+import type { User } from '@supabase/supabase-js';
+import { MessageSquare } from 'lucide-react';
+import { useActionState } from 'react';
+import CommentItem from './comment-item';
 
 export function CommentSection({
   caseId,
@@ -41,7 +41,7 @@ export function CommentSection({
     <Card>
       <CardHeader>
         <CardTitle className='flex items-center gap-space-8'>
-          <MessageSquare className='w-5 h-5' />
+          <MessageSquare className='h-5 w-5' />
           コメント・質問 ({totalComments})
         </CardTitle>
       </CardHeader>
@@ -51,7 +51,7 @@ export function CommentSection({
           <form action={formAction}>
             <div className='space-y-space-16'>
               <div className='flex items-start gap-space-16'>
-                <Avatar className='w-8 h-8'>
+                <Avatar className='h-8 w-8'>
                   <AvatarFallback className='text-body-xs'>
                     {profile?.display_name?.charAt(0) ||
                       user.user_metadata?.display_name?.charAt(0) ||
@@ -70,7 +70,7 @@ export function CommentSection({
                 </div>
               </div>
               {state?.error && (
-                <div className='text-destructive text-body-sm bg-destructive-subtle p-space-16 rounded-md'>
+                <div className='rounded-md bg-destructive-subtle p-space-16 text-body-sm text-destructive'>
                   {state.error}
                 </div>
               )}

@@ -1,14 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
 import {
-  toggleCaseLike,
-  toggleCommentLike,
   getCaseLikes,
   getCommentLikes,
+  toggleCaseLike,
+  toggleCommentLike,
 } from '@/lib/supabase/likes';
-import { Button } from '@/components/ui/button';
 import { Heart } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export function CaseLikesButton({
   caseId,
@@ -47,10 +47,10 @@ export function CaseLikesButton({
       variant={isLiked ? 'default' : 'outline'}
       size='sm'
       onClick={handleLike}
-      className='gap-space-4 text-meta-sm font-en'
+      className='gap-space-4 font-en text-meta-sm'
       disabled={!userId}
     >
-      <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
+      <Heart className={`h-4 w-4 ${isLiked ? 'fill-current' : ''}`} />
       {/* {count + (isLiked ? 1 : 0)} */}
       {countLikes}
     </Button>
@@ -93,13 +93,13 @@ export function CommentLikesButton({
     <Button
       variant='ghost'
       size='sm'
-      className={`gap-space-4 px-space-8 text-meta-sm font-en ${
+      className={`gap-space-4 px-space-8 font-en text-meta-sm ${
         isLiked ? 'text-destructive' : 'text-muted-foreground'
       }`}
       onClick={() => handleLike()}
       disabled={!userId}
     >
-      <Heart className={`w-3 h-3 ${isLiked ? 'fill-current' : ''}`} />
+      <Heart className={`h-3 w-3 ${isLiked ? 'fill-current' : ''}`} />
       {countLikes}
     </Button>
   );

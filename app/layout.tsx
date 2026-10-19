@@ -32,9 +32,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ja' className={`${inter.variable} ${notoSansJp.variable}`}>
-      <body className='min-h-screen flex flex-col'>
+      <body className='flex min-h-screen flex-col'>
         <Header />
-        <main className='flex-1 flex flex-col'>{children}</main>
+        <main className='flex flex-1 flex-col'>{children}</main>
       </body>
     </html>
   );

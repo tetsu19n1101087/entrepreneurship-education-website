@@ -1,12 +1,12 @@
 'use client';
 
-import { useActionState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { LoginWithGoogle } from './google-auth';
-import Link from 'next/link';
 import { login } from '@/lib/action';
+import Link from 'next/link';
+import { useActionState } from 'react';
+import { LoginWithGoogle } from './google-auth';
 
 export function LoginForm() {
   const [state, formAction, isPending] = useActionState(login, {});
@@ -14,7 +14,7 @@ export function LoginForm() {
   return (
     <div className='space-y-space-16'>
       <LoginWithGoogle />
-      <div className='text-body-xs text-center text-muted-foreground'>
+      <div className='text-center text-body-xs text-muted-foreground'>
         または
       </div>
       <form action={formAction} className='space-y-space-16'>
@@ -35,7 +35,7 @@ export function LoginForm() {
         </div>
 
         {state?.error && (
-          <div className='text-destructive text-body-sm bg-destructive-subtle p-space-16 rounded-md'>
+          <div className='rounded-md bg-destructive-subtle p-space-16 text-body-sm text-destructive'>
             {state.error}
           </div>
         )}
