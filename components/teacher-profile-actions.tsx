@@ -21,13 +21,13 @@ export default function TeacherProfileActions({ teacherId, initialIsFollowing = 
   }
 
   return (
-    <div className="flex gap-2">
-      <Button data-teacher-id={teacherId} variant={isFollowing ? "outline" : "default"} size="sm" onClick={handleFollow} className="gap-1">
+    <div className="flex gap-space-8">
+      <Button data-teacher-id={teacherId} variant={isFollowing ? "outline" : "default"} size="sm" onClick={handleFollow} className="gap-space-4">
         <UserPlus className="w-3 h-3" />
         {isFollowing ? "フォロー中" : "フォロー"}
       </Button>
-      <span className="text-xs text-muted-foreground self-center">{followersCount}人</span>
-      <Button variant="outline" size="sm" className="gap-1 bg-transparent">
+      <span className="text-body-xs text-muted-foreground self-center">{followersCount}人</span>
+      <Button variant="outline" size="sm" className="gap-space-4 bg-transparent">
         <MessageCircle className="w-3 h-3" />
         メッセージ
       </Button>

@@ -40,28 +40,28 @@ export async function Header() {
 
   return (
     <header className='border-b bg-card'>
-      <div className='container mx-auto px-4 py-4'>
+      <div className='container mx-auto px-space-16 py-space-16'>
         <div className='flex items-center justify-between'>
-          <Link href='/' className='flex items-center gap-4'>
-            <div className='w-10 h-10 bg-primary rounded-lg flex items-center justify-center'>
-              <span className='text-primary-foreground font-bold text-lg'>
+          <Link href='/' className='flex items-center gap-space-16'>
+            <div className='w-10 h-10 bg-primary rounded-md flex items-center justify-center'>
+              <span className='text-primary-foreground text-heading-md'>
                 千
               </span>
             </div>
             <div>
-              <h1 className='font-bold text-xl text-foreground'>
+              <h1 className='text-heading-lg text-foreground'>
                 千葉県教育事例共有
               </h1>
-              <p className='text-sm text-muted-foreground'>
+              <p className='text-body-sm text-muted-foreground'>
                 アントレプレナーシップ教育
               </p>
             </div>
           </Link>
 
-          <div className='flex items-center gap-3'>
+          <div className='flex items-center gap-space-16'>
             {user ? (
               <>
-                <Button variant='default' className='gap-2' asChild>
+                <Button variant='default' className='gap-space-8' asChild>
                   <Link href='/post'>
                     <PlusCircle className='w-4 h-4' />
                     事例を投稿
@@ -74,7 +74,7 @@ export async function Header() {
                   <DropdownMenuTrigger asChild>
                     <Button variant='outline' size='icon'>
                       <Avatar className='w-6 h-6'>
-                        <AvatarFallback className='text-xs'>
+                        <AvatarFallback className='text-body-xs'>
                           {profile?.display_name?.charAt(0) ||
                             user?.email?.charAt(0) ||
                             'U'}
@@ -83,28 +83,28 @@ export async function Header() {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align='end' className='w-56'>
-                    <div className='px-2 py-1.5'>
-                      <p className='text-sm font-medium'>
+                    <div className='px-space-8 py-space-8'>
+                      <p className='text-label-md'>
                         {profile?.display_name || user?.email}
                       </p>
-                      <p className='text-xs text-muted-foreground'>
+                      <p className='text-body-xs text-muted-foreground'>
                         {profile?.school_name}
                       </p>
                     </div>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
-                      <UserIcon className='w-4 h-4 mr-2' />
+                      <UserIcon className='w-4 h-4 mr-space-8' />
                       プロフィール
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                      <Settings className='w-4 h-4 mr-2' />
+                      <Settings className='w-4 h-4 mr-space-8' />
                       設定
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
                       <form action={logout}>
-                        <button type="submit" className="w-full text-left flex items-center gap-2">
-                          <LogOut className='w-4 h-4 mr-2' />
+                        <button type="submit" className="w-full text-left flex items-center gap-space-8">
+                          <LogOut className='w-4 h-4 mr-space-8' />
                           ログアウト
                         </button>
                       </form>
@@ -113,7 +113,7 @@ export async function Header() {
                 </DropdownMenu>
               </>
             ) : (
-              <div className='flex items-center gap-2'>
+              <div className='flex items-center gap-space-8'>
                 <Button variant='outline' asChild>
                   <Link href='/auth/login'>ログイン</Link>
                 </Button>

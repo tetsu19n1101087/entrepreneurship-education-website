@@ -46,23 +46,23 @@ export default async function StatsOverview() {
   ];
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-16'>
       {stats.map((stat, index) => (
         <Link key={index} href={stat.href}>
           <Card className='bg-card border hover:shadow-md transition-shadow cursor-pointer'>
-            <CardContent className='p-6'>
-              <div className='flex items-center gap-4'>
-                <div className='p-3 bg-primary/10 rounded-lg'>
+            <CardContent className='p-space-24'>
+              <div className='flex items-center gap-space-16'>
+                <div className='p-space-16 bg-primary-subtle rounded-md'>
                   <stat.icon className='w-6 h-6 text-primary' />
                 </div>
                 <div>
-                  <p className='text-2xl font-bold text-foreground'>
+                  <p className='text-heading-xl font-en text-foreground'>
                     {stat.value}
                   </p>
-                  <p className='text-sm font-medium text-foreground'>
+                  <p className='text-body-sm text-foreground'>
                     {stat.label}
                   </p>
-                  <p className='text-xs text-muted-foreground'>
+                  <p className='text-body-xs text-muted-foreground'>
                     {stat.description}
                   </p>
                 </div>

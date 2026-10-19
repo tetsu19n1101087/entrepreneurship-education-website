@@ -8,7 +8,7 @@ export default function Error({ error }: { error: Error }) {
   }, [error]);
 
   return (
-    <div className='h-full flex-1 flex items-center justify-center bg-gradient-to-br from-blue-50 to-green-50 p-4'>
+    <div className='h-full flex-1 flex items-center justify-center bg-background p-space-16'>
       <h2>Something went wrong!</h2>
     </div>
   );

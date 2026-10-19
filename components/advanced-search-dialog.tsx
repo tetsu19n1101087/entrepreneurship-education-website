@@ -101,9 +101,9 @@ export function AdvancedSearchDialog() {
           </DialogDescription>
         </DialogHeader>
 
-        <div className='space-y-6'>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-            <div className='space-y-2'>
+        <div className='space-y-space-24'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-space-16'>
+            <div className='space-y-space-8'>
               <Label htmlFor='keyword'>キーワード</Label>
               <Input
                 id='keyword'
@@ -118,7 +118,7 @@ export function AdvancedSearchDialog() {
               />
             </div>
 
-            <div className='space-y-2'>
+            <div className='space-y-space-8'>
               <Label htmlFor='author'>投稿者名</Label>
               <Input
                 id='author'
@@ -134,8 +134,8 @@ export function AdvancedSearchDialog() {
             </div>
           </div>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-            <div className='space-y-2'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-space-16'>
+            <div className='space-y-space-8'>
               <Label htmlFor='school'>学校名</Label>
               <Input
                 id='school'
@@ -150,7 +150,7 @@ export function AdvancedSearchDialog() {
               />
             </div>
 
-            <div className='space-y-2'>
+            <div className='space-y-space-8'>
               <Label htmlFor='category'>学校種別</Label>
               <Select
                 value={localFilters.category}
@@ -171,7 +171,7 @@ export function AdvancedSearchDialog() {
             </div>
           </div>
 
-          <div className='space-y-2'>
+          <div className='space-y-space-8'>
             <Label htmlFor='subject'>教科・領域</Label>
             <Select
               value={localFilters.subject}
@@ -193,9 +193,9 @@ export function AdvancedSearchDialog() {
             </Select>
           </div>
 
-          <div className='space-y-2'>
+          <div className='space-y-space-8'>
             <Label>タグ</Label>
-            <div className='flex gap-2 mb-2'>
+            <div className='flex gap-space-8 mb-space-8'>
               <Input
                 placeholder='タグを入力してEnterキーで追加'
                 value={newTag}
@@ -206,9 +206,9 @@ export function AdvancedSearchDialog() {
                 追加
               </Button>
             </div>
-            <div className='flex flex-wrap gap-2'>
+            <div className='flex flex-wrap gap-space-8'>
               {localFilters.tags.map((tag, index) => (
-                <Badge key={index} variant='secondary' className='gap-1'>
+                <Badge key={index} variant='secondary' className='gap-space-4'>
                   {tag}
                   <X
                     className='w-3 h-3 cursor-pointer'
@@ -219,7 +219,7 @@ export function AdvancedSearchDialog() {
             </div>
           </div>
 
-          <div className='flex justify-end gap-3'>
+          <div className='flex justify-end gap-space-16'>
             <Button variant='outline' onClick={handleClearFilters}>
               クリア
             </Button>

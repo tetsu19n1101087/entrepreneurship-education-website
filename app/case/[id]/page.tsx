@@ -24,10 +24,10 @@ export default async function CasePage({
 
   return (
     <div className='bg-background'>
-      <div className='container mx-auto px-4 py-8'>
+      <div className='container mx-auto px-space-16 py-space-32'>
         <div className='max-w-4xl mx-auto'>
           <CaseDetail caseId={id} />
-          <div className='mt-8'>
+          <div className='mt-space-32'>
             <CommentSection
               caseId={id}
               user={user}

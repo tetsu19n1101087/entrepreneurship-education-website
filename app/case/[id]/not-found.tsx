@@ -4,18 +4,18 @@ import { Button } from '@/components/ui/button';
 export default function NotFound() {
   return (
     <div className='min-h-[60vh] flex items-center justify-center'>
-      <div className='text-center space-y-6 max-w-md mx-auto px-4'>
-        <div className='space-y-2'>
-          <div className='text-6xl font-bold text-muted-foreground/30'>404</div>
-          <h1 className='text-2xl font-bold text-foreground'>
+      <div className='text-center space-y-space-24 max-w-md mx-auto px-space-16'>
+        <div className='space-y-space-8'>
+          <div className='font-en text-heading-xl text-disabled-foreground'>404</div>
+          <h1 className='text-heading-xl text-foreground'>
             事例が見つかりません
           </h1>
-          <p className='text-muted-foreground leading-relaxed'>
+          <p className='text-muted-foreground text-body-md'>
             お探しの教育事例は削除されたか、URLが間違っている可能性があります。
           </p>
         </div>
 
-        <div className='flex flex-col sm:flex-row gap-3 justify-center'>
+        <div className='flex flex-col sm:flex-row gap-space-16 justify-center'>
           <Button asChild>
             <Link href='/'>ホーム画面に戻る</Link>
           </Button>

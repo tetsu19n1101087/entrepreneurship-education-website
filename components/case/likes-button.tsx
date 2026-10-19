@@ -47,7 +47,7 @@ export function CaseLikesButton({
       variant={isLiked ? 'default' : 'outline'}
       size='sm'
       onClick={handleLike}
-      className='gap-1'
+      className='gap-space-4 text-meta-sm font-en'
       disabled={!userId}
     >
       <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
@@ -93,8 +93,8 @@ export function CommentLikesButton({
     <Button
       variant='ghost'
       size='sm'
-      className={`gap-1 h-7 px-2 ${
-        isLiked ? 'text-red-500' : 'text-muted-foreground'
+      className={`gap-space-4 px-space-8 text-meta-sm font-en ${
+        isLiked ? 'text-destructive' : 'text-muted-foreground'
       }`}
       onClick={() => handleLike()}
       disabled={!userId}

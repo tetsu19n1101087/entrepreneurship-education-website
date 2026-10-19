@@ -86,6 +86,7 @@
 }
 
 @theme {
+  --text-*: initial;
   --text-heading-xl: 1.75rem;
   --text-heading-xl--line-height: 1.57;
   --text-heading-xl--font-weight: 700;
@@ -142,6 +143,7 @@
   --spacing-space-48: 3rem;
   --spacing-space-64: 4rem;
   --spacing-space-80: 5rem;
+  --radius-*: initial;
   --radius-md: 0.5rem;
 }
 

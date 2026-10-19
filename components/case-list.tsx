@@ -15,12 +15,12 @@ export default async function CaseList() {
 
   if (!cases || cases.length === 0) {
     return (
-      <Card className='text-center py-12'>
+      <Card className='text-center py-space-48'>
         <CardContent>
-          <p className='text-muted-foreground'>
+          <p className='text-body-md text-muted-foreground'>
             事例がまだ投稿されていません。
           </p>
-          <p className='text-sm text-muted-foreground mt-2'>
+          <p className='text-body-sm text-muted-foreground mt-space-8'>
             事例を投稿して、コミュニティに貢献しましょう！
           </p>
         </CardContent>

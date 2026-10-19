@@ -75,18 +75,18 @@ export default function CaseItem({
   });
 
   return (
-    <div className='space-y-6'>
-      <div className='text-sm text-muted-foreground'>
+    <div className='space-y-space-24'>
+      <div className='text-body-sm text-muted-foreground'>
         {filteredCases.length}件の事例が見つかりました
       </div>
 
       {filteredCases.length === 0 ? (
-        <Card className='text-center py-12'>
+        <Card className='text-center py-space-48'>
           <CardContent>
-            <p className='text-muted-foreground'>
+            <p className='text-body-md text-muted-foreground'>
               検索条件に一致する事例が見つかりませんでした。
             </p>
-            <p className='text-sm text-muted-foreground mt-2'>
+            <p className='text-body-sm text-muted-foreground mt-space-8'>
               検索条件を変更してお試しください。
             </p>
           </CardContent>
@@ -126,38 +126,37 @@ export default function CaseItem({
                 </div>
               )}
 
-              <CardHeader className='pb-4'>
-                <div className='flex items-start justify-between gap-4'>
+              <CardHeader className='pb-space-16'>
+                <div className='flex items-start justify-between gap-space-16'>
                   <div className='flex-1'>
-                    <h3 className='text-xl font-semibold text-foreground mb-2 line-clamp-2'>
+                    <h3 className='text-heading-lg text-foreground mb-space-8 line-clamp-2'>
                       {caseItem.title}
                     </h3>
-                    <p className='text-muted-foreground text-sm line-clamp-3 mb-3'>
+                    <p className='text-muted-foreground text-body-sm line-clamp-3 mb-space-16'>
                       {caseItem.description}
                     </p>
-                    <div className='flex flex-wrap gap-2 mb-3'>
+                    <div className='flex flex-wrap gap-space-8 mb-space-16'>
                       {caseItem.tags?.map((tag: string, index: number) => (
                         <Badge
                           key={index}
                           variant='secondary'
-                          className='text-xs'
                         >
                           {tag}
                         </Badge>
                       ))}
                     </div>
                   </div>
-                  <div className='flex flex-col items-end gap-2'>
+                  <div className='flex flex-col items-end gap-space-8'>
                     <Badge
                       variant='outline'
                       className={
                         caseItem.school_type === 'elementary'
-                          ? 'border-blue-200 text-blue-700'
+                          ? 'bg-elementary-subtle text-elementary border-elementary-border'
                           : caseItem.school_type === 'junior_high'
-                            ? 'border-green-200 text-green-700'
+                            ? 'bg-junior-high-subtle text-junior-high border-junior-high-border'
                             : caseItem.school_type === 'high_school'
-                              ? 'border-purple-200 text-purple-700'
-                              : 'border-red-200 text-red-700'
+                              ? 'bg-high-school-subtle text-high-school border-high-school-border'
+                              : 'bg-other-school-subtle text-other-school border-other-school-border'
                       }
                     >
                       {caseItem.school_type === 'elementary'
@@ -168,7 +167,7 @@ export default function CaseItem({
                             ? '高校'
                             : 'その他'}
                     </Badge>
-                    <Badge variant='outline' className='text-xs'>
+                    <Badge variant='outline'>
                       {caseItem.subject}
                     </Badge>
                   </div>
@@ -177,24 +176,24 @@ export default function CaseItem({
 
               <CardContent className='pt-0'>
                 <div className='flex items-center justify-between'>
-                  <div className='flex items-center gap-4'>
-                    <div className='flex items-center gap-2'>
+                  <div className='flex items-center gap-space-16'>
+                    <div className='flex items-center gap-space-8'>
                       <Avatar className='w-8 h-8'>
-                        <AvatarFallback className='text-xs'>
+                        <AvatarFallback className='text-body-xs'>
                           {caseItem.profiles?.display_name.charAt(0)}
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        <p className='text-sm font-medium text-foreground'>
+                        <p className='text-body-sm text-foreground'>
                           {caseItem.profiles?.display_name}
                         </p>
-                        <p className='text-xs text-muted-foreground'>
+                        <p className='text-body-xs text-muted-foreground'>
                           {caseItem.profiles?.school_name}
                         </p>
                       </div>
                     </div>
 
-                    <div className='flex items-center gap-1 text-xs text-muted-foreground'>
+                    <div className='flex items-center gap-space-4 text-meta-sm font-en text-muted-foreground'>
                       <Calendar className='w-3 h-3' />
                       {new Date(caseItem.created_at).toLocaleDateString(
                         'ja-JP',
@@ -202,7 +201,7 @@ export default function CaseItem({
                     </div>
                   </div>
 
-                  <div className='flex items-center gap-4'>
+                  <div className='flex items-center gap-space-16'>
                     <div className='relative z-20'>
                       <CaseLikesButton caseId={caseItem.id} userId={user?.id} />
                     </div>

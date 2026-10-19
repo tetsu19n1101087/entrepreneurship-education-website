@@ -46,7 +46,7 @@ export function LoginWithGoogle() {
   }
 
   return (
-    <form className='space-y-3 mb-4' onSubmit={handleSubmit}>
+    <form className='space-y-space-16 mb-space-16' onSubmit={handleSubmit}>
       <Button
         type='submit'
         variant='outline'
@@ -86,7 +86,7 @@ export function LoginWithGoogle() {
         </div>
       </Button>
       {error && (
-        <div className='text-red-600 text-sm bg-red-50 p-3 rounded-md'>
+        <div className='text-destructive text-body-sm bg-destructive-subtle p-space-16 rounded-md'>
           {error}
         </div>
       )}

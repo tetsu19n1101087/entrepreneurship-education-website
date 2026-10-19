@@ -29,19 +29,19 @@ export function CategoryFilter() {
       name: 'elementary',
       label: '小学校',
       count: counts.elementary,
-      color: 'bg-blue-100 text-blue-800',
+      color: 'bg-elementary-subtle text-elementary border-elementary-border',
     },
     {
       name: 'junior_high',
       label: '中学校',
       count: counts.junior_high,
-      color: 'bg-green-100 text-green-800',
+      color: 'bg-junior-high-subtle text-junior-high border-junior-high-border',
     },
     {
       name: 'high_school',
       label: '高等学校',
       count: counts.high_school,
-      color: 'bg-purple-100 text-purple-800',
+      color: 'bg-high-school-subtle text-high-school border-high-school-border',
     },
   ];
 
@@ -136,24 +136,24 @@ export function CategoryFilter() {
   }, []);
 
   return (
-    <div className='space-y-6'>
+    <div className='space-y-space-24'>
       <Card>
         <CardHeader>
-          <CardTitle className='text-lg'>学校種別</CardTitle>
+          <CardTitle className='text-heading-lg-wide'>学校種別</CardTitle>
         </CardHeader>
-        <CardContent className='space-y-3'>
+        <CardContent className='space-y-space-16'>
           {schoolType.map((category, index) => (
             <Button
               key={index}
               variant={selectedCategory === category.name ? 'default' : 'ghost'}
-              className='w-full justify-between p-3 h-auto'
+              className='w-full justify-between p-space-16 h-auto'
               onClick={() =>
                 setSelectedCategory(
                   selectedCategory === category.name ? null : category.name
                 )
               }
             >
-              <span className='font-medium'>
+              <span>
                 {category.label ?? category.name}
               </span>
               {category.count > 0 && (
@@ -166,21 +166,21 @@ export function CategoryFilter() {
 
       <Card>
         <CardHeader>
-          <CardTitle className='text-lg'>教科・領域</CardTitle>
+          <CardTitle className='text-heading-lg-wide'>教科・領域</CardTitle>
         </CardHeader>
-        <CardContent className='space-y-2'>
+        <CardContent className='space-y-space-8'>
           {subjectList.map((subject: string, index: number) => (
             <Button
               key={index}
               variant={selectedSubject === subject ? 'default' : 'ghost'}
-              className='w-full justify-between p-2 h-auto text-sm'
+              className='w-full justify-between p-space-8 h-auto'
               onClick={() =>
                 setSelectedSubject(selectedSubject === subject ? null : subject)
               }
             >
               <span>{subject}</span>
               {subjectCounts[subject] > 0 && (
-                <Badge variant='outline' className='text-xs'>
+                <Badge variant='outline'>
                   {subjectCounts[subject]}
                 </Badge>
               )}

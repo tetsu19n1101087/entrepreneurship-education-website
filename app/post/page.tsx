@@ -17,13 +17,13 @@ export default async function PostPage() {
 
   return (
     <div className='h-full flex-1 bg-background'>
-      <div className='container mx-auto px-4 py-8'>
+      <div className='container mx-auto px-space-16 py-space-32'>
         <div className='max-w-4xl mx-auto'>
-          <div className='mb-8'>
-            <h1 className='text-3xl font-bold text-foreground mb-2'>
+          <div className='mb-space-32'>
+            <h1 className='text-heading-xl text-foreground mb-space-8'>
               アントレプレナーシップ教育事例を投稿
             </h1>
-            <p className='text-muted-foreground text-lg'>
+            <p className='text-muted-foreground text-body-md'>
               あなたの実践事例を共有して、他の教員の皆様と学び合いましょう
             </p>
           </div>

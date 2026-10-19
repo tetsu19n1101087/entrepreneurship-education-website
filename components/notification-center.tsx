@@ -62,13 +62,13 @@ export function NotificationCenter() {
   const getIcon = (type: string) => {
     switch (type) {
       case "like":
-        return <Heart className="w-4 h-4 text-red-500" />
+        return <Heart className="w-4 h-4 text-destructive" />
       case "comment":
-        return <MessageSquare className="w-4 h-4 text-blue-500" />
+        return <MessageSquare className="w-4 h-4 text-primary" />
       case "follow":
-        return <UserPlus className="w-4 h-4 text-green-500" />
+        return <UserPlus className="w-4 h-4 text-primary" />
       case "post":
-        return <BookOpen className="w-4 h-4 text-purple-500" />
+        return <BookOpen className="w-4 h-4 text-primary" />
       default:
         return <Bell className="w-4 h-4" />
     }
@@ -80,7 +80,7 @@ export function NotificationCenter() {
         <Button variant="outline" size="icon" className="relative bg-transparent">
           <Bell className="w-4 h-4" />
           {unreadCount > 0 && (
-            <Badge className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center text-xs">
+            <Badge className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center font-en">
               {unreadCount}
             </Badge>
           )}
@@ -88,32 +88,32 @@ export function NotificationCenter() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-80">
         <Card className="border-0 shadow-none">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg flex items-center justify-between">
+          <CardHeader className="pb-space-16">
+            <CardTitle className="flex items-center justify-between">
               通知
               {unreadCount > 0 && <Badge variant="secondary">{unreadCount}件の未読</Badge>}
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3 max-h-96 overflow-y-auto">
+          <CardContent className="space-y-space-16 max-h-96 overflow-y-auto">
             {notifications.map((notification) => (
               <div
                 key={notification.id}
-                className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors ${
-                  !notification.isRead ? "bg-primary/5 hover:bg-primary/10" : "hover:bg-muted/50"
+                className={`flex items-start gap-space-16 p-space-16 rounded-md cursor-pointer transition-colors ${
+                  !notification.isRead ? "bg-primary-subtle hover:bg-accent" : "hover:bg-accent"
                 }`}
                 onClick={() => markAsRead(notification.id)}
               >
-                <div className="flex-shrink-0 mt-1">{getIcon(notification.type)}</div>
+                <div className="flex-shrink-0 mt-space-4">{getIcon(notification.type)}</div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center gap-space-8 mb-space-4">
                     <Avatar className="w-6 h-6">
-                      <AvatarFallback className="text-xs">{notification.user.charAt(0)}</AvatarFallback>
+                      <AvatarFallback className="text-body-xs">{notification.user.charAt(0)}</AvatarFallback>
                     </Avatar>
-                    <span className="font-medium text-sm">{notification.user}</span>
+                    <span className="text-body-sm">{notification.user}</span>
                     {!notification.isRead && <div className="w-2 h-2 bg-primary rounded-full"></div>}
                   </div>
-                  <p className="text-sm text-muted-foreground">{notification.content}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{notification.time}</p>
+                  <p className="text-body-sm text-muted-foreground">{notification.content}</p>
+                  <p className="text-body-xs text-muted-foreground mt-space-4">{notification.time}</p>
                 </div>
               </div>
             ))}

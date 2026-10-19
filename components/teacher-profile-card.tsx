@@ -20,28 +20,28 @@ interface TeacherProfileCardProps {
 export function TeacherProfileCard({ teacher }: TeacherProfileCardProps) {
   return (
     <Card className="hover:shadow-md transition-shadow">
-      <CardContent className="p-6">
-        <div className="flex items-start gap-4">
+      <CardContent className="p-space-24">
+        <div className="flex items-start gap-space-16">
           <Avatar className="w-12 h-12">
-            <AvatarFallback className="text-lg">{teacher.name.charAt(0)}</AvatarFallback>
+            <AvatarFallback className="text-body-md">{teacher.name.charAt(0)}</AvatarFallback>
           </Avatar>
 
           <div className="flex-1">
-            <div className="flex items-center gap-2 mb-1">
-              <h3 className="font-semibold">{teacher.name}</h3>
-              <Badge variant="outline" className="text-xs">
+            <div className="flex items-center gap-space-8 mb-space-4">
+              <h3 className="text-heading-md">{teacher.name}</h3>
+              <Badge variant="outline">
                 {teacher.schoolType}
               </Badge>
             </div>
-            <p className="text-sm text-muted-foreground mb-1">{teacher.school}</p>
-            <p className="text-xs text-muted-foreground mb-3">{teacher.position}</p>
+            <p className="text-body-sm text-muted-foreground mb-space-4">{teacher.school}</p>
+            <p className="text-body-xs text-muted-foreground mb-space-16">{teacher.position}</p>
 
-            <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
-              <div className="flex items-center gap-1">
+            <div className="flex items-center gap-space-16 text-body-xs text-muted-foreground mb-space-16">
+              <div className="flex items-center gap-space-4">
                 <BookOpen className="w-3 h-3" />
                 {teacher.postsCount}件の投稿
               </div>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-space-4">
                 {/* followers count is provided from server data */}
                 <span className="sr-only">フォロワー数</span>
                 {teacher.followersCount}人がフォロー

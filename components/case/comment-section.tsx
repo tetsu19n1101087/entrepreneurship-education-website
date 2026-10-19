@@ -40,19 +40,19 @@ export function CommentSection({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className='flex items-center gap-2'>
+        <CardTitle className='flex items-center gap-space-8'>
           <MessageSquare className='w-5 h-5' />
           コメント・質問 ({totalComments})
         </CardTitle>
       </CardHeader>
-      <CardContent className='space-y-6'>
+      <CardContent className='space-y-space-24'>
         {/* Comment Form */}
         {user && (
           <form action={formAction}>
-            <div className='space-y-3'>
-              <div className='flex items-start gap-3'>
+            <div className='space-y-space-16'>
+              <div className='flex items-start gap-space-16'>
                 <Avatar className='w-8 h-8'>
-                  <AvatarFallback className='text-xs'>
+                  <AvatarFallback className='text-body-xs'>
                     {profile?.display_name?.charAt(0) ||
                       user.user_metadata?.display_name?.charAt(0) ||
                       user.email?.charAt(0) ||
@@ -70,7 +70,7 @@ export function CommentSection({
                 </div>
               </div>
               {state?.error && (
-                <div className='text-red-600 text-sm bg-red-50 p-3 rounded-md'>
+                <div className='text-destructive text-body-sm bg-destructive-subtle p-space-16 rounded-md'>
                   {state.error}
                 </div>
               )}
@@ -84,7 +84,7 @@ export function CommentSection({
         )}
 
         {/* Comments List */}
-        <div className='space-y-6'>
+        <div className='space-y-space-24'>
           {comments.map((comment) => (
             <CommentItem
               key={comment.id}
