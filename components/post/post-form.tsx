@@ -1,11 +1,9 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
@@ -13,11 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { Trash2, Upload, X } from 'lucide-react';
-import type { User } from '@supabase/supabase-js';
+import { Textarea } from '@/components/ui/textarea';
 import { createCase } from '@/lib/action';
-import { useActionState } from 'react';
+import type { User } from '@supabase/supabase-js';
+import { Trash2, Upload, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useActionState, useRef, useState } from 'react';
 
 export function PostForm({ user }: { user: User | null }) {
   const MAX_HEADER_IMAGE_SIZE_BYTES = 10 * 1024 * 1024;
@@ -112,9 +111,9 @@ export function PostForm({ user }: { user: User | null }) {
   };
 
   return (
-    <form action={formAction} className='space-y-6'>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-        <div className='space-y-2'>
+    <form action={formAction} className='space-y-space-24'>
+      <div className='grid grid-cols-1 gap-space-24 md:grid-cols-2'>
+        <div className='space-y-space-8'>
           <Label htmlFor='title'>事例タイトル *</Label>
           <Input
             id='title'
@@ -124,7 +123,7 @@ export function PostForm({ user }: { user: User | null }) {
           />
         </div>
 
-        <div className='space-y-2'>
+        <div className='space-y-space-8'>
           <Label htmlFor='category'>学校種別 *</Label>
           <Select name='school_type'>
             <SelectTrigger>
@@ -140,8 +139,8 @@ export function PostForm({ user }: { user: User | null }) {
         </div>
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-        <div className='space-y-2'>
+      <div className='grid grid-cols-1 gap-space-16 md:grid-cols-3'>
+        <div className='space-y-space-8'>
           <Label htmlFor='subject'>教科・領域 *</Label>
           <Select name='subject'>
             <SelectTrigger>
@@ -157,7 +156,7 @@ export function PostForm({ user }: { user: User | null }) {
           </Select>
         </div>
 
-        <div className='space-y-2'>
+        <div className='space-y-space-8'>
           <Label htmlFor='grade_level'>対象学年</Label>
           <Input
             id='grade_level'
@@ -166,7 +165,7 @@ export function PostForm({ user }: { user: User | null }) {
           />
         </div>
 
-        <div className='space-y-2'>
+        <div className='space-y-space-8'>
           <Label htmlFor='duration'>実施期間</Label>
           <Input
             id='duration'
@@ -176,7 +175,7 @@ export function PostForm({ user }: { user: User | null }) {
         </div>
       </div>
 
-      <div className='space-y-2'>
+      <div className='space-y-space-8'>
         <Label htmlFor='description'>事例概要 *</Label>
         <Input
           id='description'
@@ -186,7 +185,7 @@ export function PostForm({ user }: { user: User | null }) {
         />
       </div>
 
-      <div className='space-y-2'>
+      <div className='space-y-space-8'>
         <Label htmlFor='content'>事例詳細 *</Label>
         <Textarea
           id='content'
@@ -197,7 +196,7 @@ export function PostForm({ user }: { user: User | null }) {
         />
       </div>
 
-      <div className='space-y-2'>
+      <div className='space-y-space-8'>
         <Label htmlFor='materials'>使用教材・リソース</Label>
         <Textarea
           name='materials'
@@ -207,7 +206,7 @@ export function PostForm({ user }: { user: User | null }) {
         />
       </div>
 
-      <div className='space-y-2'>
+      <div className='space-y-space-8'>
         <Label htmlFor='header_image'>ヘッダー画像</Label>
         <Input
           ref={headerImageInputRef}
@@ -221,7 +220,7 @@ export function PostForm({ user }: { user: User | null }) {
         <Button
           type='button'
           variant='outline'
-          className={`group h-auto w-full p-0 bg-transparent hover:bg-muted/10 hover:text-foreground ${
+          className={`group h-auto w-full rounded-md bg-transparent p-0 hover:bg-accent hover:text-foreground ${
             isDragActive ? 'border-primary' : 'border-border'
           }`}
           onClick={() => headerImageInputRef.current?.click()}
@@ -232,29 +231,28 @@ export function PostForm({ user }: { user: User | null }) {
           onDragLeave={() => setIsDragActive(false)}
           onDrop={handleDropHeaderImage}
         >
-          <div className='w-full rounded-md border border-dashed border-muted-foreground/40 bg-muted/30 px-4 py-10 text-center'>
-            <div className='mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-muted'>
+          <div className='w-full rounded-md border border-dashed border-input bg-muted px-space-16 py-space-48 text-center'>
+            <div className='mx-auto mb-space-16 flex h-12 w-12 items-center justify-center rounded-full bg-muted'>
               <Upload className='h-6 w-6 text-muted-foreground' />
             </div>
-            <p className='text-base font-medium transition-opacity group-hover:opacity-50'>
+            <p className='text-heading-md transition-opacity group-hover:opacity-50'>
               画像をアップロード
             </p>
-            <p className='mt-1 text-sm text-muted-foreground'>
+            <p className='mt-space-4 text-body-sm text-muted-foreground'>
               ドラッグ&ドロップ または クリックして選択
             </p>
           </div>
         </Button>
 
         {headerImageName && (
-          <div className='flex items-center justify-between rounded-full border bg-muted/30 px-4 py-2'>
-            <p className='truncate text-sm font-medium'>{headerImageName}</p>
+          <div className='flex items-center justify-between rounded-full border bg-muted px-space-16 py-space-8'>
+            <p className='truncate text-body-sm'>{headerImageName}</p>
             <Button
               type='button'
               variant='default'
               size='icon'
               onClick={handleResetHeaderImage}
               aria-label='選択した画像をリセット'
-              className='h-9 w-9 rounded-full'
             >
               <Trash2 className='h-4 w-4' />
             </Button>
@@ -262,13 +260,13 @@ export function PostForm({ user }: { user: User | null }) {
         )}
 
         {headerImageError && (
-          <p className='text-red-600 text-sm'>{headerImageError}</p>
+          <p className='text-body-sm text-destructive'>{headerImageError}</p>
         )}
       </div>
 
-      <div className='space-y-2'>
+      <div className='space-y-space-8'>
         <Label>タグ</Label>
-        <div className='flex gap-2 mb-2'>
+        <div className='mb-space-8 flex gap-space-8'>
           <Input
             placeholder='タグを入力してEnterキーで追加'
             value={newTag}
@@ -281,13 +279,13 @@ export function PostForm({ user }: { user: User | null }) {
             追加
           </Button>
         </div>
-        <div className='flex flex-wrap gap-2'>
+        <div className='flex flex-wrap gap-space-8'>
           {tags.map((tag) => (
             <span key={tag}>
-              <Badge variant='secondary' className='gap-1'>
+              <Badge variant='secondary' className='gap-space-4'>
                 {tag}
                 <X
-                  className='w-3 h-3 cursor-pointer'
+                  className='h-3 w-3 cursor-pointer'
                   onClick={() => removeTag(tag)}
                 />
               </Badge>
@@ -298,12 +296,12 @@ export function PostForm({ user }: { user: User | null }) {
       </div>
 
       {state?.error && (
-        <div className='text-red-600 text-sm bg-red-50 p-3 rounded-md'>
+        <div className='rounded-md bg-destructive-subtle p-space-16 text-body-sm text-destructive'>
           {state.error}
         </div>
       )}
 
-      <div className='flex justify-end gap-4'>
+      <div className='flex justify-end gap-space-16'>
         <Button type='button' variant='outline' onClick={() => router.back()}>
           キャンセル
         </Button>

@@ -1,63 +1,1715 @@
 <!doctype html>
 <html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>entre-web デザイントークン</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Inter:wght@400;700&display=swap">
-<style>
-  :root { --page: #F8F9FD; --surface: #FFFFFF; --ink: #1B1C1D; --muted: #5C5F62; --line: #E1E2E6; --box: #C9E6FF; --err: #AB3140; color-scheme: light; }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--page); color: var(--ink); font-family: Inter, "Noto Sans JP", sans-serif; font-size: 14px; line-height: 1.71; padding: 32px 16px 64px; }
-  .wrap { max-width: 1000px; margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
-  section { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
-  h1 { font-size: 28px; line-height: 1.57; margin: 0; } h2 { font-size: 20px; line-height: 1.6; margin: 0; } h3 { font-size: 14px; margin: 8px 0 0; }
-  p { margin: 0; }
-  .muted { color: var(--muted); }
-  .mono, code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
-  .problems li.err { color: var(--err); font-weight: 700; }
-  .ramp { display: grid; gap: 8px; } .ramp-head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; } .ramp-head span { color: var(--muted); font-size: 12px; }
-  .chips { display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 4px; }
-  .singles { display: flex; gap: 8px; } .singles .chip { width: 72px; }
-  .chip { display: grid; gap: 2px; min-width: 0; } .chip i { display: block; aspect-ratio: 1; border-radius: 8px; border: 1px solid var(--line); }
-  .chip b, .chip code { font-size: 11px; overflow-wrap: anywhere; } .chip code { color: var(--muted); }
-  .chip.used i { outline: 2px solid var(--ink); outline-offset: 2px; }
-  @media (max-width: 640px) { .chips { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
-  .scroll { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
-  table { border-collapse: collapse; width: 100%; min-width: 760px; }
-  th, td { text-align: left; padding: 8px 16px; border-bottom: 1px solid var(--line); vertical-align: middle; }
-  th { font-size: 12px; color: var(--muted); font-weight: 400; } tr:last-child td { border-bottom: 0; }
-  .sw { display: inline-block; width: 20px; height: 20px; border-radius: 4px; border: 1px solid var(--line); vertical-align: middle; margin-right: 8px; }
-  .tag { color: var(--muted); }
-  .types { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 24px; }
-  .type-row { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 8px 24px; align-items: center; padding-block: 16px; border-bottom: 1px solid var(--line); }
-  .type-row:last-child { border-bottom: 0; }
-  .type-meta { display: grid; gap: 2px; } .type-meta span { font-size: 12px; line-height: 1.67; color: var(--muted); }
-  .sample { max-width: 32em; } .sample span { background: var(--box); box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-  @media (max-width: 640px) { .type-row { grid-template-columns: minmax(0, 1fr); } }
-</style>
-</head>
-<body>
-<div class="wrap">
-  <header style="display:grid;gap:8px">
-    <h1>entre-web デザイントークン</h1>
-    <p class="muted">千葉県の教員向け、アントレプレナーシップ教育事例共有プラットフォーム（2026-10-19 時点の確定値）。tokens.json から生成。プリミティブ → エイリアス → 用途別の3層で、用途別は必ずエイリアスを参照する。</p>
-    <p>検証: 問題なし</p>
-  </header>
-  <section><h2>プリミティブ</h2><p class="muted">枠付きの色はエイリアスから参照されている段階。</p>
-    <div class="ramp"><div class="ramp-head"><h3>blue</h3><span>primary（#1B4965 の色相、彩度 40 で生成）</span></div><div class="chips"><div class="chip"><i style="background:#F6FAFF"></i><b>25</b><code>#F6FAFF</code></div><div class="chip used"><i style="background:#E5F2FF"></i><b>50</b><code>#E5F2FF</code></div><div class="chip used"><i style="background:#C9E6FF"></i><b>100</b><code>#C9E6FF</code></div><div class="chip"><i style="background:#8CCEFE"></i><b>200</b><code>#8CCEFE</code></div><div class="chip"><i style="background:#70B2E1"></i><b>300</b><code>#70B2E1</code></div><div class="chip"><i style="background:#5497C5"></i><b>400</b><code>#5497C5</code></div><div class="chip"><i style="background:#367DA9"></i><b>500</b><code>#367DA9</code></div><div class="chip used"><i style="background:#10648F"></i><b>600</b><code>#10648F</code></div><div class="chip"><i style="background:#004B6E"></i><b>700</b><code>#004B6E</code></div><div class="chip used"><i style="background:#00344E"></i><b>800</b><code>#00344E</code></div><div class="chip"><i style="background:#001E2F"></i><b>900</b><code>#001E2F</code></div></div></div>
-    <div class="ramp"><div class="ramp-head"><h3>teal</h3><span>tertiary → secondary として使う</span></div><div class="chips"><div class="chip"><i style="background:#E4FFF9"></i><b>25</b><code>#E4FFF9</code></div><div class="chip"><i style="background:#B4FFF2"></i><b>50</b><code>#B4FFF2</code></div><div class="chip"><i style="background:#89F5E5"></i><b>100</b><code>#89F5E5</code></div><div class="chip"><i style="background:#6BD8C9"></i><b>200</b><code>#6BD8C9</code></div><div class="chip"><i style="background:#4DBCAD"></i><b>300</b><code>#4DBCAD</code></div><div class="chip"><i style="background:#29A193"></i><b>400</b><code>#29A193</code></div><div class="chip"><i style="background:#008679"></i><b>500</b><code>#008679</code></div><div class="chip used"><i style="background:#006A60"></i><b>600</b><code>#006A60</code></div><div class="chip"><i style="background:#005048"></i><b>700</b><code>#005048</code></div><div class="chip"><i style="background:#003731"></i><b>800</b><code>#003731</code></div><div class="chip"><i style="background:#00201C"></i><b>900</b><code>#00201C</code></div></div></div>
-    <div class="ramp"><div class="ramp-head"><h3>gray</h3><span>neutral-variant（青みのあるグレー）</span></div><div class="chips"><div class="chip"><i style="background:#F8F9FD"></i><b>25</b><code>#F8F9FD</code></div><div class="chip used"><i style="background:#EFF1F5"></i><b>50</b><code>#EFF1F5</code></div><div class="chip used"><i style="background:#E1E2E6"></i><b>100</b><code>#E1E2E6</code></div><div class="chip"><i style="background:#C4C6CA"></i><b>200</b><code>#C4C6CA</code></div><div class="chip"><i style="background:#A9ABAF"></i><b>300</b><code>#A9ABAF</code></div><div class="chip used"><i style="background:#8E9194"></i><b>400</b><code>#8E9194</code></div><div class="chip"><i style="background:#75777B"></i><b>500</b><code>#75777B</code></div><div class="chip used"><i style="background:#5C5F62"></i><b>600</b><code>#5C5F62</code></div><div class="chip"><i style="background:#44474A"></i><b>700</b><code>#44474A</code></div><div class="chip"><i style="background:#2E3134"></i><b>800</b><code>#2E3134</code></div><div class="chip used"><i style="background:#191C1F"></i><b>900</b><code>#191C1F</code></div></div></div>
-    <div class="ramp"><div class="ramp-head"><h3>red</h3><span>error（#DB5461 から生成）</span></div><div class="chips"><div class="chip"><i style="background:#FFF8F7"></i><b>25</b><code>#FFF8F7</code></div><div class="chip used"><i style="background:#FFEDEC"></i><b>50</b><code>#FFEDEC</code></div><div class="chip"><i style="background:#FFDADA"></i><b>100</b><code>#FFDADA</code></div><div class="chip"><i style="background:#FFB3B5"></i><b>200</b><code>#FFB3B5</code></div><div class="chip"><i style="background:#FF888F"></i><b>300</b><code>#FF888F</code></div><div class="chip"><i style="background:#EE626F"></i><b>400</b><code>#EE626F</code></div><div class="chip"><i style="background:#CD4957"></i><b>500</b><code>#CD4957</code></div><div class="chip used"><i style="background:#AB3140"></i><b>600</b><code>#AB3140</code></div><div class="chip"><i style="background:#8B172B"></i><b>700</b><code>#8B172B</code></div><div class="chip"><i style="background:#680018"></i><b>800</b><code>#680018</code></div><div class="chip"><i style="background:#40000C"></i><b>900</b><code>#40000C</code></div></div></div>
-    <div class="ramp"><div class="ramp-head"><h3>yellow</h3><span>小学校（#FED700 から生成）</span></div><div class="chips"><div class="chip"><i style="background:#FFF9EE"></i><b>25</b><code>#FFF9EE</code></div><div class="chip used"><i style="background:#FFF0C1"></i><b>50</b><code>#FFF0C1</code></div><div class="chip"><i style="background:#FFE169"></i><b>100</b><code>#FFE169</code></div><div class="chip used"><i style="background:#E8C400"></i><b>200</b><code>#E8C400</code></div><div class="chip"><i style="background:#C8A900"></i><b>300</b><code>#C8A900</code></div><div class="chip"><i style="background:#AA8F00"></i><b>400</b><code>#AA8F00</code></div><div class="chip"><i style="background:#8C7600"></i><b>500</b><code>#8C7600</code></div><div class="chip"><i style="background:#6F5D00"></i><b>600</b><code>#6F5D00</code></div><div class="chip used"><i style="background:#544600"></i><b>700</b><code>#544600</code></div><div class="chip"><i style="background:#3A3000"></i><b>800</b><code>#3A3000</code></div><div class="chip"><i style="background:#221B00"></i><b>900</b><code>#221B00</code></div></div></div>
-    <div class="ramp"><div class="ramp-head"><h3>mint</h3><span>中学校（#55D6BE の色相、彩度 24 で生成）</span></div><div class="chips"><div class="chip"><i style="background:#E5FFF7"></i><b>25</b><code>#E5FFF7</code></div><div class="chip used"><i style="background:#CBFBEE"></i><b>50</b><code>#CBFBEE</code></div><div class="chip"><i style="background:#BDECE0"></i><b>100</b><code>#BDECE0</code></div><div class="chip used"><i style="background:#A1D0C4"></i><b>200</b><code>#A1D0C4</code></div><div class="chip"><i style="background:#87B4A9"></i><b>300</b><code>#87B4A9</code></div><div class="chip"><i style="background:#6C998F"></i><b>400</b><code>#6C998F</code></div><div class="chip"><i style="background:#537F75"></i><b>500</b><code>#537F75</code></div><div class="chip"><i style="background:#3A665D"></i><b>600</b><code>#3A665D</code></div><div class="chip used"><i style="background:#214E45"></i><b>700</b><code>#214E45</code></div><div class="chip"><i style="background:#04372F"></i><b>800</b><code>#04372F</code></div><div class="chip"><i style="background:#00201B"></i><b>900</b><code>#00201B</code></div></div></div>
-    <div class="ramp"><div class="ramp-head"><h3>periwinkle</h3><span>高等学校（#89A6FB から生成）</span></div><div class="chips"><div class="chip"><i style="background:#FAF8FF"></i><b>25</b><code>#FAF8FF</code></div><div class="chip used"><i style="background:#EEF0FF"></i><b>50</b><code>#EEF0FF</code></div><div class="chip"><i style="background:#DBE1FF"></i><b>100</b><code>#DBE1FF</code></div><div class="chip used"><i style="background:#B3C5FF"></i><b>200</b><code>#B3C5FF</code></div><div class="chip"><i style="background:#8BA8FD"></i><b>300</b><code>#8BA8FD</code></div><div class="chip"><i style="background:#718EE1"></i><b>400</b><code>#718EE1</code></div><div class="chip"><i style="background:#5674C5"></i><b>500</b><code>#5674C5</code></div><div class="chip"><i style="background:#3C5AAA"></i><b>600</b><code>#3C5AAA</code></div><div class="chip used"><i style="background:#204291"></i><b>700</b><code>#204291</code></div><div class="chip"><i style="background:#002A76"></i><b>800</b><code>#002A76</code></div><div class="chip"><i style="background:#00184A"></i><b>900</b><code>#00184A</code></div></div></div>
-    <div class="ramp"><div class="ramp-head"><h3>rose</h3><span>その他（#D1A7A0 から生成）</span></div><div class="chips"><div class="chip"><i style="background:#FFF8F6"></i><b>25</b><code>#FFF8F6</code></div><div class="chip used"><i style="background:#FFEDEA"></i><b>50</b><code>#FFEDEA</code></div><div class="chip"><i style="background:#FFDAD4"></i><b>100</b><code>#FFDAD4</code></div><div class="chip used"><i style="background:#E8BCB5"></i><b>200</b><code>#E8BCB5</code></div><div class="chip"><i style="background:#CBA29B"></i><b>300</b><code>#CBA29B</code></div><div class="chip"><i style="background:#AF8781"></i><b>400</b><code>#AF8781</code></div><div class="chip"><i style="background:#936E68"></i><b>500</b><code>#936E68</code></div><div class="chip"><i style="background:#785650"></i><b>600</b><code>#785650</code></div><div class="chip used"><i style="background:#5E3F3A"></i><b>700</b><code>#5E3F3A</code></div><div class="chip"><i style="background:#452925"></i><b>800</b><code>#452925</code></div><div class="chip"><i style="background:#2D1511"></i><b>900</b><code>#2D1511</code></div></div></div><div class="singles"><div class="chip used"><i style="background:#FFFFFF"></i><b>white</b><code>#FFFFFF</code></div><div class="chip used"><i style="background:#2C2C2C"></i><b>charcoal</b><code>#2C2C2C</code></div></div></section>
-  <section><h2>エイリアス</h2><div class="scroll"><table><thead><tr><th>エイリアス</th><th>参照するプリミティブ</th><th>メモ</th></tr></thead><tbody><tr><td class="mono">primary/50</td><td class="mono"><span class="sw" style="background:#E5F2FF"></span>blue/50 <span class="muted">#E5F2FF</span></td><td></td></tr><tr><td class="mono">primary/100</td><td class="mono"><span class="sw" style="background:#C9E6FF"></span>blue/100 <span class="muted">#C9E6FF</span></td><td></td></tr><tr><td class="mono">primary/600</td><td class="mono"><span class="sw" style="background:#10648F"></span>blue/600 <span class="muted">#10648F</span></td><td>ロゴ（シンボルとサイト名）はこの色を直接使う</td></tr><tr><td class="mono">primary/800</td><td class="mono"><span class="sw" style="background:#00344E"></span>blue/800 <span class="muted">#00344E</span></td><td></td></tr><tr><td class="mono">secondary/600</td><td class="mono"><span class="sw" style="background:#006A60"></span>teal/600 <span class="muted">#006A60</span></td><td></td></tr><tr><td class="mono">neutral/white</td><td class="mono"><span class="sw" style="background:#FFFFFF"></span>white <span class="muted">#FFFFFF</span></td><td></td></tr><tr><td class="mono">neutral/charcoal</td><td class="mono"><span class="sw" style="background:#2C2C2C"></span>charcoal <span class="muted">#2C2C2C</span></td><td></td></tr><tr><td class="mono">neutral/50</td><td class="mono"><span class="sw" style="background:#EFF1F5"></span>gray/50 <span class="muted">#EFF1F5</span></td><td></td></tr><tr><td class="mono">neutral/100</td><td class="mono"><span class="sw" style="background:#E1E2E6"></span>gray/100 <span class="muted">#E1E2E6</span></td><td></td></tr><tr><td class="mono">neutral/400</td><td class="mono"><span class="sw" style="background:#8E9194"></span>gray/400 <span class="muted">#8E9194</span></td><td></td></tr><tr><td class="mono">neutral/600</td><td class="mono"><span class="sw" style="background:#5C5F62"></span>gray/600 <span class="muted">#5C5F62</span></td><td></td></tr><tr><td class="mono">neutral/900</td><td class="mono"><span class="sw" style="background:#191C1F"></span>gray/900 <span class="muted">#191C1F</span></td><td></td></tr><tr><td class="mono">danger/50</td><td class="mono"><span class="sw" style="background:#FFEDEC"></span>red/50 <span class="muted">#FFEDEC</span></td><td></td></tr><tr><td class="mono">danger/600</td><td class="mono"><span class="sw" style="background:#AB3140"></span>red/600 <span class="muted">#AB3140</span></td><td></td></tr><tr><td class="mono">school/elementary/50</td><td class="mono"><span class="sw" style="background:#FFF0C1"></span>yellow/50 <span class="muted">#FFF0C1</span></td><td></td></tr><tr><td class="mono">school/elementary/200</td><td class="mono"><span class="sw" style="background:#E8C400"></span>yellow/200 <span class="muted">#E8C400</span></td><td></td></tr><tr><td class="mono">school/elementary/700</td><td class="mono"><span class="sw" style="background:#544600"></span>yellow/700 <span class="muted">#544600</span></td><td></td></tr><tr><td class="mono">school/junior-high/50</td><td class="mono"><span class="sw" style="background:#CBFBEE"></span>mint/50 <span class="muted">#CBFBEE</span></td><td></td></tr><tr><td class="mono">school/junior-high/200</td><td class="mono"><span class="sw" style="background:#A1D0C4"></span>mint/200 <span class="muted">#A1D0C4</span></td><td></td></tr><tr><td class="mono">school/junior-high/700</td><td class="mono"><span class="sw" style="background:#214E45"></span>mint/700 <span class="muted">#214E45</span></td><td></td></tr><tr><td class="mono">school/high-school/50</td><td class="mono"><span class="sw" style="background:#EEF0FF"></span>periwinkle/50 <span class="muted">#EEF0FF</span></td><td></td></tr><tr><td class="mono">school/high-school/200</td><td class="mono"><span class="sw" style="background:#B3C5FF"></span>periwinkle/200 <span class="muted">#B3C5FF</span></td><td></td></tr><tr><td class="mono">school/high-school/700</td><td class="mono"><span class="sw" style="background:#204291"></span>periwinkle/700 <span class="muted">#204291</span></td><td></td></tr><tr><td class="mono">school/other-school/50</td><td class="mono"><span class="sw" style="background:#FFEDEA"></span>rose/50 <span class="muted">#FFEDEA</span></td><td></td></tr><tr><td class="mono">school/other-school/200</td><td class="mono"><span class="sw" style="background:#E8BCB5"></span>rose/200 <span class="muted">#E8BCB5</span></td><td></td></tr><tr><td class="mono">school/other-school/700</td><td class="mono"><span class="sw" style="background:#5E3F3A"></span>rose/700 <span class="muted">#5E3F3A</span></td><td></td></tr></tbody></table></div></section>
-  <section><h2>用途別（セマンティック）</h2><p class="muted">コントラスト比は、その色が実際に重なる相手との比。✓ / ✗ は tokens.json の min（文字 4.5、UI 部品 3）に対する判定。</p><h3>bg</h3><div class="scroll"><table><thead><tr><th>項目</th><th>参照</th><th>用途</th><th>コントラスト比（相手）</th></tr></thead><tbody><tr><td class="mono">bg/default</td><td class="mono"><span class="sw" style="background:#EFF1F5"></span>neutral/50 <span class="muted">→ gray/50 #EFF1F5</span></td><td>ページの背景</td><td class="mono">—</td></tr><tr><td class="mono">bg/surface/default</td><td class="mono"><span class="sw" style="background:#FFFFFF"></span>neutral/white <span class="muted">→ white #FFFFFF</span></td><td>カード、ヘッダー、ポップオーバー</td><td class="mono">—</td></tr><tr><td class="mono">bg/surface/hover</td><td class="mono"><span class="sw" style="background:#EFF1F5"></span>neutral/50 <span class="muted">→ gray/50 #EFF1F5</span></td><td>outline / ghost ボタン、サイドバーの絞り込みボタンのホバー</td><td class="mono">—</td></tr><tr><td class="mono">bg/skeleton</td><td class="mono"><span class="sw" style="background:#C9E6FF"></span>primary/100 <span class="muted">→ blue/100 #C9E6FF</span></td><td>読み込み中のスケルトン</td><td class="mono">—</td></tr><tr><td class="mono">bg/inverse</td><td class="mono"><span class="sw" style="background:#2C2C2C"></span>neutral/charcoal <span class="muted">→ charcoal #2C2C2C</span></td><td>フッターなどの暗い面</td><td class="mono">13.97 ✓ <span class="tag">neutral/white</span></td></tr><tr><td class="mono">bg/primary/default</td><td class="mono"><span class="sw" style="background:#10648F"></span>primary/600 <span class="muted">→ blue/600 #10648F</span></td><td>主要ボタン</td><td class="mono">6.48 ✓ <span class="tag">neutral/white</span></td></tr><tr><td class="mono">bg/primary/hover</td><td class="mono"><span class="sw" style="background:#FFFFFF"></span>neutral/white <span class="muted">→ white #FFFFFF</span></td><td>主要ボタンのホバー（背景と文字を反転）</td><td class="mono">6.48 ✓ <span class="tag">primary/600</span></td></tr><tr><td class="mono">bg/primary/subtle</td><td class="mono"><span class="sw" style="background:#E5F2FF"></span>primary/50 <span class="muted">→ blue/50 #E5F2FF</span></td><td>タグ、統計カードのアイコンタイル</td><td class="mono">11.54 ✓ <span class="tag">primary/800</span></td></tr><tr><td class="mono">bg/secondary/default</td><td class="mono"><span class="sw" style="background:#006A60"></span>secondary/600 <span class="muted">→ teal/600 #006A60</span></td><td>副次ボタン（使いどころは保留）</td><td class="mono">6.50 ✓ <span class="tag">neutral/white</span></td></tr><tr><td class="mono">bg/secondary/hover</td><td class="mono"><span class="sw" style="background:#FFFFFF"></span>neutral/white <span class="muted">→ white #FFFFFF</span></td><td>副次ボタンのホバー（背景と文字を反転）</td><td class="mono">6.50 ✓ <span class="tag">secondary/600</span></td></tr><tr><td class="mono">bg/destructive/default</td><td class="mono"><span class="sw" style="background:#AB3140"></span>danger/600 <span class="muted">→ red/600 #AB3140</span></td><td>削除ボタン</td><td class="mono">6.47 ✓ <span class="tag">neutral/white</span></td></tr><tr><td class="mono">bg/destructive/hover</td><td class="mono"><span class="sw" style="background:#FFFFFF"></span>neutral/white <span class="muted">→ white #FFFFFF</span></td><td>削除ボタンのホバー（背景と文字を反転）</td><td class="mono">6.47 ✓ <span class="tag">danger/600</span></td></tr><tr><td class="mono">bg/destructive/subtle</td><td class="mono"><span class="sw" style="background:#FFEDEC"></span>danger/50 <span class="muted">→ red/50 #FFEDEC</span></td><td>エラーボックスの背景</td><td class="mono">5.72 ✓ <span class="tag">danger/600</span></td></tr><tr><td class="mono">bg/disabled</td><td class="mono"><span class="sw" style="background:#E1E2E6"></span>neutral/100 <span class="muted">→ gray/100 #E1E2E6</span></td><td>無効なボタン・入力欄</td><td class="mono">—</td></tr><tr><td class="mono">bg/elementary/subtle</td><td class="mono"><span class="sw" style="background:#FFF0C1"></span>school/elementary/50 <span class="muted">→ yellow/50 #FFF0C1</span></td><td>小学校のバッジの背景</td><td class="mono">8.20 ✓ <span class="tag">school/elementary/700</span></td></tr><tr><td class="mono">bg/junior-high/subtle</td><td class="mono"><span class="sw" style="background:#CBFBEE"></span>school/junior-high/50 <span class="muted">→ mint/50 #CBFBEE</span></td><td>中学校のバッジの背景</td><td class="mono">8.29 ✓ <span class="tag">school/junior-high/700</span></td></tr><tr><td class="mono">bg/high-school/subtle</td><td class="mono"><span class="sw" style="background:#EEF0FF"></span>school/high-school/50 <span class="muted">→ periwinkle/50 #EEF0FF</span></td><td>高等学校のバッジの背景</td><td class="mono">8.24 ✓ <span class="tag">school/high-school/700</span></td></tr><tr><td class="mono">bg/other-school/subtle</td><td class="mono"><span class="sw" style="background:#FFEDEA"></span>school/other-school/50 <span class="muted">→ rose/50 #FFEDEA</span></td><td>その他のバッジの背景</td><td class="mono">8.25 ✓ <span class="tag">school/other-school/700</span></td></tr></tbody></table></div><h3>text</h3><div class="scroll"><table><thead><tr><th>項目</th><th>参照</th><th>用途</th><th>コントラスト比（相手）</th></tr></thead><tbody><tr><td class="mono">text/default</td><td class="mono"><span class="sw" style="background:#191C1F"></span>neutral/900 <span class="muted">→ gray/900 #191C1F</span></td><td>本文、見出し</td><td class="mono">15.13 ✓ <span class="tag">neutral/50</span></td></tr><tr><td class="mono">text/muted</td><td class="mono"><span class="sw" style="background:#5C5F62"></span>neutral/600 <span class="muted">→ gray/600 #5C5F62</span></td><td>説明文、日付、学校名</td><td class="mono">5.68 ✓ <span class="tag">neutral/50</span></td></tr><tr><td class="mono">text/inverse</td><td class="mono"><span class="sw" style="background:#FFFFFF"></span>neutral/white <span class="muted">→ white #FFFFFF</span></td><td>bg/inverse の上の文字・リンク（リンクは下線で示す）</td><td class="mono">13.97 ✓ <span class="tag">neutral/charcoal</span></td></tr><tr><td class="mono">text/disabled</td><td class="mono"><span class="sw" style="background:#8E9194"></span>neutral/400 <span class="muted">→ gray/400 #8E9194</span></td><td>無効な部品の文字（基準の対象外）</td><td class="mono">2.45 <span class="tag">neutral/100</span></td></tr><tr><td class="mono">text/primary/default</td><td class="mono"><span class="sw" style="background:#10648F"></span>primary/600 <span class="muted">→ blue/600 #10648F</span></td><td>リンク（下線あり）、アイコン、メニュー項目と主要ボタンのホバー時の文字</td><td class="mono">5.73 ✓ <span class="tag">neutral/50</span></td></tr><tr><td class="mono">text/primary/on-primary</td><td class="mono"><span class="sw" style="background:#FFFFFF"></span>neutral/white <span class="muted">→ white #FFFFFF</span></td><td>主要ボタンの文字</td><td class="mono">13.12 ✓ <span class="tag">primary/800</span></td></tr><tr><td class="mono">text/primary/on-subtle</td><td class="mono"><span class="sw" style="background:#00344E"></span>primary/800 <span class="muted">→ blue/800 #00344E</span></td><td>タグの文字</td><td class="mono">11.54 ✓ <span class="tag">primary/50</span></td></tr><tr><td class="mono">text/secondary/on-secondary</td><td class="mono"><span class="sw" style="background:#FFFFFF"></span>neutral/white <span class="muted">→ white #FFFFFF</span></td><td>副次ボタンの文字</td><td class="mono">6.50 ✓ <span class="tag">secondary/600</span></td></tr><tr><td class="mono">text/secondary/on-secondary-hover</td><td class="mono"><span class="sw" style="background:#006A60"></span>secondary/600 <span class="muted">→ teal/600 #006A60</span></td><td>副次ボタンのホバー時の文字</td><td class="mono">6.50 ✓ <span class="tag">neutral/white</span></td></tr><tr><td class="mono">text/destructive/default</td><td class="mono"><span class="sw" style="background:#AB3140"></span>danger/600 <span class="muted">→ red/600 #AB3140</span></td><td>エラーメッセージ</td><td class="mono">5.72 ✓ <span class="tag">danger/50</span></td></tr><tr><td class="mono">text/destructive/on-destructive</td><td class="mono"><span class="sw" style="background:#FFFFFF"></span>neutral/white <span class="muted">→ white #FFFFFF</span></td><td>削除ボタンの文字</td><td class="mono">6.47 ✓ <span class="tag">danger/600</span></td></tr><tr><td class="mono">text/destructive/on-destructive-hover</td><td class="mono"><span class="sw" style="background:#AB3140"></span>danger/600 <span class="muted">→ red/600 #AB3140</span></td><td>削除ボタンのホバー時の文字</td><td class="mono">6.47 ✓ <span class="tag">neutral/white</span></td></tr><tr><td class="mono">text/elementary</td><td class="mono"><span class="sw" style="background:#544600"></span>school/elementary/700 <span class="muted">→ yellow/700 #544600</span></td><td>小学校のバッジの文字</td><td class="mono">8.20 ✓ <span class="tag">school/elementary/50</span></td></tr><tr><td class="mono">text/junior-high</td><td class="mono"><span class="sw" style="background:#214E45"></span>school/junior-high/700 <span class="muted">→ mint/700 #214E45</span></td><td>中学校のバッジの文字</td><td class="mono">8.29 ✓ <span class="tag">school/junior-high/50</span></td></tr><tr><td class="mono">text/high-school</td><td class="mono"><span class="sw" style="background:#204291"></span>school/high-school/700 <span class="muted">→ periwinkle/700 #204291</span></td><td>高等学校のバッジの文字</td><td class="mono">8.24 ✓ <span class="tag">school/high-school/50</span></td></tr><tr><td class="mono">text/other-school</td><td class="mono"><span class="sw" style="background:#5E3F3A"></span>school/other-school/700 <span class="muted">→ rose/700 #5E3F3A</span></td><td>その他のバッジの文字</td><td class="mono">8.25 ✓ <span class="tag">school/other-school/50</span></td></tr></tbody></table></div><h3>border</h3><div class="scroll"><table><thead><tr><th>項目</th><th>参照</th><th>用途</th><th>コントラスト比（相手）</th></tr></thead><tbody><tr><td class="mono">border/default</td><td class="mono"><span class="sw" style="background:#E1E2E6"></span>neutral/100 <span class="muted">→ gray/100 #E1E2E6</span></td><td>カード、区切り線（装飾なので基準の対象外）</td><td class="mono">1.29 <span class="tag">neutral/white</span></td></tr><tr><td class="mono">border/input</td><td class="mono"><span class="sw" style="background:#8E9194"></span>neutral/400 <span class="muted">→ gray/400 #8E9194</span></td><td>入力欄の枠</td><td class="mono">3.17 ✓ <span class="tag">neutral/white</span></td></tr><tr><td class="mono">border/text-stroke</td><td class="mono"><span class="sw" style="background:#191C1F"></span>neutral/900 <span class="muted">→ gray/900 #191C1F</span></td><td>文字の縁取り（-webkit-text-stroke。text/default と同じ色）</td><td class="mono">17.11 ✓ <span class="tag">neutral/white</span></td></tr><tr><td class="mono">border/focus</td><td class="mono"><span class="sw" style="background:#10648F"></span>primary/600 <span class="muted">→ blue/600 #10648F</span></td><td>フォーカスリング</td><td class="mono">6.48 ✓ <span class="tag">neutral/white</span></td></tr><tr><td class="mono">border/primary</td><td class="mono"><span class="sw" style="background:#10648F"></span>primary/600 <span class="muted">→ blue/600 #10648F</span></td><td>主要ボタンの枠（ホバー時に白背景の縁として見える）</td><td class="mono">6.48 ✓ <span class="tag">neutral/white</span></td></tr><tr><td class="mono">border/secondary</td><td class="mono"><span class="sw" style="background:#006A60"></span>secondary/600 <span class="muted">→ teal/600 #006A60</span></td><td>副次ボタンの枠（ホバー時に白背景の縁として見える）</td><td class="mono">6.50 ✓ <span class="tag">neutral/white</span></td></tr><tr><td class="mono">border/destructive/default</td><td class="mono"><span class="sw" style="background:#AB3140"></span>danger/600 <span class="muted">→ red/600 #AB3140</span></td><td>入力エラーの枠、削除ボタンの枠</td><td class="mono">6.47 ✓ <span class="tag">neutral/white</span></td></tr><tr><td class="mono">border/destructive/focus</td><td class="mono"><span class="sw" style="background:#AB3140"></span>danger/600 <span class="muted">→ red/600 #AB3140</span></td><td>エラー時のフォーカスリング</td><td class="mono">6.47 ✓ <span class="tag">neutral/white</span></td></tr><tr><td class="mono">border/elementary</td><td class="mono"><span class="sw" style="background:#E8C400"></span>school/elementary/200 <span class="muted">→ yellow/200 #E8C400</span></td><td>小学校のバッジの枠（背景があるので装飾扱い）</td><td class="mono">1.70 <span class="tag">neutral/white</span></td></tr><tr><td class="mono">border/junior-high</td><td class="mono"><span class="sw" style="background:#A1D0C4"></span>school/junior-high/200 <span class="muted">→ mint/200 #A1D0C4</span></td><td>中学校のバッジの枠（背景があるので装飾扱い）</td><td class="mono">1.70 <span class="tag">neutral/white</span></td></tr><tr><td class="mono">border/high-school</td><td class="mono"><span class="sw" style="background:#B3C5FF"></span>school/high-school/200 <span class="muted">→ periwinkle/200 #B3C5FF</span></td><td>高等学校のバッジの枠（背景があるので装飾扱い）</td><td class="mono">1.70 <span class="tag">neutral/white</span></td></tr><tr><td class="mono">border/other-school</td><td class="mono"><span class="sw" style="background:#E8BCB5"></span>school/other-school/200 <span class="muted">→ rose/200 #E8BCB5</span></td><td>その他のバッジの枠（背景があるので装飾扱い）</td><td class="mono">1.71 <span class="tag">neutral/white</span></td></tr></tbody></table></div><h3>icon</h3><div class="scroll"><table><thead><tr><th>項目</th><th>参照</th><th>用途</th><th>コントラスト比（相手）</th></tr></thead><tbody><tr><td class="mono">icon/default</td><td class="mono"><span class="sw" style="background:#191C1F"></span>neutral/900 <span class="muted">→ gray/900 #191C1F</span></td><td>標準のアイコン</td><td class="mono">15.13 ✓ <span class="tag">neutral/50</span></td></tr><tr><td class="mono">icon/muted</td><td class="mono"><span class="sw" style="background:#5C5F62"></span>neutral/600 <span class="muted">→ gray/600 #5C5F62</span></td><td>補足のアイコン（日時・件数の横など）</td><td class="mono">5.68 ✓ <span class="tag">neutral/50</span></td></tr><tr><td class="mono">icon/primary</td><td class="mono"><span class="sw" style="background:#10648F"></span>primary/600 <span class="muted">→ blue/600 #10648F</span></td><td>強調するアイコン（通知、統計カードのアイコンタイル）、主要ボタンのホバー時</td><td class="mono">5.73 ✓ <span class="tag">neutral/50</span></td></tr><tr><td class="mono">icon/inverse</td><td class="mono"><span class="sw" style="background:#FFFFFF"></span>neutral/white <span class="muted">→ white #FFFFFF</span></td><td>塗りのボタン（主要・副次・削除）の中のアイコン、フッターのアイコン</td><td class="mono">6.48 ✓ <span class="tag">primary/600</span></td></tr><tr><td class="mono">icon/destructive</td><td class="mono"><span class="sw" style="background:#AB3140"></span>danger/600 <span class="muted">→ red/600 #AB3140</span></td><td>削除・エラーのアイコン、削除ボタンのホバー時</td><td class="mono">6.47 ✓ <span class="tag">neutral/white</span></td></tr><tr><td class="mono">icon/disabled</td><td class="mono"><span class="sw" style="background:#8E9194"></span>neutral/400 <span class="muted">→ gray/400 #8E9194</span></td><td>無効な部品の中のアイコン（基準の対象外）</td><td class="mono">2.45 <span class="tag">neutral/100</span></td></tr><tr><td class="mono">icon/elementary</td><td class="mono"><span class="sw" style="background:#544600"></span>school/elementary/700 <span class="muted">→ yellow/700 #544600</span></td><td>小学校のバッジの中のアイコン</td><td class="mono">8.20 ✓ <span class="tag">school/elementary/50</span></td></tr><tr><td class="mono">icon/junior-high</td><td class="mono"><span class="sw" style="background:#214E45"></span>school/junior-high/700 <span class="muted">→ mint/700 #214E45</span></td><td>中学校のバッジの中のアイコン</td><td class="mono">8.29 ✓ <span class="tag">school/junior-high/50</span></td></tr><tr><td class="mono">icon/high-school</td><td class="mono"><span class="sw" style="background:#204291"></span>school/high-school/700 <span class="muted">→ periwinkle/700 #204291</span></td><td>高等学校のバッジの中のアイコン</td><td class="mono">8.24 ✓ <span class="tag">school/high-school/50</span></td></tr><tr><td class="mono">icon/other-school</td><td class="mono"><span class="sw" style="background:#5E3F3A"></span>school/other-school/700 <span class="muted">→ rose/700 #5E3F3A</span></td><td>その他のバッジの中のアイコン</td><td class="mono">8.25 ✓ <span class="tag">school/other-school/50</span></td></tr></tbody></table></div></section>
-  <section><h2>タイポグラフィ</h2><p class="muted">水色の帯がテキストボックス（行の高さ）。字間は Figma では %、コードでは em。</p><div class="types"><div class="type-row"><div class="type-meta"><code>heading/xl</code><span>28px / bold 700 / 1.57 → 43.96px / 字間 4%（0.04em）</span><span>OpenType: palt（Figma は手作業で設定）</span><span>ページ見出し（h1）、統計カードの数値</span></div><p class="sample" style="font-size:28px;font-weight:700;line-height:1.57;letter-spacing:0.04em;font-feature-settings:&quot;palt&quot;"><span>起業家教育の事例 128</span></p></div><div class="type-row"><div class="type-meta"><code>heading/lg</code><span>20px / bold 700 / 1.6 → 32px / 字間 4%（0.04em）</span><span>OpenType: palt（Figma は手作業で設定）</span><span>事例カードのタイトル、ヘッダーのサイト名</span></div><p class="sample" style="font-size:20px;font-weight:700;line-height:1.6;letter-spacing:0.04em;font-feature-settings:&quot;palt&quot;"><span>商店街で開くこどもマーケット</span></p></div><div class="type-row"><div class="type-meta"><code>heading/lg-wide</code><span>20px / bold 700 / 1.6 → 32px / 字間 10%（0.1em）</span><span>OpenType: palt（Figma は手作業で設定）</span><span>トップページのセクション見出し</span></div><p class="sample" style="font-size:20px;font-weight:700;line-height:1.6;letter-spacing:0.1em;font-feature-settings:&quot;palt&quot;"><span>学校種別</span></p></div><div class="type-row"><div class="type-meta"><code>heading/md</code><span>16px / bold 700 / 1.75 → 28px / 字間 4%（0.04em）</span><span>OpenType: palt（Figma は手作業で設定）</span><span>記事・ページ内の見出し</span></div><p class="sample" style="font-size:16px;font-weight:700;line-height:1.75;letter-spacing:0.04em;font-feature-settings:&quot;palt&quot;"><span>授業の流れ</span></p></div><div class="type-row"><div class="type-meta"><code>body/md</code><span>16px / normal 400 / 1.75 → 28px / 字間 0%（0em）</span><span>本文の標準。読ませる文章</span></div><p class="sample" style="font-size:16px;font-weight:400;line-height:1.75;letter-spacing:0em"><span>地域の商店街と連携し、児童が自分たちで考えた商品を販売する体験を通して、Entrepreneurship の基礎を学びました。</span></p></div><div class="type-row"><div class="type-meta"><code>body/sm</code><span>14px / normal 400 / 1.71 → 23.94px / 字間 0%（0em）</span><span>情報が詰まった UI（カード説明、フォームラベルなど）</span></div><p class="sample" style="font-size:14px;font-weight:400;line-height:1.71;letter-spacing:0em"><span>地域の商店街と連携し、児童が自分たちで考えた商品を販売する体験を通して、Entrepreneurship の基礎を学びました。</span></p></div><div class="type-row"><div class="type-meta"><code>body/xs</code><span>12px / normal 400 / 1.67 → 20.04px / 字間 0%（0em）</span><span>学校名などの日本語の補足</span></div><p class="sample" style="font-size:12px;font-weight:400;line-height:1.67;letter-spacing:0em"><span>千葉市立〇〇小学校 ・ 5年生</span></p></div><div class="type-row"><div class="type-meta"><code>label/md</code><span>14px / bold 700 / 1.71 → 23.94px / 字間 2%（0.02em）</span><span>UI の見出しラベル（ヘッダーのナビ、メニュー項目、メニューの見出し、タブなど）</span></div><p class="sample" style="font-size:14px;font-weight:700;line-height:1.71;letter-spacing:0.02em"><span>アカウント設定</span></p></div><div class="type-row"><div class="type-meta"><code>label/sm</code><span>12px / normal 400 / 1 → 12px / 字間 0%（0em）</span><span>バッジ専用（1行のみ）</span></div><p class="sample" style="font-size:12px;font-weight:400;line-height:1;letter-spacing:0em"><span>小学校 ・ プログラミング</span></p></div><div class="type-row"><div class="type-meta"><code>button/sm</code><span>12px / bold 700 / 1 → 12px / 字間 0%（0em）</span><span>小ボタンのラベル（ボタンの標準）</span></div><p class="sample" style="font-size:12px;font-weight:700;line-height:1;letter-spacing:0em"><span>ログイン</span></p></div><div class="type-row"><div class="type-meta"><code>button/lg</code><span>20px / bold 700 / 1 → 20px / 字間 0%（0em）</span><span>大ボタンのラベル</span></div><p class="sample" style="font-size:20px;font-weight:700;line-height:1;letter-spacing:0em"><span>事例を投稿</span></p></div><div class="type-row"><div class="type-meta"><code>meta/sm</code><span>12px / bold 700 / 1.67 → 20.04px / 字間 0%（0em）</span><span>フォント: font-family/en（Inter）</span><span>記事カードの日時、事例詳細の投稿日・更新日、いいね数・コメント数などの数字（日本語を含まないもの。日付は 2026.10.15 の形）</span></div><p class="sample" style="font-size:12px;font-weight:700;line-height:1.67;letter-spacing:0em;font-family:&quot;Inter&quot;, sans-serif"><span>2026.10.15 ・ 128</span></p></div></div></section>
-</div>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>entre-web デザイントークン</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Inter:wght@400;700&display=swap"
+    />
+    <style>
+      :root {
+        --page: #f8f9fd;
+        --surface: #ffffff;
+        --ink: #1b1c1d;
+        --muted: #5c5f62;
+        --line: #e1e2e6;
+        --box: #c9e6ff;
+        --err: #ab3140;
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--page);
+        color: var(--ink);
+        font-family: Inter, 'Noto Sans JP', sans-serif;
+        font-size: 14px;
+        line-height: 1.71;
+        padding: 32px 16px 64px;
+      }
+      .wrap {
+        max-width: 1000px;
+        margin-inline: auto;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 48px;
+      }
+      section {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+      }
+      h1 {
+        font-size: 28px;
+        line-height: 1.57;
+        margin: 0;
+      }
+      h2 {
+        font-size: 20px;
+        line-height: 1.6;
+        margin: 0;
+      }
+      h3 {
+        font-size: 14px;
+        margin: 8px 0 0;
+      }
+      p {
+        margin: 0;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .mono,
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 12px;
+      }
+      .problems li.err {
+        color: var(--err);
+        font-weight: 700;
+      }
+      .ramp {
+        display: grid;
+        gap: 8px;
+      }
+      .ramp-head {
+        display: flex;
+        gap: 8px;
+        align-items: baseline;
+        flex-wrap: wrap;
+      }
+      .ramp-head span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .chips {
+        display: grid;
+        grid-template-columns: repeat(11, minmax(0, 1fr));
+        gap: 4px;
+      }
+      .singles {
+        display: flex;
+        gap: 8px;
+      }
+      .singles .chip {
+        width: 72px;
+      }
+      .chip {
+        display: grid;
+        gap: 2px;
+        min-width: 0;
+      }
+      .chip i {
+        display: block;
+        aspect-ratio: 1;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+      }
+      .chip b,
+      .chip code {
+        font-size: 11px;
+        overflow-wrap: anywhere;
+      }
+      .chip code {
+        color: var(--muted);
+      }
+      .chip.used i {
+        outline: 2px solid var(--ink);
+        outline-offset: 2px;
+      }
+      @media (max-width: 640px) {
+        .chips {
+          grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
+      }
+      .scroll {
+        overflow-x: auto;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        min-width: 760px;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 8px 16px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: middle;
+      }
+      th {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 400;
+      }
+      tr:last-child td {
+        border-bottom: 0;
+      }
+      .sw {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        border: 1px solid var(--line);
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+      .tag {
+        color: var(--muted);
+      }
+      .types {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 8px 24px;
+      }
+      .type-row {
+        display: grid;
+        grid-template-columns: 240px minmax(0, 1fr);
+        gap: 8px 24px;
+        align-items: center;
+        padding-block: 16px;
+        border-bottom: 1px solid var(--line);
+      }
+      .type-row:last-child {
+        border-bottom: 0;
+      }
+      .type-meta {
+        display: grid;
+        gap: 2px;
+      }
+      .type-meta span {
+        font-size: 12px;
+        line-height: 1.67;
+        color: var(--muted);
+      }
+      .sample {
+        max-width: 32em;
+      }
+      .sample span {
+        background: var(--box);
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
+      }
+      @media (max-width: 640px) {
+        .type-row {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header style="display: grid; gap: 8px">
+        <h1>entre-web デザイントークン</h1>
+        <p class="muted">
+          千葉県の教員向け、アントレプレナーシップ教育事例共有プラットフォーム（2026-10-19
+          時点の確定値）。tokens.json から生成。プリミティブ → エイリアス →
+          用途別の3層で、用途別は必ずエイリアスを参照する。
+        </p>
+        <p>検証: 問題なし</p>
+      </header>
+      <section>
+        <h2>プリミティブ</h2>
+        <p class="muted">枠付きの色はエイリアスから参照されている段階。</p>
+        <div class="ramp">
+          <div class="ramp-head">
+            <h3>blue</h3>
+            <span>primary（#1B4965 の色相、彩度 40 で生成）</span>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <i style="background: #f6faff"></i><b>25</b><code>#F6FAFF</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #e5f2ff"></i><b>50</b><code>#E5F2FF</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #c9e6ff"></i><b>100</b><code>#C9E6FF</code>
+            </div>
+            <div class="chip">
+              <i style="background: #8ccefe"></i><b>200</b><code>#8CCEFE</code>
+            </div>
+            <div class="chip">
+              <i style="background: #70b2e1"></i><b>300</b><code>#70B2E1</code>
+            </div>
+            <div class="chip">
+              <i style="background: #5497c5"></i><b>400</b><code>#5497C5</code>
+            </div>
+            <div class="chip">
+              <i style="background: #367da9"></i><b>500</b><code>#367DA9</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #10648f"></i><b>600</b><code>#10648F</code>
+            </div>
+            <div class="chip">
+              <i style="background: #004b6e"></i><b>700</b><code>#004B6E</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #00344e"></i><b>800</b><code>#00344E</code>
+            </div>
+            <div class="chip">
+              <i style="background: #001e2f"></i><b>900</b><code>#001E2F</code>
+            </div>
+          </div>
+        </div>
+        <div class="ramp">
+          <div class="ramp-head">
+            <h3>teal</h3>
+            <span>tertiary → secondary として使う</span>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <i style="background: #e4fff9"></i><b>25</b><code>#E4FFF9</code>
+            </div>
+            <div class="chip">
+              <i style="background: #b4fff2"></i><b>50</b><code>#B4FFF2</code>
+            </div>
+            <div class="chip">
+              <i style="background: #89f5e5"></i><b>100</b><code>#89F5E5</code>
+            </div>
+            <div class="chip">
+              <i style="background: #6bd8c9"></i><b>200</b><code>#6BD8C9</code>
+            </div>
+            <div class="chip">
+              <i style="background: #4dbcad"></i><b>300</b><code>#4DBCAD</code>
+            </div>
+            <div class="chip">
+              <i style="background: #29a193"></i><b>400</b><code>#29A193</code>
+            </div>
+            <div class="chip">
+              <i style="background: #008679"></i><b>500</b><code>#008679</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #006a60"></i><b>600</b><code>#006A60</code>
+            </div>
+            <div class="chip">
+              <i style="background: #005048"></i><b>700</b><code>#005048</code>
+            </div>
+            <div class="chip">
+              <i style="background: #003731"></i><b>800</b><code>#003731</code>
+            </div>
+            <div class="chip">
+              <i style="background: #00201c"></i><b>900</b><code>#00201C</code>
+            </div>
+          </div>
+        </div>
+        <div class="ramp">
+          <div class="ramp-head">
+            <h3>gray</h3>
+            <span>neutral-variant（青みのあるグレー）</span>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <i style="background: #f8f9fd"></i><b>25</b><code>#F8F9FD</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #eff1f5"></i><b>50</b><code>#EFF1F5</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #e1e2e6"></i><b>100</b><code>#E1E2E6</code>
+            </div>
+            <div class="chip">
+              <i style="background: #c4c6ca"></i><b>200</b><code>#C4C6CA</code>
+            </div>
+            <div class="chip">
+              <i style="background: #a9abaf"></i><b>300</b><code>#A9ABAF</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #8e9194"></i><b>400</b><code>#8E9194</code>
+            </div>
+            <div class="chip">
+              <i style="background: #75777b"></i><b>500</b><code>#75777B</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #5c5f62"></i><b>600</b><code>#5C5F62</code>
+            </div>
+            <div class="chip">
+              <i style="background: #44474a"></i><b>700</b><code>#44474A</code>
+            </div>
+            <div class="chip">
+              <i style="background: #2e3134"></i><b>800</b><code>#2E3134</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #191c1f"></i><b>900</b><code>#191C1F</code>
+            </div>
+          </div>
+        </div>
+        <div class="ramp">
+          <div class="ramp-head">
+            <h3>red</h3>
+            <span>error（#DB5461 から生成）</span>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <i style="background: #fff8f7"></i><b>25</b><code>#FFF8F7</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #ffedec"></i><b>50</b><code>#FFEDEC</code>
+            </div>
+            <div class="chip">
+              <i style="background: #ffdada"></i><b>100</b><code>#FFDADA</code>
+            </div>
+            <div class="chip">
+              <i style="background: #ffb3b5"></i><b>200</b><code>#FFB3B5</code>
+            </div>
+            <div class="chip">
+              <i style="background: #ff888f"></i><b>300</b><code>#FF888F</code>
+            </div>
+            <div class="chip">
+              <i style="background: #ee626f"></i><b>400</b><code>#EE626F</code>
+            </div>
+            <div class="chip">
+              <i style="background: #cd4957"></i><b>500</b><code>#CD4957</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #ab3140"></i><b>600</b><code>#AB3140</code>
+            </div>
+            <div class="chip">
+              <i style="background: #8b172b"></i><b>700</b><code>#8B172B</code>
+            </div>
+            <div class="chip">
+              <i style="background: #680018"></i><b>800</b><code>#680018</code>
+            </div>
+            <div class="chip">
+              <i style="background: #40000c"></i><b>900</b><code>#40000C</code>
+            </div>
+          </div>
+        </div>
+        <div class="ramp">
+          <div class="ramp-head">
+            <h3>yellow</h3>
+            <span>小学校（#FED700 から生成）</span>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <i style="background: #fff9ee"></i><b>25</b><code>#FFF9EE</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #fff0c1"></i><b>50</b><code>#FFF0C1</code>
+            </div>
+            <div class="chip">
+              <i style="background: #ffe169"></i><b>100</b><code>#FFE169</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #e8c400"></i><b>200</b><code>#E8C400</code>
+            </div>
+            <div class="chip">
+              <i style="background: #c8a900"></i><b>300</b><code>#C8A900</code>
+            </div>
+            <div class="chip">
+              <i style="background: #aa8f00"></i><b>400</b><code>#AA8F00</code>
+            </div>
+            <div class="chip">
+              <i style="background: #8c7600"></i><b>500</b><code>#8C7600</code>
+            </div>
+            <div class="chip">
+              <i style="background: #6f5d00"></i><b>600</b><code>#6F5D00</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #544600"></i><b>700</b><code>#544600</code>
+            </div>
+            <div class="chip">
+              <i style="background: #3a3000"></i><b>800</b><code>#3A3000</code>
+            </div>
+            <div class="chip">
+              <i style="background: #221b00"></i><b>900</b><code>#221B00</code>
+            </div>
+          </div>
+        </div>
+        <div class="ramp">
+          <div class="ramp-head">
+            <h3>mint</h3>
+            <span>中学校（#55D6BE の色相、彩度 24 で生成）</span>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <i style="background: #e5fff7"></i><b>25</b><code>#E5FFF7</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #cbfbee"></i><b>50</b><code>#CBFBEE</code>
+            </div>
+            <div class="chip">
+              <i style="background: #bdece0"></i><b>100</b><code>#BDECE0</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #a1d0c4"></i><b>200</b><code>#A1D0C4</code>
+            </div>
+            <div class="chip">
+              <i style="background: #87b4a9"></i><b>300</b><code>#87B4A9</code>
+            </div>
+            <div class="chip">
+              <i style="background: #6c998f"></i><b>400</b><code>#6C998F</code>
+            </div>
+            <div class="chip">
+              <i style="background: #537f75"></i><b>500</b><code>#537F75</code>
+            </div>
+            <div class="chip">
+              <i style="background: #3a665d"></i><b>600</b><code>#3A665D</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #214e45"></i><b>700</b><code>#214E45</code>
+            </div>
+            <div class="chip">
+              <i style="background: #04372f"></i><b>800</b><code>#04372F</code>
+            </div>
+            <div class="chip">
+              <i style="background: #00201b"></i><b>900</b><code>#00201B</code>
+            </div>
+          </div>
+        </div>
+        <div class="ramp">
+          <div class="ramp-head">
+            <h3>periwinkle</h3>
+            <span>高等学校（#89A6FB から生成）</span>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <i style="background: #faf8ff"></i><b>25</b><code>#FAF8FF</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #eef0ff"></i><b>50</b><code>#EEF0FF</code>
+            </div>
+            <div class="chip">
+              <i style="background: #dbe1ff"></i><b>100</b><code>#DBE1FF</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #b3c5ff"></i><b>200</b><code>#B3C5FF</code>
+            </div>
+            <div class="chip">
+              <i style="background: #8ba8fd"></i><b>300</b><code>#8BA8FD</code>
+            </div>
+            <div class="chip">
+              <i style="background: #718ee1"></i><b>400</b><code>#718EE1</code>
+            </div>
+            <div class="chip">
+              <i style="background: #5674c5"></i><b>500</b><code>#5674C5</code>
+            </div>
+            <div class="chip">
+              <i style="background: #3c5aaa"></i><b>600</b><code>#3C5AAA</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #204291"></i><b>700</b><code>#204291</code>
+            </div>
+            <div class="chip">
+              <i style="background: #002a76"></i><b>800</b><code>#002A76</code>
+            </div>
+            <div class="chip">
+              <i style="background: #00184a"></i><b>900</b><code>#00184A</code>
+            </div>
+          </div>
+        </div>
+        <div class="ramp">
+          <div class="ramp-head">
+            <h3>rose</h3>
+            <span>その他（#D1A7A0 から生成）</span>
+          </div>
+          <div class="chips">
+            <div class="chip">
+              <i style="background: #fff8f6"></i><b>25</b><code>#FFF8F6</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #ffedea"></i><b>50</b><code>#FFEDEA</code>
+            </div>
+            <div class="chip">
+              <i style="background: #ffdad4"></i><b>100</b><code>#FFDAD4</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #e8bcb5"></i><b>200</b><code>#E8BCB5</code>
+            </div>
+            <div class="chip">
+              <i style="background: #cba29b"></i><b>300</b><code>#CBA29B</code>
+            </div>
+            <div class="chip">
+              <i style="background: #af8781"></i><b>400</b><code>#AF8781</code>
+            </div>
+            <div class="chip">
+              <i style="background: #936e68"></i><b>500</b><code>#936E68</code>
+            </div>
+            <div class="chip">
+              <i style="background: #785650"></i><b>600</b><code>#785650</code>
+            </div>
+            <div class="chip used">
+              <i style="background: #5e3f3a"></i><b>700</b><code>#5E3F3A</code>
+            </div>
+            <div class="chip">
+              <i style="background: #452925"></i><b>800</b><code>#452925</code>
+            </div>
+            <div class="chip">
+              <i style="background: #2d1511"></i><b>900</b><code>#2D1511</code>
+            </div>
+          </div>
+        </div>
+        <div class="singles">
+          <div class="chip used">
+            <i style="background: #ffffff"></i><b>white</b><code>#FFFFFF</code>
+          </div>
+          <div class="chip used">
+            <i style="background: #2c2c2c"></i><b>charcoal</b
+            ><code>#2C2C2C</code>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>エイリアス</h2>
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>エイリアス</th>
+                <th>参照するプリミティブ</th>
+                <th>メモ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">primary/50</td>
+                <td class="mono">
+                  <span class="sw" style="background: #e5f2ff"></span>blue/50
+                  <span class="muted">#E5F2FF</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">primary/100</td>
+                <td class="mono">
+                  <span class="sw" style="background: #c9e6ff"></span>blue/100
+                  <span class="muted">#C9E6FF</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">primary/600</td>
+                <td class="mono">
+                  <span class="sw" style="background: #10648f"></span>blue/600
+                  <span class="muted">#10648F</span>
+                </td>
+                <td>ロゴ（シンボルとサイト名）はこの色を直接使う</td>
+              </tr>
+              <tr>
+                <td class="mono">primary/800</td>
+                <td class="mono">
+                  <span class="sw" style="background: #00344e"></span>blue/800
+                  <span class="muted">#00344E</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">secondary/600</td>
+                <td class="mono">
+                  <span class="sw" style="background: #006a60"></span>teal/600
+                  <span class="muted">#006A60</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">neutral/white</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ffffff"></span>white
+                  <span class="muted">#FFFFFF</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">neutral/charcoal</td>
+                <td class="mono">
+                  <span class="sw" style="background: #2c2c2c"></span>charcoal
+                  <span class="muted">#2C2C2C</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">neutral/50</td>
+                <td class="mono">
+                  <span class="sw" style="background: #eff1f5"></span>gray/50
+                  <span class="muted">#EFF1F5</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">neutral/100</td>
+                <td class="mono">
+                  <span class="sw" style="background: #e1e2e6"></span>gray/100
+                  <span class="muted">#E1E2E6</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">neutral/400</td>
+                <td class="mono">
+                  <span class="sw" style="background: #8e9194"></span>gray/400
+                  <span class="muted">#8E9194</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">neutral/600</td>
+                <td class="mono">
+                  <span class="sw" style="background: #5c5f62"></span>gray/600
+                  <span class="muted">#5C5F62</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">neutral/900</td>
+                <td class="mono">
+                  <span class="sw" style="background: #191c1f"></span>gray/900
+                  <span class="muted">#191C1F</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">danger/50</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ffedec"></span>red/50
+                  <span class="muted">#FFEDEC</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">danger/600</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ab3140"></span>red/600
+                  <span class="muted">#AB3140</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">school/elementary/50</td>
+                <td class="mono">
+                  <span class="sw" style="background: #fff0c1"></span>yellow/50
+                  <span class="muted">#FFF0C1</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">school/elementary/200</td>
+                <td class="mono">
+                  <span class="sw" style="background: #e8c400"></span>yellow/200
+                  <span class="muted">#E8C400</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">school/elementary/700</td>
+                <td class="mono">
+                  <span class="sw" style="background: #544600"></span>yellow/700
+                  <span class="muted">#544600</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">school/junior-high/50</td>
+                <td class="mono">
+                  <span class="sw" style="background: #cbfbee"></span>mint/50
+                  <span class="muted">#CBFBEE</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">school/junior-high/200</td>
+                <td class="mono">
+                  <span class="sw" style="background: #a1d0c4"></span>mint/200
+                  <span class="muted">#A1D0C4</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">school/junior-high/700</td>
+                <td class="mono">
+                  <span class="sw" style="background: #214e45"></span>mint/700
+                  <span class="muted">#214E45</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">school/high-school/50</td>
+                <td class="mono">
+                  <span class="sw" style="background: #eef0ff"></span
+                  >periwinkle/50 <span class="muted">#EEF0FF</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">school/high-school/200</td>
+                <td class="mono">
+                  <span class="sw" style="background: #b3c5ff"></span
+                  >periwinkle/200 <span class="muted">#B3C5FF</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">school/high-school/700</td>
+                <td class="mono">
+                  <span class="sw" style="background: #204291"></span
+                  >periwinkle/700 <span class="muted">#204291</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">school/other-school/50</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ffedea"></span>rose/50
+                  <span class="muted">#FFEDEA</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">school/other-school/200</td>
+                <td class="mono">
+                  <span class="sw" style="background: #e8bcb5"></span>rose/200
+                  <span class="muted">#E8BCB5</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mono">school/other-school/700</td>
+                <td class="mono">
+                  <span class="sw" style="background: #5e3f3a"></span>rose/700
+                  <span class="muted">#5E3F3A</span>
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section>
+        <h2>用途別（セマンティック）</h2>
+        <p class="muted">
+          コントラスト比は、その色が実際に重なる相手との比。✓ / ✗ は tokens.json
+          の min（文字 4.5、UI 部品 3）に対する判定。
+        </p>
+        <h3>bg</h3>
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>項目</th>
+                <th>参照</th>
+                <th>用途</th>
+                <th>コントラスト比（相手）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">bg/default</td>
+                <td class="mono">
+                  <span class="sw" style="background: #eff1f5"></span>neutral/50
+                  <span class="muted">→ gray/50 #EFF1F5</span>
+                </td>
+                <td>ページの背景</td>
+                <td class="mono">—</td>
+              </tr>
+              <tr>
+                <td class="mono">bg/surface/default</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ffffff"></span
+                  >neutral/white <span class="muted">→ white #FFFFFF</span>
+                </td>
+                <td>カード、ヘッダー、ポップオーバー</td>
+                <td class="mono">—</td>
+              </tr>
+              <tr>
+                <td class="mono">bg/surface/hover</td>
+                <td class="mono">
+                  <span class="sw" style="background: #eff1f5"></span>neutral/50
+                  <span class="muted">→ gray/50 #EFF1F5</span>
+                </td>
+                <td>
+                  outline / ghost ボタン、サイドバーの絞り込みボタンのホバー
+                </td>
+                <td class="mono">—</td>
+              </tr>
+              <tr>
+                <td class="mono">bg/skeleton</td>
+                <td class="mono">
+                  <span class="sw" style="background: #c9e6ff"></span
+                  >primary/100 <span class="muted">→ blue/100 #C9E6FF</span>
+                </td>
+                <td>読み込み中のスケルトン</td>
+                <td class="mono">—</td>
+              </tr>
+              <tr>
+                <td class="mono">bg/inverse</td>
+                <td class="mono">
+                  <span class="sw" style="background: #2c2c2c"></span
+                  >neutral/charcoal
+                  <span class="muted">→ charcoal #2C2C2C</span>
+                </td>
+                <td>フッターなどの暗い面</td>
+                <td class="mono">
+                  13.97 ✓ <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">bg/primary/default</td>
+                <td class="mono">
+                  <span class="sw" style="background: #10648f"></span
+                  >primary/600 <span class="muted">→ blue/600 #10648F</span>
+                </td>
+                <td>主要ボタン</td>
+                <td class="mono">
+                  6.48 ✓ <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">bg/primary/hover</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ffffff"></span
+                  >neutral/white <span class="muted">→ white #FFFFFF</span>
+                </td>
+                <td>主要ボタンのホバー（背景と文字を反転）</td>
+                <td class="mono">
+                  6.48 ✓ <span class="tag">primary/600</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">bg/primary/subtle</td>
+                <td class="mono">
+                  <span class="sw" style="background: #e5f2ff"></span>primary/50
+                  <span class="muted">→ blue/50 #E5F2FF</span>
+                </td>
+                <td>タグ、統計カードのアイコンタイル</td>
+                <td class="mono">
+                  11.54 ✓ <span class="tag">primary/800</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">bg/secondary/default</td>
+                <td class="mono">
+                  <span class="sw" style="background: #006a60"></span
+                  >secondary/600 <span class="muted">→ teal/600 #006A60</span>
+                </td>
+                <td>副次ボタン（使いどころは保留）</td>
+                <td class="mono">
+                  6.50 ✓ <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">bg/secondary/hover</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ffffff"></span
+                  >neutral/white <span class="muted">→ white #FFFFFF</span>
+                </td>
+                <td>副次ボタンのホバー（背景と文字を反転）</td>
+                <td class="mono">
+                  6.50 ✓ <span class="tag">secondary/600</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">bg/destructive/default</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ab3140"></span>danger/600
+                  <span class="muted">→ red/600 #AB3140</span>
+                </td>
+                <td>削除ボタン</td>
+                <td class="mono">
+                  6.47 ✓ <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">bg/destructive/hover</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ffffff"></span
+                  >neutral/white <span class="muted">→ white #FFFFFF</span>
+                </td>
+                <td>削除ボタンのホバー（背景と文字を反転）</td>
+                <td class="mono">6.47 ✓ <span class="tag">danger/600</span></td>
+              </tr>
+              <tr>
+                <td class="mono">bg/destructive/subtle</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ffedec"></span>danger/50
+                  <span class="muted">→ red/50 #FFEDEC</span>
+                </td>
+                <td>エラーボックスの背景</td>
+                <td class="mono">5.72 ✓ <span class="tag">danger/600</span></td>
+              </tr>
+              <tr>
+                <td class="mono">bg/disabled</td>
+                <td class="mono">
+                  <span class="sw" style="background: #e1e2e6"></span
+                  >neutral/100 <span class="muted">→ gray/100 #E1E2E6</span>
+                </td>
+                <td>無効なボタン・入力欄</td>
+                <td class="mono">—</td>
+              </tr>
+              <tr>
+                <td class="mono">bg/elementary/subtle</td>
+                <td class="mono">
+                  <span class="sw" style="background: #fff0c1"></span
+                  >school/elementary/50
+                  <span class="muted">→ yellow/50 #FFF0C1</span>
+                </td>
+                <td>小学校のバッジの背景</td>
+                <td class="mono">
+                  8.20 ✓ <span class="tag">school/elementary/700</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">bg/junior-high/subtle</td>
+                <td class="mono">
+                  <span class="sw" style="background: #cbfbee"></span
+                  >school/junior-high/50
+                  <span class="muted">→ mint/50 #CBFBEE</span>
+                </td>
+                <td>中学校のバッジの背景</td>
+                <td class="mono">
+                  8.29 ✓ <span class="tag">school/junior-high/700</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">bg/high-school/subtle</td>
+                <td class="mono">
+                  <span class="sw" style="background: #eef0ff"></span
+                  >school/high-school/50
+                  <span class="muted">→ periwinkle/50 #EEF0FF</span>
+                </td>
+                <td>高等学校のバッジの背景</td>
+                <td class="mono">
+                  8.24 ✓ <span class="tag">school/high-school/700</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">bg/other-school/subtle</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ffedea"></span
+                  >school/other-school/50
+                  <span class="muted">→ rose/50 #FFEDEA</span>
+                </td>
+                <td>その他のバッジの背景</td>
+                <td class="mono">
+                  8.25 ✓ <span class="tag">school/other-school/700</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>text</h3>
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>項目</th>
+                <th>参照</th>
+                <th>用途</th>
+                <th>コントラスト比（相手）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">text/default</td>
+                <td class="mono">
+                  <span class="sw" style="background: #191c1f"></span
+                  >neutral/900 <span class="muted">→ gray/900 #191C1F</span>
+                </td>
+                <td>本文、見出し</td>
+                <td class="mono">
+                  15.13 ✓ <span class="tag">neutral/50</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">text/muted</td>
+                <td class="mono">
+                  <span class="sw" style="background: #5c5f62"></span
+                  >neutral/600 <span class="muted">→ gray/600 #5C5F62</span>
+                </td>
+                <td>説明文、日付、学校名</td>
+                <td class="mono">5.68 ✓ <span class="tag">neutral/50</span></td>
+              </tr>
+              <tr>
+                <td class="mono">text/inverse</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ffffff"></span
+                  >neutral/white <span class="muted">→ white #FFFFFF</span>
+                </td>
+                <td>bg/inverse の上の文字・リンク（リンクは下線で示す）</td>
+                <td class="mono">
+                  13.97 ✓ <span class="tag">neutral/charcoal</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">text/disabled</td>
+                <td class="mono">
+                  <span class="sw" style="background: #8e9194"></span
+                  >neutral/400 <span class="muted">→ gray/400 #8E9194</span>
+                </td>
+                <td>無効な部品の文字（基準の対象外）</td>
+                <td class="mono">2.45 <span class="tag">neutral/100</span></td>
+              </tr>
+              <tr>
+                <td class="mono">text/primary/default</td>
+                <td class="mono">
+                  <span class="sw" style="background: #10648f"></span
+                  >primary/600 <span class="muted">→ blue/600 #10648F</span>
+                </td>
+                <td>
+                  リンク（下線あり）、アイコン、メニュー項目と主要ボタンのホバー時の文字
+                </td>
+                <td class="mono">5.73 ✓ <span class="tag">neutral/50</span></td>
+              </tr>
+              <tr>
+                <td class="mono">text/primary/on-primary</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ffffff"></span
+                  >neutral/white <span class="muted">→ white #FFFFFF</span>
+                </td>
+                <td>主要ボタンの文字</td>
+                <td class="mono">
+                  13.12 ✓ <span class="tag">primary/800</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">text/primary/on-subtle</td>
+                <td class="mono">
+                  <span class="sw" style="background: #00344e"></span
+                  >primary/800 <span class="muted">→ blue/800 #00344E</span>
+                </td>
+                <td>タグの文字</td>
+                <td class="mono">
+                  11.54 ✓ <span class="tag">primary/50</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">text/secondary/on-secondary</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ffffff"></span
+                  >neutral/white <span class="muted">→ white #FFFFFF</span>
+                </td>
+                <td>副次ボタンの文字</td>
+                <td class="mono">
+                  6.50 ✓ <span class="tag">secondary/600</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">text/secondary/on-secondary-hover</td>
+                <td class="mono">
+                  <span class="sw" style="background: #006a60"></span
+                  >secondary/600 <span class="muted">→ teal/600 #006A60</span>
+                </td>
+                <td>副次ボタンのホバー時の文字</td>
+                <td class="mono">
+                  6.50 ✓ <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">text/destructive/default</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ab3140"></span>danger/600
+                  <span class="muted">→ red/600 #AB3140</span>
+                </td>
+                <td>エラーメッセージ</td>
+                <td class="mono">5.72 ✓ <span class="tag">danger/50</span></td>
+              </tr>
+              <tr>
+                <td class="mono">text/destructive/on-destructive</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ffffff"></span
+                  >neutral/white <span class="muted">→ white #FFFFFF</span>
+                </td>
+                <td>削除ボタンの文字</td>
+                <td class="mono">6.47 ✓ <span class="tag">danger/600</span></td>
+              </tr>
+              <tr>
+                <td class="mono">text/destructive/on-destructive-hover</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ab3140"></span>danger/600
+                  <span class="muted">→ red/600 #AB3140</span>
+                </td>
+                <td>削除ボタンのホバー時の文字</td>
+                <td class="mono">
+                  6.47 ✓ <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">text/elementary</td>
+                <td class="mono">
+                  <span class="sw" style="background: #544600"></span
+                  >school/elementary/700
+                  <span class="muted">→ yellow/700 #544600</span>
+                </td>
+                <td>小学校のバッジの文字</td>
+                <td class="mono">
+                  8.20 ✓ <span class="tag">school/elementary/50</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">text/junior-high</td>
+                <td class="mono">
+                  <span class="sw" style="background: #214e45"></span
+                  >school/junior-high/700
+                  <span class="muted">→ mint/700 #214E45</span>
+                </td>
+                <td>中学校のバッジの文字</td>
+                <td class="mono">
+                  8.29 ✓ <span class="tag">school/junior-high/50</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">text/high-school</td>
+                <td class="mono">
+                  <span class="sw" style="background: #204291"></span
+                  >school/high-school/700
+                  <span class="muted">→ periwinkle/700 #204291</span>
+                </td>
+                <td>高等学校のバッジの文字</td>
+                <td class="mono">
+                  8.24 ✓ <span class="tag">school/high-school/50</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">text/other-school</td>
+                <td class="mono">
+                  <span class="sw" style="background: #5e3f3a"></span
+                  >school/other-school/700
+                  <span class="muted">→ rose/700 #5E3F3A</span>
+                </td>
+                <td>その他のバッジの文字</td>
+                <td class="mono">
+                  8.25 ✓ <span class="tag">school/other-school/50</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>border</h3>
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>項目</th>
+                <th>参照</th>
+                <th>用途</th>
+                <th>コントラスト比（相手）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">border/default</td>
+                <td class="mono">
+                  <span class="sw" style="background: #e1e2e6"></span
+                  >neutral/100 <span class="muted">→ gray/100 #E1E2E6</span>
+                </td>
+                <td>カード、区切り線（装飾なので基準の対象外）</td>
+                <td class="mono">
+                  1.29 <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">border/input</td>
+                <td class="mono">
+                  <span class="sw" style="background: #8e9194"></span
+                  >neutral/400 <span class="muted">→ gray/400 #8E9194</span>
+                </td>
+                <td>入力欄の枠</td>
+                <td class="mono">
+                  3.17 ✓ <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">border/text-stroke</td>
+                <td class="mono">
+                  <span class="sw" style="background: #191c1f"></span
+                  >neutral/900 <span class="muted">→ gray/900 #191C1F</span>
+                </td>
+                <td>
+                  文字の縁取り（-webkit-text-stroke。text/default と同じ色）
+                </td>
+                <td class="mono">
+                  17.11 ✓ <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">border/focus</td>
+                <td class="mono">
+                  <span class="sw" style="background: #10648f"></span
+                  >primary/600 <span class="muted">→ blue/600 #10648F</span>
+                </td>
+                <td>フォーカスリング</td>
+                <td class="mono">
+                  6.48 ✓ <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">border/primary</td>
+                <td class="mono">
+                  <span class="sw" style="background: #10648f"></span
+                  >primary/600 <span class="muted">→ blue/600 #10648F</span>
+                </td>
+                <td>主要ボタンの枠（ホバー時に白背景の縁として見える）</td>
+                <td class="mono">
+                  6.48 ✓ <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">border/secondary</td>
+                <td class="mono">
+                  <span class="sw" style="background: #006a60"></span
+                  >secondary/600 <span class="muted">→ teal/600 #006A60</span>
+                </td>
+                <td>副次ボタンの枠（ホバー時に白背景の縁として見える）</td>
+                <td class="mono">
+                  6.50 ✓ <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">border/destructive/default</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ab3140"></span>danger/600
+                  <span class="muted">→ red/600 #AB3140</span>
+                </td>
+                <td>入力エラーの枠、削除ボタンの枠</td>
+                <td class="mono">
+                  6.47 ✓ <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">border/destructive/focus</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ab3140"></span>danger/600
+                  <span class="muted">→ red/600 #AB3140</span>
+                </td>
+                <td>エラー時のフォーカスリング</td>
+                <td class="mono">
+                  6.47 ✓ <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">border/elementary</td>
+                <td class="mono">
+                  <span class="sw" style="background: #e8c400"></span
+                  >school/elementary/200
+                  <span class="muted">→ yellow/200 #E8C400</span>
+                </td>
+                <td>小学校のバッジの枠（背景があるので装飾扱い）</td>
+                <td class="mono">
+                  1.70 <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">border/junior-high</td>
+                <td class="mono">
+                  <span class="sw" style="background: #a1d0c4"></span
+                  >school/junior-high/200
+                  <span class="muted">→ mint/200 #A1D0C4</span>
+                </td>
+                <td>中学校のバッジの枠（背景があるので装飾扱い）</td>
+                <td class="mono">
+                  1.70 <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">border/high-school</td>
+                <td class="mono">
+                  <span class="sw" style="background: #b3c5ff"></span
+                  >school/high-school/200
+                  <span class="muted">→ periwinkle/200 #B3C5FF</span>
+                </td>
+                <td>高等学校のバッジの枠（背景があるので装飾扱い）</td>
+                <td class="mono">
+                  1.70 <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">border/other-school</td>
+                <td class="mono">
+                  <span class="sw" style="background: #e8bcb5"></span
+                  >school/other-school/200
+                  <span class="muted">→ rose/200 #E8BCB5</span>
+                </td>
+                <td>その他のバッジの枠（背景があるので装飾扱い）</td>
+                <td class="mono">
+                  1.71 <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>icon</h3>
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>項目</th>
+                <th>参照</th>
+                <th>用途</th>
+                <th>コントラスト比（相手）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">icon/default</td>
+                <td class="mono">
+                  <span class="sw" style="background: #191c1f"></span
+                  >neutral/900 <span class="muted">→ gray/900 #191C1F</span>
+                </td>
+                <td>標準のアイコン</td>
+                <td class="mono">
+                  15.13 ✓ <span class="tag">neutral/50</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">icon/muted</td>
+                <td class="mono">
+                  <span class="sw" style="background: #5c5f62"></span
+                  >neutral/600 <span class="muted">→ gray/600 #5C5F62</span>
+                </td>
+                <td>補足のアイコン（日時・件数の横など）</td>
+                <td class="mono">5.68 ✓ <span class="tag">neutral/50</span></td>
+              </tr>
+              <tr>
+                <td class="mono">icon/primary</td>
+                <td class="mono">
+                  <span class="sw" style="background: #10648f"></span
+                  >primary/600 <span class="muted">→ blue/600 #10648F</span>
+                </td>
+                <td>
+                  強調するアイコン（通知、統計カードのアイコンタイル）、主要ボタンのホバー時
+                </td>
+                <td class="mono">5.73 ✓ <span class="tag">neutral/50</span></td>
+              </tr>
+              <tr>
+                <td class="mono">icon/inverse</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ffffff"></span
+                  >neutral/white <span class="muted">→ white #FFFFFF</span>
+                </td>
+                <td>
+                  塗りのボタン（主要・副次・削除）の中のアイコン、フッターのアイコン
+                </td>
+                <td class="mono">
+                  6.48 ✓ <span class="tag">primary/600</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">icon/destructive</td>
+                <td class="mono">
+                  <span class="sw" style="background: #ab3140"></span>danger/600
+                  <span class="muted">→ red/600 #AB3140</span>
+                </td>
+                <td>削除・エラーのアイコン、削除ボタンのホバー時</td>
+                <td class="mono">
+                  6.47 ✓ <span class="tag">neutral/white</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">icon/disabled</td>
+                <td class="mono">
+                  <span class="sw" style="background: #8e9194"></span
+                  >neutral/400 <span class="muted">→ gray/400 #8E9194</span>
+                </td>
+                <td>無効な部品の中のアイコン（基準の対象外）</td>
+                <td class="mono">2.45 <span class="tag">neutral/100</span></td>
+              </tr>
+              <tr>
+                <td class="mono">icon/elementary</td>
+                <td class="mono">
+                  <span class="sw" style="background: #544600"></span
+                  >school/elementary/700
+                  <span class="muted">→ yellow/700 #544600</span>
+                </td>
+                <td>小学校のバッジの中のアイコン</td>
+                <td class="mono">
+                  8.20 ✓ <span class="tag">school/elementary/50</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">icon/junior-high</td>
+                <td class="mono">
+                  <span class="sw" style="background: #214e45"></span
+                  >school/junior-high/700
+                  <span class="muted">→ mint/700 #214E45</span>
+                </td>
+                <td>中学校のバッジの中のアイコン</td>
+                <td class="mono">
+                  8.29 ✓ <span class="tag">school/junior-high/50</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">icon/high-school</td>
+                <td class="mono">
+                  <span class="sw" style="background: #204291"></span
+                  >school/high-school/700
+                  <span class="muted">→ periwinkle/700 #204291</span>
+                </td>
+                <td>高等学校のバッジの中のアイコン</td>
+                <td class="mono">
+                  8.24 ✓ <span class="tag">school/high-school/50</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="mono">icon/other-school</td>
+                <td class="mono">
+                  <span class="sw" style="background: #5e3f3a"></span
+                  >school/other-school/700
+                  <span class="muted">→ rose/700 #5E3F3A</span>
+                </td>
+                <td>その他のバッジの中のアイコン</td>
+                <td class="mono">
+                  8.25 ✓ <span class="tag">school/other-school/50</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section>
+        <h2>タイポグラフィ</h2>
+        <p class="muted">
+          水色の帯がテキストボックス（行の高さ）。字間は Figma では
+          %、コードでは em。
+        </p>
+        <div class="types">
+          <div class="type-row">
+            <div class="type-meta">
+              <code>heading/xl</code
+              ><span>28px / bold 700 / 1.57 → 43.96px / 字間 4%（0.04em）</span
+              ><span>OpenType: palt（Figma は手作業で設定）</span
+              ><span>ページ見出し（h1）、統計カードの数値</span>
+            </div>
+            <p
+              class="sample"
+              style="
+                font-size: 28px;
+                font-weight: 700;
+                line-height: 1.57;
+                letter-spacing: 0.04em;
+                font-feature-settings: 'palt';
+              "
+            >
+              <span>起業家教育の事例 128</span>
+            </p>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">
+              <code>heading/lg</code
+              ><span>20px / bold 700 / 1.6 → 32px / 字間 4%（0.04em）</span
+              ><span>OpenType: palt（Figma は手作業で設定）</span
+              ><span>事例カードのタイトル、ヘッダーのサイト名</span>
+            </div>
+            <p
+              class="sample"
+              style="
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 1.6;
+                letter-spacing: 0.04em;
+                font-feature-settings: 'palt';
+              "
+            >
+              <span>商店街で開くこどもマーケット</span>
+            </p>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">
+              <code>heading/lg-wide</code
+              ><span>20px / bold 700 / 1.6 → 32px / 字間 10%（0.1em）</span
+              ><span>OpenType: palt（Figma は手作業で設定）</span
+              ><span>トップページのセクション見出し</span>
+            </div>
+            <p
+              class="sample"
+              style="
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 1.6;
+                letter-spacing: 0.1em;
+                font-feature-settings: 'palt';
+              "
+            >
+              <span>学校種別</span>
+            </p>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">
+              <code>heading/md</code
+              ><span>16px / bold 700 / 1.75 → 28px / 字間 4%（0.04em）</span
+              ><span>OpenType: palt（Figma は手作業で設定）</span
+              ><span>記事・ページ内の見出し</span>
+            </div>
+            <p
+              class="sample"
+              style="
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 1.75;
+                letter-spacing: 0.04em;
+                font-feature-settings: 'palt';
+              "
+            >
+              <span>授業の流れ</span>
+            </p>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">
+              <code>body/md</code
+              ><span>16px / normal 400 / 1.75 → 28px / 字間 0%（0em）</span
+              ><span>本文の標準。読ませる文章</span>
+            </div>
+            <p
+              class="sample"
+              style="
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 1.75;
+                letter-spacing: 0em;
+              "
+            >
+              <span
+                >地域の商店街と連携し、児童が自分たちで考えた商品を販売する体験を通して、Entrepreneurship
+                の基礎を学びました。</span
+              >
+            </p>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">
+              <code>body/sm</code
+              ><span>14px / normal 400 / 1.71 → 23.94px / 字間 0%（0em）</span
+              ><span>情報が詰まった UI（カード説明、フォームラベルなど）</span>
+            </div>
+            <p
+              class="sample"
+              style="
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.71;
+                letter-spacing: 0em;
+              "
+            >
+              <span
+                >地域の商店街と連携し、児童が自分たちで考えた商品を販売する体験を通して、Entrepreneurship
+                の基礎を学びました。</span
+              >
+            </p>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">
+              <code>body/xs</code
+              ><span>12px / normal 400 / 1.67 → 20.04px / 字間 0%（0em）</span
+              ><span>学校名などの日本語の補足</span>
+            </div>
+            <p
+              class="sample"
+              style="
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 1.67;
+                letter-spacing: 0em;
+              "
+            >
+              <span>千葉市立〇〇小学校 ・ 5年生</span>
+            </p>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">
+              <code>label/md</code
+              ><span>14px / bold 700 / 1.71 → 23.94px / 字間 2%（0.02em）</span
+              ><span
+                >UI
+                の見出しラベル（ヘッダーのナビ、メニュー項目、メニューの見出し、タブなど）</span
+              >
+            </div>
+            <p
+              class="sample"
+              style="
+                font-size: 14px;
+                font-weight: 700;
+                line-height: 1.71;
+                letter-spacing: 0.02em;
+              "
+            >
+              <span>アカウント設定</span>
+            </p>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">
+              <code>label/sm</code
+              ><span>12px / normal 400 / 1 → 12px / 字間 0%（0em）</span
+              ><span>バッジ専用（1行のみ）</span>
+            </div>
+            <p
+              class="sample"
+              style="
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 1;
+                letter-spacing: 0em;
+              "
+            >
+              <span>小学校 ・ プログラミング</span>
+            </p>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">
+              <code>button/sm</code
+              ><span>12px / bold 700 / 1 → 12px / 字間 0%（0em）</span
+              ><span>小ボタンのラベル（ボタンの標準）</span>
+            </div>
+            <p
+              class="sample"
+              style="
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 1;
+                letter-spacing: 0em;
+              "
+            >
+              <span>ログイン</span>
+            </p>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">
+              <code>button/lg</code
+              ><span>20px / bold 700 / 1 → 20px / 字間 0%（0em）</span
+              ><span>大ボタンのラベル</span>
+            </div>
+            <p
+              class="sample"
+              style="
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 1;
+                letter-spacing: 0em;
+              "
+            >
+              <span>事例を投稿</span>
+            </p>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">
+              <code>meta/sm</code
+              ><span>12px / bold 700 / 1.67 → 20.04px / 字間 0%（0em）</span
+              ><span>フォント: font-family/en（Inter）</span
+              ><span
+                >記事カードの日時、事例詳細の投稿日・更新日、いいね数・コメント数などの数字（日本語を含まないもの。日付は
+                2026.10.15 の形）</span
+              >
+            </div>
+            <p
+              class="sample"
+              style="
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 1.67;
+                letter-spacing: 0em;
+                font-family: 'Inter', sans-serif;
+              "
+            >
+              <span>2026.10.15 ・ 128</span>
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
 </html>

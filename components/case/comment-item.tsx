@@ -1,19 +1,19 @@
 'use client';
 
-import { useState, useActionState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Reply, MoreHorizontal, Flag } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import type { User } from '@supabase/supabase-js';
+import { Textarea } from '@/components/ui/textarea';
 import { type Comment } from '@/lib/definitions';
+import type { User } from '@supabase/supabase-js';
+import { Flag, MoreHorizontal, Reply } from 'lucide-react';
+import { useActionState, useState } from 'react';
 import { CommentLikesButton } from './likes-button';
 
 export default function CommentItem({
@@ -27,7 +27,7 @@ export default function CommentItem({
   user: User | null;
   action: (
     prevState: { error?: string; data?: Comment },
-    formData: FormData
+    formData: FormData,
   ) => Promise<
     | {
         error: string;
@@ -49,35 +49,33 @@ export default function CommentItem({
     <div
       className={`${
         isReply
-          ? 'ml-8 border-l border-muted pl-4'
-          : 'border-l-2 border-muted pl-4'
+          ? 'ml-space-32 border-l border-muted pl-space-16'
+          : 'border-l-2 border-muted pl-space-16'
       }`}
     >
-      <div className='flex items-start gap-3'>
-        <Avatar className='w-8 h-8'>
-          <AvatarFallback className='text-xs'>
+      <div className='flex items-start gap-space-16'>
+        <Avatar className='h-8 w-8'>
+          <AvatarFallback className='text-body-xs'>
             {comment.profiles?.display_name.charAt(0)}
           </AvatarFallback>
         </Avatar>
         <div className='flex-1'>
-          <div className='flex items-center gap-2 mb-1'>
-            <p className='font-medium text-sm'>
-              {comment.profiles?.display_name}
-            </p>
-            <Badge variant='outline' className='text-xs px-1 py-0'>
+          <div className='mb-space-4 flex items-center gap-space-8'>
+            <p className='text-body-sm'>{comment.profiles?.display_name}</p>
+            <Badge variant='outline' className='px-space-4 py-0'>
               {comment.profiles?.school_name.includes('小学校')
                 ? '小'
                 : comment.profiles?.school_name.includes('中学校')
-                ? '中'
-                : '高'}
+                  ? '中'
+                  : '高'}
             </Badge>
-            <p className='text-xs text-muted-foreground'>
+            <p className='font-en text-meta-sm text-muted-foreground'>
               • {new Date(comment.created_at).toLocaleDateString('ja-JP')}
             </p>
           </div>
-          <p className='text-sm mb-3'>{comment.content}</p>
+          <p className='mb-space-16 text-body-sm'>{comment.content}</p>
 
-          <div className='flex items-center gap-4'>
+          <div className='flex items-center gap-space-16'>
             {/* いいねボタン */}
             <CommentLikesButton commentId={comment.id} userId={user?.id} />
 
@@ -85,26 +83,26 @@ export default function CommentItem({
               <Button
                 variant='ghost'
                 size='sm'
-                className='gap-1 h-7 px-2 text-muted-foreground'
+                className='gap-space-4 px-space-8 text-muted-foreground'
                 onClick={() =>
                   setReplyingTo(replyingTo === comment.id ? null : comment.id)
                 }
                 disabled={!user}
               >
-                <Reply className='w-3 h-3' />
+                <Reply className='h-3 w-3' />
                 返信
               </Button>
             )}
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant='ghost' size='sm' className='h-7 w-7 p-0'>
-                  <MoreHorizontal className='w-3 h-3' />
+                <Button variant='ghost' size='icon'>
+                  <MoreHorizontal className='h-3 w-3' />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end'>
-                <DropdownMenuItem className='gap-2'>
-                  <Flag className='w-3 h-3' />
+                <DropdownMenuItem className='gap-space-8'>
+                  <Flag className='h-3 w-3' />
                   報告
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -114,21 +112,21 @@ export default function CommentItem({
           {/* Reply Form */}
           {replyingTo === comment.id && user && (
             <form action={formAction}>
-              <div className='mt-4 space-y-3'>
+              <div className='mt-space-16 space-y-space-16'>
                 <Textarea
                   placeholder={`${comment.profiles?.display_name}さんに返信...`}
                   rows={2}
                   name='comment'
-                  className='text-sm'
+                  className='text-body-sm'
                   required
                 />
                 <input type='hidden' name='parent_id' value={comment.id} />
                 {state?.error && (
-                  <div className='text-red-600 text-sm bg-red-50 p-3 rounded-md'>
+                  <div className='rounded-md bg-destructive-subtle p-space-16 text-body-sm text-destructive'>
                     {state.error}
                   </div>
                 )}
-                <div className='flex justify-end gap-2'>
+                <div className='flex justify-end gap-space-8'>
                   <Button
                     variant='outline'
                     size='sm'
@@ -146,7 +144,7 @@ export default function CommentItem({
 
           {/* Replies */}
           {comment.replies && comment.replies.length > 0 && (
-            <div className='mt-4 space-y-4'>
+            <div className='mt-space-16 space-y-space-16'>
               {comment.replies.map((reply) => (
                 <CommentItem
                   key={reply.id}

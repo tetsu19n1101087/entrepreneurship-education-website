@@ -1,9 +1,9 @@
 import { CaseDetail } from '@/components/case/case-detail';
 import { CommentSection } from '@/components/case/comment-section';
-import { createClient } from '@/lib/supabase/server';
-import { getCommentsByCase } from '@/lib/supabase/comments';
 import type { Profile } from '@/lib/definitions';
+import { getCommentsByCase } from '@/lib/supabase/comments';
 import { getProfileById } from '@/lib/supabase/profiles';
+import { createClient } from '@/lib/supabase/server';
 
 export default async function CasePage({
   params,
@@ -24,10 +24,10 @@ export default async function CasePage({
 
   return (
     <div className='bg-background'>
-      <div className='container mx-auto px-4 py-8'>
-        <div className='max-w-4xl mx-auto'>
+      <div className='container mx-auto px-space-16 py-space-32'>
+        <div className='mx-auto max-w-4xl'>
           <CaseDetail caseId={id} />
-          <div className='mt-8'>
+          <div className='mt-space-32'>
             <CommentSection
               caseId={id}
               user={user}

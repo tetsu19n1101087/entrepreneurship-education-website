@@ -1,12 +1,12 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Calendar, Clock, Users, Info, FileText, PenTool } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getCaseById } from '@/lib/supabase/cases';
 import { createClient } from '@/lib/supabase/server';
-import { CaseLikesButton } from './likes-button';
-import { notFound } from 'next/navigation';
+import { Calendar, Clock, FileText, Info, PenTool, Users } from 'lucide-react';
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
+import { CaseLikesButton } from './likes-button';
 
 export async function CaseDetail({ caseId }: { caseId: string }) {
   const supabase = await createClient();
@@ -31,9 +31,9 @@ export async function CaseDetail({ caseId }: { caseId: string }) {
     : null;
 
   return (
-    <div className='space-y-6'>
+    <div className='space-y-space-24'>
       {resolvedHeaderImageUrl && (
-        <div className='relative h-64 w-full rounded-lg overflow-hidden'>
+        <div className='relative h-64 w-full overflow-hidden rounded-md'>
           <Image
             src={resolvedHeaderImageUrl}
             alt={`${caseData.title}のヘッダー画像`}
@@ -47,48 +47,45 @@ export async function CaseDetail({ caseId }: { caseId: string }) {
 
       <Card>
         <CardHeader>
-          <div className='flex items-start justify-between gap-4'>
+          <div className='flex items-start justify-between gap-space-16'>
             <div className='flex-1'>
-              <div className='flex items-center gap-2 mb-2'>
-                <Badge
-                  variant='outline'
-                  className='border-blue-200 text-blue-400'
-                >
-                  {caseData.subject}
-                </Badge>
+              <div className='mb-space-8 flex items-center gap-space-8'>
+                <Badge variant='outline'>{caseData.subject}</Badge>
               </div>
-              <CardTitle className='text-2xl mb-3'>{caseData.title}</CardTitle>
-              <p className='text-muted-foreground text-lg'>
+              <CardTitle className='mb-space-16 text-heading-xl'>
+                {caseData.title}
+              </CardTitle>
+              <p className='text-body-md text-muted-foreground'>
                 {caseData.description}
               </p>
             </div>
           </div>
 
-          <div className='flex items-center justify-between pt-4 border-t'>
-            <div className='flex items-center gap-4'>
-              <div className='flex items-center gap-2'>
-                <Avatar className='w-10 h-10'>
+          <div className='flex items-center justify-between border-t pt-space-16'>
+            <div className='flex items-center gap-space-16'>
+              <div className='flex items-center gap-space-8'>
+                <Avatar className='h-10 w-10'>
                   <AvatarFallback>
                     {caseData.profiles?.display_name.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className='font-medium'>
+                  <p className='text-heading-md'>
                     {caseData.profiles?.display_name}
                   </p>
-                  <p className='text-sm text-muted-foreground'>
+                  <p className='text-body-sm text-muted-foreground'>
                     {caseData.profiles?.school_name}
                   </p>
                 </div>
               </div>
 
-              <div className='flex items-center gap-1 text-sm text-muted-foreground'>
-                <Calendar className='w-4 h-4' />
+              <div className='flex items-center gap-space-4 font-en text-meta-sm text-muted-foreground'>
+                <Calendar className='h-4 w-4' />
                 {new Date(caseData.created_at).toLocaleDateString('ja-JP')}
               </div>
             </div>
 
-            <div className='flex items-center gap-2'>
+            <div className='flex items-center gap-space-8'>
               <CaseLikesButton caseId={caseId} userId={user?.id} />
             </div>
           </div>
@@ -98,33 +95,33 @@ export async function CaseDetail({ caseId }: { caseId: string }) {
       {/* Basic Information */}
       <Card>
         <CardHeader>
-          <CardTitle className='flex items-center gap-2'>
-            <Info className='w-5 h-5' />
+          <CardTitle className='flex items-center gap-space-8'>
+            <Info className='h-5 w-5' />
             基本情報
           </CardTitle>
         </CardHeader>
-        <CardContent className='space-y-4'>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+        <CardContent className='space-y-space-16'>
+          <div className='grid grid-cols-1 gap-space-16 md:grid-cols-3'>
             {caseData.grade_level && (
-              <div className='flex items-center gap-2'>
-                <Users className='w-4 h-4 text-muted-foreground' />
-                <span className='text-sm font-medium'>対象学年:</span>
-                <span className='text-sm'>{caseData.grade_level}</span>
+              <div className='flex items-center gap-space-8'>
+                <Users className='h-4 w-4 text-muted-foreground' />
+                <span className='text-label-md'>対象学年:</span>
+                <span className='text-body-sm'>{caseData.grade_level}</span>
               </div>
             )}
             {caseData.duration && (
-              <div className='flex items-center gap-2'>
-                <Clock className='w-4 h-4 text-muted-foreground' />
-                <span className='text-sm font-medium'>実施期間:</span>
-                <span className='text-sm'>{caseData.duration}</span>
+              <div className='flex items-center gap-space-8'>
+                <Clock className='h-4 w-4 text-muted-foreground' />
+                <span className='text-label-md'>実施期間:</span>
+                <span className='text-body-sm'>{caseData.duration}</span>
               </div>
             )}
           </div>
 
           {caseData.tags && caseData.tags.length > 0 && (
             <div>
-              <p className='text-sm font-medium mb-2'>タグ:</p>
-              <div className='flex flex-wrap gap-2'>
+              <p className='mb-space-8 text-label-md'>タグ:</p>
+              <div className='flex flex-wrap gap-space-8'>
                 {caseData.tags.map((tag: string, index: number) => (
                   <Badge key={index} variant='secondary'>
                     {tag}
@@ -138,8 +135,8 @@ export async function CaseDetail({ caseId }: { caseId: string }) {
 
       <Card>
         <CardHeader>
-          <CardTitle className='flex items-center gap-2'>
-            <FileText className='w-5 h-5' />
+          <CardTitle className='flex items-center gap-space-8'>
+            <FileText className='h-5 w-5' />
             詳細
           </CardTitle>
         </CardHeader>
@@ -151,8 +148,8 @@ export async function CaseDetail({ caseId }: { caseId: string }) {
       {caseData.materials && (
         <Card>
           <CardHeader>
-            <CardTitle className='flex items-center gap-2'>
-              <PenTool className='w-5 h-5' />
+            <CardTitle className='flex items-center gap-space-8'>
+              <PenTool className='h-5 w-5' />
               使用教材・リソース
             </CardTitle>
           </CardHeader>

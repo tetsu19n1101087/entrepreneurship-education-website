@@ -1,5 +1,5 @@
-import { createClient } from '@/lib/supabase/server';
 import type { Profile } from '@/lib/definitions';
+import { createClient } from '@/lib/supabase/server';
 
 export async function getProfilesCount(): Promise<number> {
   const supabase = await createClient();

@@ -1,5 +1,5 @@
-import { createClient } from '@/lib/supabase/server';
 import { type Case } from '@/lib/definitions';
+import { createClient } from '@/lib/supabase/server';
 
 export async function getCases() {
   const supabase = await createClient();
@@ -13,7 +13,7 @@ export async function getCases() {
         display_name,
         school_name
       )
-    `
+    `,
     )
     .order('created_at', { ascending: false });
 
@@ -37,7 +37,7 @@ export async function getCaseById(id: string) {
         display_name,
         school_name
       )
-    `
+    `,
     )
     .eq('id', id)
     .single();

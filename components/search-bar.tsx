@@ -1,9 +1,9 @@
 'use client';
 
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, Filter, X } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import { useSearchFilter } from '@/hooks/use-search-filter';
+import { Filter, Search, X } from 'lucide-react';
 import { AdvancedSearchDialog } from './advanced-search-dialog';
 
 export function SearchBar() {
@@ -31,44 +31,46 @@ export function SearchBar() {
   };
 
   return (
-    <div className='space-y-4 mb-6'>
-      <div className='flex gap-3'>
+    <div className='mb-space-24 space-y-space-16'>
+      <div className='flex gap-space-16'>
         <div className='relative flex-1'>
-          <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4' />
+          <Search className='absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 transform text-muted-foreground' />
           <Input
             placeholder='事例を検索（キーワード、学校名、教科名など）'
-            className='pl-10'
+            className='pl-space-48'
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
         <Button
           variant='outline'
-          className='gap-2 bg-transparent'
+          className='gap-space-8 bg-transparent'
           onClick={() => setIsAdvancedSearchOpen(true)}
         >
-          <Filter className='w-4 h-4' />
+          <Filter className='h-4 w-4' />
           詳細検索
         </Button>
       </div>
 
       {hasActiveFilters && (
-        <div className='flex items-center gap-2 flex-wrap'>
-          <span className='text-sm text-muted-foreground'>フィルター:</span>
+        <div className='flex flex-wrap items-center gap-space-8'>
+          <span className='text-body-sm text-muted-foreground'>
+            フィルター:
+          </span>
           {selectedCategory && (
-            <div className='flex items-center gap-1 bg-primary/10 text-primary px-2 py-1 rounded-md text-sm'>
+            <div className='flex items-center gap-space-4 rounded-md bg-primary-subtle px-space-8 py-space-4 text-body-sm text-on-primary-subtle'>
               {categoryLabelMap[selectedCategory] ?? selectedCategory}
               <X
-                className='w-3 h-3 cursor-pointer'
+                className='h-3 w-3 cursor-pointer'
                 onClick={() => setSelectedCategory(null)}
               />
             </div>
           )}
           {selectedSubject && (
-            <div className='flex items-center gap-1 bg-accent/10 text-accent px-2 py-1 rounded-md text-sm'>
+            <div className='flex items-center gap-space-4 rounded-md bg-accent px-space-8 py-space-4 text-body-sm text-accent-foreground'>
               {selectedSubject}
               <X
-                className='w-3 h-3 cursor-pointer'
+                className='h-3 w-3 cursor-pointer'
                 onClick={() => setSelectedSubject(null)}
               />
             </div>
@@ -76,11 +78,11 @@ export function SearchBar() {
           {selectedTags.map((tag) => (
             <div
               key={tag}
-              className='flex items-center gap-1 bg-secondary text-secondary-foreground px-2 py-1 rounded-md text-sm'
+              className='flex items-center gap-space-4 rounded-md bg-primary-subtle px-space-8 py-space-4 text-body-sm text-on-primary-subtle'
             >
               {tag}
               <X
-                className='w-3 h-3 cursor-pointer'
+                className='h-3 w-3 cursor-pointer'
                 onClick={() =>
                   setSelectedTags(selectedTags.filter((t) => t !== tag))
                 }
