@@ -217,7 +217,7 @@ components:
 
 - **プリミティブ（`PrimitiveColor`）**: 色見本。blue・teal・gray・red と、学校種別用の yellow・mint・periwinkle・rose をそれぞれ 25〜900 の 11 段階で持つ（ほかに white #FFFFFF と charcoal #2C2C2C）。blue・teal・gray は Material Theme Builder（シード #1B4965）の色見本から作った。Figma では色の候補に出さない。
 - **エイリアス（`AliasColor`）**: 役割の名前でプリミティブを指す層（`primary/600` → blue/600 など）。役割は primary（blue）・secondary（teal）・neutral（gray）・danger（red）・学校種別4色。ブランドや学校種別の色を差し替えるときは、ここの参照先だけを変える。
-- **用途別（`SemanticColor`）**: `bg/*` `text/*` `border/*` の3種類。必ずエイリアスを参照する。Figma では bg は塗り、text は文字の塗り、border は線の候補にだけ出る。
+- **用途別（`SemanticColor`）**: `bg/*` `text/*` `border/*` `icon/*` の4種類。必ずエイリアスを参照する。Figma では bg は塗り、text は文字の塗り、border は線、icon は図形の塗りと線の候補にだけ出る。
 
 例外として、ロゴはエイリアスの `primary/600` を直接使う（ヘッダー上。フッター上では `neutral/white`）。
 
@@ -239,6 +239,20 @@ components:
 - 主要・副次・削除ボタン: 背景と文字を反転する（白背景に元の色の文字と枠）。そのためボタンには塗りと同じ色の 1px の枠を付ける。
 - outline / ghost ボタン、サイドバーの絞り込み: 背景を bg/surface/hover（#EFF1F5）にする。
 - メニュー項目とヘッダーのナビ: 文字色だけ primary に変える。背景と下線は変えない。
+
+### アイコンの色
+
+アイコンは `icon/*` で塗る。text/\* は Figma で文字の塗りの候補にしか出ないため、アイコン（ベクターの塗り・線）用に分けている。値は対応する文字色と同じ。
+
+- `icon/default`（#191C1F）: 標準のアイコン
+- `icon/muted`（#5C5F62）: 補足のアイコン（日時・件数の横など）
+- `icon/primary`（#10648F）: 強調するアイコン（通知、統計カードのアイコンタイル）、主要ボタンのホバー時
+- `icon/inverse`（#FFFFFF）: 塗りのボタン（主要・副次・削除）の中のアイコン、フッターのアイコン
+- `icon/destructive`（#AB3140）: 削除・エラーのアイコン、削除ボタンのホバー時
+- `icon/disabled`（#8E9194）: 無効な部品の中のアイコン
+- `icon/elementary` `icon/junior-high` `icon/high-school` `icon/other-school`: 学校種別のバッジの中のアイコン（文字と同じ各色の 700）
+
+コードでは CSS 変数を追加しない。lucide-react のアイコンは `currentColor` で文字色を引き継ぐので、同じ値の text-\* クラスで色を決める（`icon/primary` → `text-primary`、`icon/muted` → `text-muted-foreground` など）。
 
 ### 対応表（Figma → CSS 変数）
 
@@ -287,6 +301,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 - on-inverse / inverse: 14.0:1
 - input-border / surface: 3.2:1
 - 学校種別のバッジの文字 / 背景: 8.2〜8.3:1
+- アイコン（基準 3:1）: icon/default 15.1:1、icon/muted と icon/primary 5.7:1（background 上）、icon/inverse 6.5:1（primary 上）、icon/destructive 6.5:1（surface 上）、学校種別 8.2〜8.3:1
 
 ### 学校種別の色
 
@@ -431,7 +446,7 @@ Figma 側のテキストスタイルも `heading/lg` `body/md` のように同�
 
 ## Components
 
-UI 部品は `components/ui/` の shadcn/ui をベースにし、追加のスタイルは Tailwind のクラスで当てる。新しい部品が必要になったら、自作する前に `npx shadcn add` で追加できないか確認する。アイコンは `lucide-react` を使い、ボタン内では 16px（`w-4 h-4`）、統計カードでは 24px（`w-6 h-6`）。
+UI 部品は `components/ui/` の shadcn/ui をベースにし、追加のスタイルは Tailwind のクラスで当てる。新しい部品が必要になったら、自作する前に `npx shadcn add` で追加できないか確認する。アイコンは `lucide-react` を使い、ボタン内では 16px（`w-4 h-4`）、統計カードでは 24px（`w-6 h-6`）。色は Colors 節の「アイコンの色」に従う。
 
 - **Button**: `default`（primary の塗り）は1つの画面領域に1つまで。「事例を投稿」「新規登録」など主要な行動に使う。並べる副次的な行動は `outline`（「ログイン」など）。リスト内の選択肢は `ghost` で、選択中だけ `default` に切り替える（サイドバーの学校種別・教科フィルター）。サイズは小と大の2つ。高さは最小の高さ（`min-height`）で決め、ラベルが折り返したときは伸びる。
   - 小: ラベル button-sm（12px / bold）、内側は上下 8px・左右 16px、最小の高さ 40px。ボタンは基本このサイズ。
