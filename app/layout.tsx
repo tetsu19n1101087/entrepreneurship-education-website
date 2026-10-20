@@ -1,3 +1,4 @@
+import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
 import type { Metadata } from 'next';
 import { Inter, Noto_Sans_JP } from 'next/font/google';
@@ -19,7 +20,10 @@ const notoSansJp = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: '千葉県アントレプレナーシップ教育事例共有プラットフォーム',
+  title: {
+    default: '千葉県アントレプレナーシップ教育事例共有プラットフォーム',
+    template: '%s | 千葉県アントレプレナーシップ教育事例共有プラットフォーム',
+  },
   description:
     '千葉県の小中高教員がアントレプレナーシップ教育の実践事例を共有するためのプラットフォーム',
   generator: 'v0.app',
@@ -35,6 +39,7 @@ export default function RootLayout({
       <body className='flex min-h-screen flex-col'>
         <Header />
         <main className='flex flex-1 flex-col'>{children}</main>
+        <Footer />
       </body>
     </html>
   );
