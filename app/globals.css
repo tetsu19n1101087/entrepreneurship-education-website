@@ -16,6 +16,10 @@
   body {
     @apply bg-background font-sans text-body-md text-foreground;
   }
+  /* トップページは背景のないヘッダーの後ろまで muted にする（app/page.tsx の data-page） */
+  body:has([data-page='home']) {
+    @apply bg-muted;
+  }
 }
 
 .gsi-material-button {
