@@ -109,7 +109,7 @@ for (const [name, s] of Object.entries(TY.styles)) {
     );
   // 行の高さ（文字サイズ × 倍率）が 4 の倍数か。倍率は小数第2位までなので ±0.1px は許容
   const h = size * s.lineHeight;
-  if (Math.abs(h - Math.round(h / 4) * 4) > 0.1)
+  if (Math.round(Math.abs(h - Math.round(h / 4) * 4) * 100) / 100 > 0.1)
     warnings.push(`${name}: 行の高さ ${h.toFixed(2)}px が4の倍数ではない`);
 }
 
@@ -169,23 +169,32 @@ for (const r of rows) {
   });
 }
 
+// 文字のバリアブルも scopes を絞る。付けないと、Token Import が新しく作るときに ALL_SCOPES になり、
+// 文字サイズ以外の候補にも出てしまう（resolvedType があると既存の更新時も scopes が反映される）
+const figmaExt = (resolvedType, scope) => ({
+  $extensions: { 'com.figma': { resolvedType, scopes: [scope] } },
+});
 const Typography = {
   'font-family': Object.fromEntries(
     Object.entries(TY.fontFamily).map(([k, v]) => [
       k,
-      { $type: 'fontFamily', $value: v },
+      { $type: 'fontFamily', $value: v, ...figmaExt('STRING', 'FONT_FAMILY') },
     ]),
   ),
   'font-size': Object.fromEntries(
     Object.entries(TY.fontSize).map(([k, px]) => [
       k,
-      { $type: 'dimension', $value: { value: px, unit: 'px' } },
+      {
+        $type: 'dimension',
+        $value: { value: px, unit: 'px' },
+        ...figmaExt('FLOAT', 'FONT_SIZE'),
+      },
     ]),
   ),
   'font-weight': Object.fromEntries(
     Object.entries(TY.fontWeight).map(([k, w]) => [
       k,
-      { $type: 'fontWeight', $value: w },
+      { $type: 'fontWeight', $value: w, ...figmaExt('FLOAT', 'FONT_WEIGHT') },
     ]),
   ),
 };

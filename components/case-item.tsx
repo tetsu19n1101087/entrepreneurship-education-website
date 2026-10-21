@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { useSearchFilter } from '@/hooks/use-search-filter';
 import type { Case } from '@/lib/definitions';
 import { createClient } from '@/lib/supabase/client';
+import { resolveCaseImageUrl } from '@/lib/supabase/storage';
 import type { User } from '@supabase/supabase-js';
 import { Calendar } from 'lucide-react';
 import Image from 'next/image';
@@ -93,15 +94,10 @@ export default function CaseItem({
         </Card>
       ) : (
         filteredCases.map((caseItem) => {
-          const imageUrl = caseItem.header_image_url
-            ? caseItem.header_image_url.startsWith('/') ||
-              caseItem.header_image_url.startsWith('http://') ||
-              caseItem.header_image_url.startsWith('https://')
-              ? caseItem.header_image_url
-              : supabase.storage
-                  .from('images')
-                  .getPublicUrl(caseItem.header_image_url).data.publicUrl
-            : null;
+          const imageUrl = resolveCaseImageUrl(
+            supabase,
+            caseItem.header_image_url,
+          );
 
           return (
             <Card

@@ -3,11 +3,23 @@
     "font-family": {
       "ja": {
         "$type": "fontFamily",
-        "$value": "Noto Sans JP"
+        "$value": "Noto Sans JP",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "STRING",
+            "scopes": ["FONT_FAMILY"]
+          }
+        }
       },
       "en": {
         "$type": "fontFamily",
-        "$value": "Inter"
+        "$value": "Inter",
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "STRING",
+            "scopes": ["FONT_FAMILY"]
+          }
+        }
       }
     },
     "font-size": {
@@ -16,6 +28,12 @@
         "$value": {
           "value": 12,
           "unit": "px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "FLOAT",
+            "scopes": ["FONT_SIZE"]
+          }
         }
       },
       "75": {
@@ -23,6 +41,12 @@
         "$value": {
           "value": 14,
           "unit": "px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "FLOAT",
+            "scopes": ["FONT_SIZE"]
+          }
         }
       },
       "100": {
@@ -30,6 +54,12 @@
         "$value": {
           "value": 16,
           "unit": "px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "FLOAT",
+            "scopes": ["FONT_SIZE"]
+          }
         }
       },
       "200": {
@@ -37,6 +67,12 @@
         "$value": {
           "value": 20,
           "unit": "px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "FLOAT",
+            "scopes": ["FONT_SIZE"]
+          }
         }
       },
       "300": {
@@ -44,17 +80,58 @@
         "$value": {
           "value": 28,
           "unit": "px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "FLOAT",
+            "scopes": ["FONT_SIZE"]
+          }
+        }
+      },
+      "400": {
+        "$type": "dimension",
+        "$value": {
+          "value": 42,
+          "unit": "px"
+        },
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "FLOAT",
+            "scopes": ["FONT_SIZE"]
+          }
         }
       }
     },
     "font-weight": {
       "normal": {
         "$type": "fontWeight",
-        "$value": 400
+        "$value": 400,
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "FLOAT",
+            "scopes": ["FONT_WEIGHT"]
+          }
+        }
+      },
+      "medium": {
+        "$type": "fontWeight",
+        "$value": 500,
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "FLOAT",
+            "scopes": ["FONT_WEIGHT"]
+          }
+        }
       },
       "bold": {
         "$type": "fontWeight",
-        "$value": 700
+        "$value": 700,
+        "$extensions": {
+          "com.figma": {
+            "resolvedType": "FLOAT",
+            "scopes": ["FONT_WEIGHT"]
+          }
+        }
       }
     }
   },
@@ -1968,6 +2045,24 @@
             "lineHeight": 1.67
           },
           "$description": "記事カードの日時、事例詳細の投稿日・更新日、いいね数・コメント数などの数字（日本語を含まないもの。日付は 2026.10.15 の形）",
+          "$extensions": {
+            "com.figma": {
+              "letterSpacing": {
+                "unit": "PERCENT",
+                "value": 0
+              }
+            }
+          }
+        },
+        "xl": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{Typography.font-family.en}",
+            "fontSize": "{Typography.font-size.400}",
+            "fontWeight": "{Typography.font-weight.medium}",
+            "lineHeight": 1.05
+          },
+          "$description": "投稿日（大）の日の数字（カルーセルと記事カード）。太さ 500 はこのスタイルだけ",
           "$extensions": {
             "com.figma": {
               "letterSpacing": {

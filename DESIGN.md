@@ -102,6 +102,12 @@ typography:
     fontWeight: 700
     lineHeight: 1.67
     letterSpacing: 0em
+  meta-xl:
+    fontFamily: Inter
+    fontSize: 42px
+    fontWeight: 500
+    lineHeight: 1.05
+    letterSpacing: 0em
 rounded:
   md: 8px
   full: 9999px
@@ -207,7 +213,6 @@ components:
 この文書は Figma に合わせた「目標のデザイン」を表している。文字・色・余白・角丸・ボタンのサイズは、既存の画面もトークンのクラスに置き換え済み（2026-10-19）。Tailwind 標準の文字サイズ（`text-xs` など）と角丸（`rounded-lg` など）は `css.reset` で無効化しているので使えない。残っている差分は次のとおり。
 
 - **日付の表記**: 投稿日などは meta-sm（`text-meta-sm font-en`）で表示しているが、値は `toLocaleDateString('ja-JP')` のままで `2026/10/15` の形になっている。`2026.10.15` の形に変える。
-- **トップページ**: Figma のデザインで作り直す（別タスク）。
 
 ## Colors
 
@@ -222,7 +227,7 @@ components:
 ### 主な色
 
 - **Primary (#10648F)**: 落ち着いた青（blue/600）。主要ボタン、リンク（下線付き）、アイコン、フォーカスリング、ロゴ。画面内の「次に押すべきもの」を示す唯一の強い色。
-- **Primary subtle (#E5F2FF) / On primary subtle (#00344E)**: タグのバッジと統計カードのアイコンタイルの背景、タグの文字。
+- **Primary subtle (#E5F2FF) / On primary subtle (#00344E)**: タグのバッジの背景と文字。
 - **Secondary (#006A60)**: 青緑（teal/600）。副次ボタン用だが、使いどころは保留。
 - **Background (#EFF1F5) / Surface (#FFFFFF)**: ページ背景は青みのある淡いグレー、カード・ヘッダー・ポップオーバーは白。この差でカードの境界を表現する。
 - **Foreground (#191C1F) / Muted foreground (#5C5F62)**: 本文と見出し、説明文・日付・学校名などの補足情報。
@@ -244,7 +249,7 @@ components:
 
 - `icon/default`（#191C1F）: 標準のアイコン
 - `icon/muted`（#5C5F62）: 補足のアイコン（日時・件数の横など）
-- `icon/primary`（#10648F）: 強調するアイコン（通知、統計カードのアイコンタイル）、主要ボタンのホバー時
+- `icon/primary`（#10648F）: 強調するアイコン（通知）、主要ボタンのホバー時
 - `icon/inverse`（#FFFFFF）: 塗りのボタン（主要・副次・削除）の中のアイコン、フッターのアイコン
 - `icon/destructive`（#AB3140）: 削除・エラーのアイコン、削除ボタンのホバー時
 - `icon/disabled`（#8E9194）: 無効な部品の中のアイコン
@@ -329,8 +334,9 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 - `font-size/100`: 16px
 - `font-size/200`: 20px
 - `font-size/300`: 28px
+- `font-size/400`: 42px（meta-xl だけ）
 
-太さは `font-weight/normal`（400）と `font-weight/bold`（700）の2種類だけ。行の高さは単位なしの倍率で指定し、文字サイズ × 倍率（テキストボックスの高さ）が4の倍数になる値にする。倍率は文字サイズごとに1つで、heading / body / label で共通。例外は1行で使う label-sm と button の系統で、倍率 1。
+太さは `font-weight/normal`（400）と `font-weight/bold`（700）が基本。`font-weight/medium`（500）は欧文の大きい数字（meta-xl）だけに使う。行の高さは単位なしの倍率で指定し、文字サイズ × 倍率（テキストボックスの高さ）が4の倍数になる値にする。倍率は文字サイズごとに1つで、heading / body / label で共通。例外は1行で使う label-sm と button の系統で、倍率 1。
 
 - 12px: 1.67（20px）
 - 14px: 1.71（24px）
@@ -343,9 +349,9 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 字間（letter spacing）は、見出しとナビだけを少し広げ、ほかは 0 にする。同じサイズでも用途によって字間を変えたいときは、値を上書きせずに別のスタイル（`-wide`）を作る。Figma ではテキストスタイルに % で直接設定し、コードでは同じ値を em に換算して書く（10% = 0.1em）。Figma のバリアブルは px でしか紐づかないため、字間のバリアブルは作らない。
 
 - heading-xl / heading-lg / heading-md: 4%（0.04em）
-- heading-lg-wide: 10%（0.1em）。トップページのセクション見出しだけに使う
+- heading-lg-wide: 10%（0.1em）。セクション見出しだけに使う
 - label-md: 2%（0.02em）
-- body-md / body-sm / body-xs / label-sm / button-sm / button-lg / meta-sm: 0%
+- body-md / body-sm / body-xs / label-sm / button-sm / button-lg / meta-sm / meta-xl: 0%
 
 見出し（heading-xl / heading-lg / heading-lg-wide / heading-md）には、OpenType 機能の palt（プロポーショナル幅の約物・かな）を当てて、日本語の字面を詰める。字間（4% / 10%）は palt なしで決めた値なので、画面に当てて見直す。本文には当てない（長い文章では等幅の方が読みやすい）。
 
@@ -354,11 +360,11 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 
 ### テキストスタイル
 
-文字の指定は、サイズ・太さ・行の高さ・字間をまとめた「テキストスタイル」で行う。系統は heading（見出し）・body（本文）・label（UI の見出しラベルやバッジ）・button（ボタン）・meta（日時・数字）の5つで、サイズの段階は `xl` `lg` `md` `sm` `xs` で表す。`md` は標準の段階を指す。button だけはボタンのサイズ（小・大）に合わせて `sm` と `lg` の2段階にする。meta は今のところ `sm` だけ。
+文字の指定は、サイズ・太さ・行の高さ・字間をまとめた「テキストスタイル」で行う。系統は heading（見出し）・body（本文）・label（UI の見出しラベルやバッジ）・button（ボタン）・meta（日時・数字）の5つで、サイズの段階は `xl` `lg` `md` `sm` `xs` で表す。`md` は標準の段階を指す。button だけはボタンのサイズ（小・大）に合わせて `sm` と `lg` の2段階にする。meta は今のところ `sm` と `xl` の2つ。
 
-- **heading-xl（28px / bold / 1.57 / 4% / palt）**: ページ見出し（h1）と統計カードの数値。h1 はホームのサイトタイトルなど、1ページに1つ。
+- **heading-xl（28px / bold / 1.57 / 4% / palt）**: ページ見出し（h1）。h1 は1ページに1つ（トップページは画面に出さない `sr-only`）。
 - **heading-lg（20px / bold / 1.6 / 4% / palt）**: 事例カードのタイトル、ヘッダーのサイト名。
-- **heading-lg-wide（20px / bold / 1.6 / 10% / palt）**: Figma のテキストスタイル `heading/lg-wide`。トップページのセクション見出し（`CardTitle` の「学校種別」「教科・領域」など）。字間が広いので、記事の中では使わない。
+- **heading-lg-wide（20px / bold / 1.6 / 10% / palt）**: Figma のテキストスタイル `heading/lg-wide`。セクション見出し（トップページの「最新記事」、事例一覧のサイドバーの `CardTitle`「学校種別」「教科・領域」）。字間が広いので、記事の中では使わない。
 - **heading-md（16px / bold / 1.75 / 4% / palt）**: 記事・ページ内の見出し（事例詳細の本文中の見出しなど）。
 - **body-md（16px / regular / 1.75 / 0%）**: 本文の標準。`<body>` に指定し、クラスを付けない文字はこのスタイルになる。事例詳細の本文、ページ見出し直下の説明文など、読ませる文章に使う。
 - **body-sm（14px / regular / 1.71 / 0%）**: 情報が詰まった UI の文字。カードの説明文、フォームのラベル、サイドバーなど。
@@ -368,6 +374,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 - **button-sm（12px / bold / 1 / 0%）**: 小ボタンのラベル。ボタンは基本このサイズ。
 - **button-lg（20px / bold / 1 / 0%）**: 大ボタンのラベル。使う場面は画面のデザイン時に決める。
 - **meta-sm（Inter / 12px / bold / 1.67 / 0%）**: Figma のテキストスタイル `meta/sm`（フォントは `font-family/en`）。記事カードの日時、事例詳細の投稿日・更新日、いいね数・コメント数などの数字。日付は `2026.10.15` の形で書く。Inter には日本語の文字がないので、「件」「年」などの日本語を含むものには使わない。コードでは必ず `font-en` と一緒に指定する（`class="text-meta-sm font-en"`）。
+- **meta-xl（Inter / 42px / medium / 1.05 / 0%）**: Figma のテキストスタイル `meta/xl`（フォントは `font-family/en`、太さは `font-weight/medium`）。投稿日（大）の日の数字だけに使う。行の高さは 44px。
 
 使い分けに迷ったら、文章として読ませるものは body-md、一覧やフォームの中で並ぶものは body-sm を選ぶ。
 
@@ -397,7 +404,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 
 Figma 側のテキストスタイルも `heading/lg` `body/md` のように同じ名前で作り、デザインとコードの対応を名前だけで分かるようにする。
 
-フォントは `app/layout.tsx` で `next/font/google` の Inter（`--font-inter`）と Noto Sans JP（`--font-noto-sans-jp`、preload しない）を読み込み、太さは 400 と 700 だけに絞る。`app/globals.css` の `@theme inline` で `--font-sans` に「Inter → Noto Sans JP」の順で割り当てる。
+フォントは `app/layout.tsx` で `next/font/google` の Inter（`--font-inter`）と Noto Sans JP（`--font-noto-sans-jp`、preload しない）を読み込み、太さは 400 と 700 に絞る（Inter だけ meta-xl 用に 500 も読み込む）。`app/globals.css` の `@theme inline` で `--font-sans` に「Inter → Noto Sans JP」の順で割り当てる。
 
 `cn()`（`lib/utils.ts`）は tailwind-merge v3 の `extendTailwindMerge` で、テキストスタイルと余白の名前を登録している。テキストスタイルや余白の段階を増やしたら、ここにも足す（足さないと `cn("text-heading-lg", "text-primary")` で片方が消える）。
 
@@ -405,8 +412,11 @@ Figma 側のテキストスタイルも `heading/lg` `body/md` のように同�
 
 ## Layout
 
-- **コンテナ**: ページ本体は `container mx-auto px-4 py-8`。ヘッダーも同じ `container mx-auto px-4` で左右を揃える。
-- **ホーム画面**: サイトタイトル → 統計カード4枚（`grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4`）→ 本体の2カラム。本体は `lg` 以上で `grid-cols-4` になり、左1列が絞り込みサイドバー、右3列が検索バーと事例一覧。`lg` 未満では1カラムに縦積みする。
+- **コンテナ**: ページ本体は `container mx-auto px-space-16 py-space-32`。ヘッダーとフッターはコンテナに入れず画面幅いっぱいに広げ、ヘッダーは `lg` 以上で内側 32px（`p-space-32`）、`lg` 未満で 16px にする。
+- **トップページ**（`app/page.tsx`）: h1 はサイト名を `sr-only` で置き、画面には出さない。上から順に次の2つ。
+  - **注目の事例**: いいね数の多い5件のカルーセル（下の Components 節）。
+  - **最新記事**: 見出し（heading-lg-wide、中央寄せ）→ 新着6件の記事カード → 「記事一覧」ボタン（大、幅 240px、`/cases` へ）。セクションの上下は 80px（`py-space-80`）、カードの並びの上下は 48px。カードは `lg` 以上で幅 340px の3列、`sm` 以上で2列、それ未満で1列。間隔は 24px。
+- **事例一覧**（`app/cases/page.tsx`、ヘッダーの「事例を探す」）: ページタイトル → 本体の2カラム。本体は `lg` 以上で `grid-cols-4` になり、左1列が絞り込みサイドバー、右3列が検索バーと事例一覧。`lg` 未満では1カラムに縦積みする。
 - **詳細・投稿画面**: `max-w-4xl` で読みやすい行長に制限する（事例詳細、事例投稿）。
 - **認証画面**: `max-w-md` の1カラムで中央寄せ（ログイン、新規登録、メール確認、404）。
 - **ダイアログ**: 標準 `max-w-lg`、詳細検索は `max-w-2xl`。
@@ -431,8 +441,8 @@ Tailwind 標準の数字（`p-4` `gap-3` など）は、大きさの指定（`w-
 
 奥行きは影ではなく「背景色の差 + 1px のボーダー」で表現するのが基本。影はごく薄く、ホバー時のフィードバックにだけ強める。
 
-- **静止時**: カードは `border shadow-sm`、ボタンと入力欄は `shadow-xs`。ヘッダーは影なしで `border-b`。
-- **ホバー時**: クリックできるカードは影を強めて押せることを示す。事例カードは `hover:shadow-lg`、統計カードは `hover:shadow-md`。どちらも `transition-shadow` を付ける。
+- **静止時**: カードは `border shadow-sm`、ボタンと入力欄は `shadow-xs`。ヘッダーは背景・影・ボーダーなし。トップページの記事カードとスライドは muted の背景に白で置くので、ボーダーと影を付けない。
+- **ホバー時**: クリックできるカードは影を強めて押せることを示す。事例カードと記事カードは `hover:shadow-lg` に `transition-shadow` を付ける。
 - **オーバーレイ**: ダイアログとドロップダウンは shadcn/ui 標準の影とオーバーレイをそのまま使う。
 
 ## Shapes
@@ -446,7 +456,7 @@ Tailwind 標準の数字（`p-4` `gap-3` など）は、大きさの指定（`w-
 
 ## Components
 
-UI 部品は `components/ui/` の shadcn/ui をベースにし、追加のスタイルは Tailwind のクラスで当てる。新しい部品が必要になったら、自作する前に `npx shadcn add` で追加できないか確認する。アイコンは `lucide-react` を使い、ボタン内では 16px（`w-4 h-4`）、統計カードでは 24px（`w-6 h-6`）。色は Colors 節の「アイコンの色」に従う。
+UI 部品は `components/ui/` の shadcn/ui をベースにし、追加のスタイルは Tailwind のクラスで当てる。新しい部品が必要になったら、自作する前に `npx shadcn add` で追加できないか確認する。アイコンは `lucide-react` を使い、ボタン内では 16px（`w-4 h-4`）、大のボタンの右端に置く矢印は 24px（`size-6`）。色は Colors 節の「アイコンの色」に従う。
 
 - **Button**: `default`（primary の塗り）は1つの画面領域に1つまで。「事例を投稿」「新規登録」など主要な行動に使う。並べる副次的な行動は `outline`（「ログイン」など）。リスト内の選択肢は `ghost` で、選択中だけ `default` に切り替える（サイドバーの学校種別・教科フィルター）。サイズは小と大の2つ。高さは最小の高さ（`min-height`）で決め、ラベルが折り返したときは伸びる。
   - 小: ラベル button-sm（12px / bold）、内側は上下 8px・左右 16px、最小の高さ 40px。ボタンは基本このサイズ。
@@ -454,11 +464,14 @@ UI 部品は `components/ui/` の shadcn/ui をベースにし、追加のスタ
   - アイコンのみ: 直径 40px の円（`size-10 rounded-full`）。アイコンは 16px。
 - **Card**: 白背景、角丸 8px、`border`、`shadow-sm`、内側 24px。`CardHeader` / `CardTitle` / `CardContent` で構成する。
 - **事例カード（`case-item.tsx`）**: 全体がリンク（`absolute inset-0` の `Link` を重ねる）。上部に任意の 192px（`h-48`）のヘッダー画像（`next/image`、`object-cover`）。タイトル（heading-lg）は2行、説明（body-sm）は3行で切る（`line-clamp`）。右上に学校種別バッジと教科バッジ、下部に投稿者アバター・氏名・学校名・投稿日、右下にいいねボタン（`z-20` でカードのリンクより前面に出す）。投稿日といいね数は meta-sm（`2026.10.15`）。
-- **統計カード（`stats-overview.tsx`）**: 左に primary subtle（`bg/primary/subtle`）のアイコンタイル（48px 角、内側 16px、角丸 8px）、右に数値（heading-xl）、ラベル（body-sm）、説明（body-xs / muted）。
 - **Badge**: 文字は label-sm、内側は上下 4px・左右 8px。タグは primary subtle の背景に on primary subtle の文字、学校種別は「学校種別の色」の3色、教科は `outline`。
 - **Input / Textarea / Select**: 高さ 36px、左右の内側 16px、`border-input`、フォーカス時は `ring-ring/50` の 3px リング。エラー時は `aria-invalid` を付けると destructive のリングになる。
-- **Header**: `bg-card border-b`。左にロゴ（背景なしで、シンボルとサイト名をエイリアスの `primary/600` で表示）、中央にナビ（label-md）、右にログイン状態に応じたボタン群（投稿ボタン、通知、アバターのドロップダウン）。ナビとメニュー項目はホバーで文字色だけ primary に変わる。
-- **Footer**: inverse（#2C2C2C）の背景に白の文字とリンク（下線付き）。ロゴを置く場合はエイリアスの `neutral/white`。
+- **Logo**（`components/logo.tsx`）: シンボルとサイト名「entredu」をアウトライン化した SVG（146×40）。明るい背景は `public/logo.svg`（`primary/600`）、暗い背景は `public/logo-white.svg`（`neutral/white`）。サイト名の書体（Montserrat）は読み込まない。
+- **Header**（`components/header.tsx`）: 背景・ボーダーなし。左にロゴとナビ（「事例を探す」「教員を探す」、label-md、間隔 32px）、右にログイン状態に応じたボタン群。ログアウト中は「ログイン」（default の小）だけ、ログイン中は「事例を投稿」・通知・アバターのドロップダウン。ナビとメニュー項目はホバーで文字色だけ primary に変わる。`lg` 未満ではナビと「事例を投稿」を `Sheet` のメニュー（`components/mobile-nav.tsx`）にまとめる。
+- **Footer**（`components/footer.tsx`）: inverse（#2C2C2C）の背景に、白版のロゴと、白の下線付きリンク（label-sm、「ご利用規約」「プライバシーポリシー」「お問い合わせ」、間隔 24px）。上下の内側は 48px、ロゴとリンクの間は 32px。リンク先は今は「準備中」のページ（`components/coming-soon.tsx`）。
+- **カルーセル**（`components/home/featured-carousel.tsx`）: shadcn/ui の `Carousel`（embla）。自動再生はせず、矢印・スワイプ・左右キーで送る。ループする。スライドは `lg` 以上で最大 1180px（左のテキスト 380px＋右の画像、高さ 420px）で、前後のスライドが左右にのぞく。スライド間は 32px（Figma は 40px だが余白のスケールに合わせた）。`lg` 未満は画像を上、テキストを下に縦積みする。矢印は default のアイコンのみのボタンで、スライドの左右の縁に中心を合わせる。テキスト部分は投稿日 → タイトル（heading-lg、4行で切る）→ 投稿者（label-md / muted）→ タグ。
+- **記事カード**（`components/home/article-card.tsx`）: 白背景、角丸 8px、ボーダーと影なし。上に比率 340:180 の画像、下に内側 32px の本文。本文は投稿日と、タイトル（heading-md、3行で切る）・投稿者（label-md / muted）・タグの列を 24px あけて横に並べる。カードの中は「画像・タイトル・投稿者・タグ」の4行で、一覧の `li` から行方向の subgrid（`grid-rows-subgrid`）で受け取る。タイトルの行数が違っても、同じ並びのカード同士で投稿者とタグの位置が揃う。投稿者やタグがない場合は、その行が空くだけで下の行は詰めない。
+- **投稿日（大）**（`components/home/post-date.tsx`）: カルーセルと記事カードで使う2段の日付。上が日（meta-xl。白の文字に foreground の 1px の縁取り）、下が「年.月」（meta-sm）。読み上げ用に「2026年9月7日」を `sr-only` で添える。
 - **ローディング**: 一覧の読み込み中は primary 色のスピナー（`animate-spin rounded-full border-b-2 border-primary`）と、`bg-skeleton animate-pulse` のスケルトンカード（skeleton #C9E6FF）を併用する。
 - **空状態**: 中央寄せの Card に、muted foreground の説明文と次の行動のヒント（「検索条件を変更してお試しください。」）を置く。
 
@@ -468,11 +481,11 @@ UI 部品は `components/ui/` の shadcn/ui をベースにし、追加のスタ
 - **Do**: 文字はテキストスタイルのクラス（`text-heading-lg` `text-body-sm` など）で指定する。余白・角丸は、Figma のバリアブルに対応する値（余白 4/8/16/24/32/48/64/80px、角丸 8px）だけを使う。
 - **Do**: 画像は必ず `next/image` の `<Image>` で表示し、意味のある `alt` を付ける（例: 「〇〇のヘッダー画像」）。
 - **Do**: 文言は教員に向けた丁寧語（です・ます調）で書く。ボタンは「事例を投稿」「ログイン」のように短い動詞句にする。
-- **Do**: カード全体をリンクにする場合は、リンクに `aria-label` を付け、中のボタンを `relative z-20` で前面に出す。
+- **Do**: カード全体をリンクにする場合は、リンクに `aria-label` を付け、中のボタンを `relative z-20` で前面に出す。記事カードとスライドのように中にボタンがないものは、タイトルのリンクを `after:absolute after:inset-0` で広げる（リンク名がタイトルになるので `aria-label` は不要）。
 - **Do**: キーボード操作でフォーカスリングが見えることを確認する。shadcn/ui の `focus-visible:ring` を消さない。
 - **Don't**: primary の塗りボタンを同じ領域に複数並べない。
 - **Don't**: muted foreground（#5C5F62）より薄いグレーを本文や補足情報に使わない。disabled の文字色（#8E9194）は無効な部品専用。
-- **Don't**: 太さに 500（`font-medium`）や 600（`font-semibold`）を使わない。400 と 700 の2種類だけ。
+- **Don't**: 太さに 500（`font-medium`）や 600（`font-semibold`）を直接使わない。基本は 400 と 700 で、500 は meta-xl のテキストスタイルを通してだけ使う。
 - **Don't**: label-sm（行の高さ 12px）を複数行の文章に使わない。日本語の行が詰まって読みにくくなる。
 - **Don't**: Tailwind の標準パレット（`blue-500` など）を直接使わない。新しい色が必要なら、まず Figma の用途別バリアブルに追加し、`app/globals.css` に対応する変数を足す。
 - **Don't**: `styles/globals.css` を編集しない。読み込まれているのは `app/globals.css` だけで、`styles/` 側は使われていない。

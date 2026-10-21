@@ -19,6 +19,7 @@ const twMerge = extendTailwindMerge({
         'button-sm',
         'button-lg',
         'meta-sm',
+        'meta-xl',
       ],
       spacing: [
         'space-4',

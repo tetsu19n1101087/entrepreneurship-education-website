@@ -1,13 +1,15 @@
+import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
 import type { Metadata } from 'next';
 import { Inter, Noto_Sans_JP } from 'next/font/google';
 import type React from 'react';
 import './globals.css';
 
-// 太さは 400 と 700 だけ（DESIGN.md の Typography）。CSS 変数は app/globals.css と app/tokens.css で使う
+// 太さは 400 と 700。Inter だけ 500 も読み込む（投稿日（大）の数字に使う meta-xl。DESIGN.md の Typography）。
+// CSS 変数は app/globals.css と app/tokens.css で使う
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['400', '500', '700'],
   variable: '--font-inter',
 });
 
@@ -19,7 +21,10 @@ const notoSansJp = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: '千葉県アントレプレナーシップ教育事例共有プラットフォーム',
+  title: {
+    default: '千葉県アントレプレナーシップ教育事例共有プラットフォーム',
+    template: '%s | 千葉県アントレプレナーシップ教育事例共有プラットフォーム',
+  },
   description:
     '千葉県の小中高教員がアントレプレナーシップ教育の実践事例を共有するためのプラットフォーム',
   generator: 'v0.app',
@@ -35,6 +40,7 @@ export default function RootLayout({
       <body className='flex min-h-screen flex-col'>
         <Header />
         <main className='flex flex-1 flex-col'>{children}</main>
+        <Footer />
       </body>
     </html>
   );
