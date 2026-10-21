@@ -17,7 +17,7 @@ export function PostDate({ date }: { date: string }) {
   return (
     <time
       dateTime={`${year}-${month}-${day}`}
-      className='flex shrink-0 flex-col items-center font-en'
+      className='flex w-fit shrink-0 flex-col items-center font-en'
     >
       <span className='sr-only'>{`${year}年${Number(month)}月${Number(day)}日`}</span>
       {/* 42px の数字はトークンにない、この部品だけの表示。白抜きに text/default の縁取り */}

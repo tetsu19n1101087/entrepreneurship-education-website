@@ -14,10 +14,11 @@ import Link from 'next/link';
 import { PostDate } from './post-date';
 
 // スライドの幅。lg 以上は最大 1180px（テキスト 380px＋画像 800px）で、前後のスライドが左右にのぞく。
-// CarouselItem の basis はスライド間の余白（pl）を含むので、矢印の枠と式をそろえておく。
+// スライド間の余白は CarouselItem の左右に半分ずつ持たせる（左だけだと中央揃えが余白の分ずれる）。
+// basis はその余白を含むので、矢印の枠と式をそろえておく。
 // Figma のスライド間隔は 40px だが、余白のスケールにないので space-32 にしている
 const SLIDE_WIDTH =
-  'w-[calc(88%-var(--spacing-space-16))] lg:w-[min(1180px,calc(90%-var(--spacing-space-32)))]';
+  'w-[calc(88%-var(--spacing-space-16))] lg:w-[calc(min(1212px,90%)-var(--spacing-space-32))]';
 
 export function FeaturedCarousel({ cases }: { cases: CaseSummary[] }) {
   return (
@@ -43,12 +44,12 @@ export function FeaturedCarousel({ cases }: { cases: CaseSummary[] }) {
       )}
       {/* embla が動き出すまでの初期位置。先頭のスライドを中央に置いておき、読み込み時の横ずれを防ぐ
           （embla は style.transform を上書きするので、初期化後はこの値は効かない） */}
-      <CarouselContent className='-ml-space-16 [transform:translate3d(6%,0,0)] lg:-ml-space-32 lg:[transform:translate3d(calc((100%-min(1212px,90%))/2),0,0)]'>
+      <CarouselContent className='ml-0 [transform:translate3d(6%,0,0)] lg:[transform:translate3d(calc((100%-min(1212px,90%))/2),0,0)]'>
         {cases.map((caseItem, index) => (
           <CarouselItem
             key={caseItem.id}
             aria-label={`${index + 1} / ${cases.length}`}
-            className='basis-[88%] pl-space-16 lg:basis-[min(1212px,90%)] lg:pl-space-32'
+            className='basis-[88%] px-space-8 lg:basis-[min(1212px,90%)] lg:px-space-16'
           >
             <article className='relative flex h-full flex-col-reverse overflow-hidden rounded-md bg-card lg:h-[420px] lg:flex-row'>
               <div className='flex flex-col gap-space-16 p-space-24 lg:w-[380px] lg:shrink-0 lg:px-space-32 lg:py-space-48'>
