@@ -29,3 +29,5 @@ next-env.d.ts
 .vscode/
 
 pnpm-lock.yaml
+# Claude Code worktrees
+.claude/worktrees/

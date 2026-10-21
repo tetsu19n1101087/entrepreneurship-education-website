@@ -1,70 +1,69 @@
-import { CategoryFilter } from '@/components/category-filter';
-import { SearchBar } from '@/components/search-bar';
-import StatsOverview from '@/components/stats-overview';
-import { SearchFilterProvider } from '@/hooks/use-search-filter';
-import CaseList from '@/components/case-list';
-import { Suspense } from 'react';
+import { ArticleCard } from '@/components/home/article-card';
+import { FeaturedCarousel } from '@/components/home/featured-carousel';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { getLatestCases, getPopularCases } from '@/lib/supabase/cases';
+import { ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default async function HomePage() {
+  const [popularCases, latestCases] = await Promise.all([
+    getPopularCases(5),
+    getLatestCases(6),
+  ]);
+
   return (
-    <SearchFilterProvider>
-      <div className='h-full flex-1 bg-background'>
-        <main className='container mx-auto px-4 py-8'>
-          <div className='mb-8'>
-            <h1 className='text-3xl font-bold text-foreground mb-2'>
-              千葉県アントレプレナーシップ教育事例共有プラットフォーム
-            </h1>
-            <p className='text-muted-foreground text-lg'>
-              小中高教員の皆様が実践事例を共有し、学び合うためのコミュニティです
-            </p>
-          </div>
-          <StatsOverview />
-          <div className='grid grid-cols-1 lg:grid-cols-4 gap-6 mt-8'>
-            <aside className='lg:col-span-1'>
-              <CategoryFilter />
-            </aside>
-            <div className='lg:col-span-3'>
-              <SearchBar />
-              <Suspense
-                fallback={
-                  <div className='space-y-6 mt-6'>
-                    <div className='flex items-center justify-center py-12'>
-                      <div className='flex flex-col items-center space-y-4'>
-                        <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
-                        <p className='text-muted-foreground font-medium'>
-                          事例を読み込み中...
-                        </p>
-                      </div>
-                    </div>
-                    {/* Loading skeleton cards */}
-                    <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-1'>
-                      {[...Array(3)].map((_, i) => (
-                        <div
-                          key={i}
-                          className='border rounded-lg p-6 space-y-4 animate-pulse'
-                        >
-                          <div className='h-4 bg-muted rounded w-3/4'></div>
-                          <div className='h-3 bg-muted rounded w-1/2'></div>
-                          <div className='space-y-2'>
-                            <div className='h-3 bg-muted rounded'></div>
-                            <div className='h-3 bg-muted rounded w-5/6'></div>
-                          </div>
-                          <div className='flex space-x-2'>
-                            <div className='h-6 bg-muted rounded-full w-16'></div>
-                            <div className='h-6 bg-muted rounded-full w-20'></div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                }
+    <div className='flex flex-col'>
+      <h1 className='sr-only'>
+        千葉県アントレプレナーシップ教育事例共有プラットフォーム
+      </h1>
+
+      {popularCases.length > 0 && (
+        // ランドマークはカルーセル側の region（「注目の事例」）だけにする
+        <div>
+          <h2 className='sr-only'>注目の事例</h2>
+          <FeaturedCarousel cases={popularCases} />
+        </div>
+      )}
+
+      <section
+        aria-labelledby='latest-heading'
+        className='flex flex-col items-center px-space-16 py-space-80 lg:px-space-32'
+      >
+        <h2
+          id='latest-heading'
+          className='text-heading-lg-wide text-foreground'
+        >
+          最新記事
+        </h2>
+        {latestCases.length > 0 ? (
+          <ul className='grid w-full grid-cols-1 gap-space-24 py-space-48 sm:grid-cols-2 lg:grid-cols-[repeat(3,minmax(0,340px))] lg:justify-center'>
+            {latestCases.map((caseItem) => (
+              // カードの4行（画像・タイトル・著者・タグ）を subgrid で並びのカードと揃える
+              <li
+                key={caseItem.id}
+                className='row-span-4 grid grid-rows-subgrid gap-y-0'
               >
-                <CaseList />
-              </Suspense>
-            </div>
-          </div>
-        </main>
-      </div>
-    </SearchFilterProvider>
+                <ArticleCard caseItem={caseItem} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <Card className='my-space-48 w-full max-w-xl py-space-48 text-center'>
+            <CardContent>
+              <p className='text-body-md text-muted-foreground'>
+                まだ記事がありません。
+              </p>
+            </CardContent>
+          </Card>
+        )}
+        <Button size='lg' className='relative w-60' asChild>
+          <Link href='/cases'>
+            記事一覧
+            <ChevronRight className='absolute right-space-16 size-6' />
+          </Link>
+        </Button>
+      </section>
+    </div>
   );
 }

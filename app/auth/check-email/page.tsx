@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -5,19 +6,18 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { Mail } from 'lucide-react';
+import Link from 'next/link';
 
 export default function CheckEmailPage() {
   return (
-    <div className='h-full flex-1 flex items-center justify-center bg-gradient-to-br from-blue-50 to-green-50 p-4'>
+    <div className='flex h-full flex-1 items-center justify-center bg-background p-space-16'>
       <Card className='w-full max-w-md text-center'>
         <CardHeader>
-          <div className='mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100'>
-            <Mail className='h-6 w-6 text-blue-600' />
+          <div className='mx-auto mb-space-16 flex h-12 w-12 items-center justify-center rounded-full bg-primary-subtle'>
+            <Mail className='h-6 w-6 text-primary' />
           </div>
-          <CardTitle className='text-2xl font-bold text-blue-900'>
+          <CardTitle className='text-heading-xl text-foreground'>
             メールを確認してください
           </CardTitle>
           <CardDescription>
@@ -25,8 +25,8 @@ export default function CheckEmailPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className='space-y-4'>
-            <p className='text-sm text-gray-600'>
+          <div className='space-y-space-16'>
+            <p className='text-body-sm text-muted-foreground'>
               メールが届かない場合は、迷惑メールフォルダもご確認ください。
             </p>
             <Button asChild className='w-full'>

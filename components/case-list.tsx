@@ -1,8 +1,8 @@
 import { Card, CardContent } from '@/components/ui/card';
-import CaseItem from './case-item';
+import { type Case } from '@/lib/definitions';
 import { getCases } from '@/lib/supabase/cases';
 import { createClient } from '@/lib/supabase/server';
-import { type Case } from '@/lib/definitions';
+import CaseItem from './case-item';
 
 export default async function CaseList() {
   const supabase = await createClient();
@@ -15,12 +15,12 @@ export default async function CaseList() {
 
   if (!cases || cases.length === 0) {
     return (
-      <Card className='text-center py-12'>
+      <Card className='py-space-48 text-center'>
         <CardContent>
-          <p className='text-muted-foreground'>
+          <p className='text-body-md text-muted-foreground'>
             事例がまだ投稿されていません。
           </p>
-          <p className='text-sm text-muted-foreground mt-2'>
+          <p className='mt-space-8 text-body-sm text-muted-foreground'>
             事例を投稿して、コミュニティに貢献しましょう！
           </p>
         </CardContent>

@@ -13,6 +13,37 @@
 - **コミットの事前確認**: AIが勝手にGitコミットやPushを実行してはいけません。コミットを実行する前に、必ずユーザーに確認を取り、許可を得ること。
 - **データベース**: Supabase をバックエンドとし、DBアクセスや認証は `lib/supabase/` 以下のクライアントを使用すること。
 
+## ブランチ運用（Git Flow）
+
+Git Flow で運用する。`main` と `develop` へ直接コミットせず、必ず作業ブランチで作業してからマージすること。
+
+- `main` へのマージは、必ず Pull Request を通して行う。
+- `develop` へのマージは、Pull Request を通すか、ローカルで `git merge --no-ff` してから Push するかのどちらでもよい。
+
+### 常設ブランチ
+
+- `main` : 本番リリース用。常にリリース可能な状態を保つ。
+- `develop` : 開発の統合ブランチ（GitHub のデフォルトブランチ）。次回リリースに向けた変更をここに集める。
+
+### 作業ブランチ
+
+| 種類    | 分岐元    | マージ先            | 命名規則                     | 例                       |
+| ------- | --------- | ------------------- | ---------------------------- | ------------------------ |
+| feature | `develop` | `develop`           | `feature/<Issue番号>-<概要>` | `feature/41-update-home` |
+| release | `develop` | `main` と `develop` | `release/<バージョン>`       | `release/1.0.0`          |
+| hotfix  | `main`    | `main` と `develop` | `hotfix/<Issue番号>-<概要>`  | `hotfix/50-fix-login`    |
+
+- 新機能・修正・ドキュメント更新など通常の作業は、すべて `develop` から `feature/*` を切って行う。
+- リリース時は `develop` から `release/*` を切り、最終調整のうえ `main` へマージする。マージ後は `main` に `v<バージョン>` のタグを付け、`release/*` を `develop` にもマージして差分を戻す。
+- 本番の緊急修正は `main` から `hotfix/*` を切り、`main` と `develop` の両方へマージする。
+- マージ済みの作業ブランチは削除する。
+
+### AIエージェントへの指示
+
+- 作業を始める前に `develop` を最新化し、そこから `feature/*` ブランチを作成すること。`main` から分岐しないこと。
+- feature を `develop` へ取り込むときは、Pull Request（ベースは `develop`）とローカルマージのどちらにするかをユーザーに確認すること。ローカルマージする場合も、マージと Push の前にユーザーの許可を得ること。
+- release・hotfix の Pull Request は、ベースブランチに `main` を指定すること。
+
 ## よく使うコマンド
 
 - `yarn dev` : 開発サーバー起動
