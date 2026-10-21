@@ -39,7 +39,11 @@ export default async function HomePage() {
         {latestCases.length > 0 ? (
           <ul className='grid w-full grid-cols-1 gap-space-24 py-space-48 sm:grid-cols-2 lg:grid-cols-[repeat(3,minmax(0,340px))] lg:justify-center'>
             {latestCases.map((caseItem) => (
-              <li key={caseItem.id} className='flex'>
+              // カードの4行（画像・タイトル・著者・タグ）を subgrid で並びのカードと揃える
+              <li
+                key={caseItem.id}
+                className='row-span-4 grid grid-rows-subgrid gap-y-0'
+              >
                 <ArticleCard caseItem={caseItem} />
               </li>
             ))}
