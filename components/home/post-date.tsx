@@ -20,10 +20,10 @@ export function PostDate({ date }: { date: string }) {
       className='flex w-fit shrink-0 flex-col items-center font-en'
     >
       <span className='sr-only'>{`${year}年${Number(month)}月${Number(day)}日`}</span>
-      {/* 42px の数字はトークンにない、この部品だけの表示。白抜きに text/default の縁取り */}
+      {/* 日の数字は meta-xl（Inter / 42px / 500）。白抜きに text/default の縁取り */}
       <span
         aria-hidden='true'
-        className='text-[42px] leading-[42px] text-card [-webkit-text-stroke:1px_var(--color-foreground)]'
+        className='text-meta-xl text-card [-webkit-text-stroke:1px_var(--color-foreground)]'
       >
         {day}
       </span>

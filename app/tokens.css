@@ -135,6 +135,10 @@
   --text-meta-sm--line-height: 1.67;
   --text-meta-sm--font-weight: 700;
   --text-meta-sm--letter-spacing: 0em;
+  --text-meta-xl: 2.625rem;
+  --text-meta-xl--line-height: 1.05;
+  --text-meta-xl--font-weight: 500;
+  --text-meta-xl--letter-spacing: 0em;
   --spacing-space-4: 0.25rem;
   --spacing-space-8: 0.5rem;
   --spacing-space-16: 1rem;

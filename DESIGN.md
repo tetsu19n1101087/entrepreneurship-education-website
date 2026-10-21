@@ -102,6 +102,12 @@ typography:
     fontWeight: 700
     lineHeight: 1.67
     letterSpacing: 0em
+  meta-xl:
+    fontFamily: Inter
+    fontSize: 42px
+    fontWeight: 500
+    lineHeight: 1.05
+    letterSpacing: 0em
 rounded:
   md: 8px
   full: 9999px
@@ -328,8 +334,9 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 - `font-size/100`: 16px
 - `font-size/200`: 20px
 - `font-size/300`: 28px
+- `font-size/400`: 42px（meta-xl だけ）
 
-太さは `font-weight/normal`（400）と `font-weight/bold`（700）の2種類だけ。行の高さは単位なしの倍率で指定し、文字サイズ × 倍率（テキストボックスの高さ）が4の倍数になる値にする。倍率は文字サイズごとに1つで、heading / body / label で共通。例外は1行で使う label-sm と button の系統で、倍率 1。
+太さは `font-weight/normal`（400）と `font-weight/bold`（700）が基本。`font-weight/medium`（500）は欧文の大きい数字（meta-xl）だけに使う。行の高さは単位なしの倍率で指定し、文字サイズ × 倍率（テキストボックスの高さ）が4の倍数になる値にする。倍率は文字サイズごとに1つで、heading / body / label で共通。例外は1行で使う label-sm と button の系統で、倍率 1。
 
 - 12px: 1.67（20px）
 - 14px: 1.71（24px）
@@ -344,7 +351,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 - heading-xl / heading-lg / heading-md: 4%（0.04em）
 - heading-lg-wide: 10%（0.1em）。セクション見出しだけに使う
 - label-md: 2%（0.02em）
-- body-md / body-sm / body-xs / label-sm / button-sm / button-lg / meta-sm: 0%
+- body-md / body-sm / body-xs / label-sm / button-sm / button-lg / meta-sm / meta-xl: 0%
 
 見出し（heading-xl / heading-lg / heading-lg-wide / heading-md）には、OpenType 機能の palt（プロポーショナル幅の約物・かな）を当てて、日本語の字面を詰める。字間（4% / 10%）は palt なしで決めた値なので、画面に当てて見直す。本文には当てない（長い文章では等幅の方が読みやすい）。
 
@@ -353,7 +360,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 
 ### テキストスタイル
 
-文字の指定は、サイズ・太さ・行の高さ・字間をまとめた「テキストスタイル」で行う。系統は heading（見出し）・body（本文）・label（UI の見出しラベルやバッジ）・button（ボタン）・meta（日時・数字）の5つで、サイズの段階は `xl` `lg` `md` `sm` `xs` で表す。`md` は標準の段階を指す。button だけはボタンのサイズ（小・大）に合わせて `sm` と `lg` の2段階にする。meta は今のところ `sm` だけ。
+文字の指定は、サイズ・太さ・行の高さ・字間をまとめた「テキストスタイル」で行う。系統は heading（見出し）・body（本文）・label（UI の見出しラベルやバッジ）・button（ボタン）・meta（日時・数字）の5つで、サイズの段階は `xl` `lg` `md` `sm` `xs` で表す。`md` は標準の段階を指す。button だけはボタンのサイズ（小・大）に合わせて `sm` と `lg` の2段階にする。meta は今のところ `sm` と `xl` の2つ。
 
 - **heading-xl（28px / bold / 1.57 / 4% / palt）**: ページ見出し（h1）。h1 は1ページに1つ（トップページは画面に出さない `sr-only`）。
 - **heading-lg（20px / bold / 1.6 / 4% / palt）**: 事例カードのタイトル、ヘッダーのサイト名。
@@ -367,6 +374,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 - **button-sm（12px / bold / 1 / 0%）**: 小ボタンのラベル。ボタンは基本このサイズ。
 - **button-lg（20px / bold / 1 / 0%）**: 大ボタンのラベル。使う場面は画面のデザイン時に決める。
 - **meta-sm（Inter / 12px / bold / 1.67 / 0%）**: Figma のテキストスタイル `meta/sm`（フォントは `font-family/en`）。記事カードの日時、事例詳細の投稿日・更新日、いいね数・コメント数などの数字。日付は `2026.10.15` の形で書く。Inter には日本語の文字がないので、「件」「年」などの日本語を含むものには使わない。コードでは必ず `font-en` と一緒に指定する（`class="text-meta-sm font-en"`）。
+- **meta-xl（Inter / 42px / medium / 1.05 / 0%）**: Figma のテキストスタイル `meta/xl`（フォントは `font-family/en`、太さは `font-weight/medium`）。投稿日（大）の日の数字だけに使う。行の高さは 44px。
 
 使い分けに迷ったら、文章として読ませるものは body-md、一覧やフォームの中で並ぶものは body-sm を選ぶ。
 
@@ -396,7 +404,7 @@ shadcn/ui の CSS 変数名はそのまま使い、値に用途別のバリア�
 
 Figma 側のテキストスタイルも `heading/lg` `body/md` のように同じ名前で作り、デザインとコードの対応を名前だけで分かるようにする。
 
-フォントは `app/layout.tsx` で `next/font/google` の Inter（`--font-inter`）と Noto Sans JP（`--font-noto-sans-jp`、preload しない）を読み込み、太さは 400 と 700 だけに絞る。`app/globals.css` の `@theme inline` で `--font-sans` に「Inter → Noto Sans JP」の順で割り当てる。
+フォントは `app/layout.tsx` で `next/font/google` の Inter（`--font-inter`）と Noto Sans JP（`--font-noto-sans-jp`、preload しない）を読み込み、太さは 400 と 700 に絞る（Inter だけ meta-xl 用に 500 も読み込む）。`app/globals.css` の `@theme inline` で `--font-sans` に「Inter → Noto Sans JP」の順で割り当てる。
 
 `cn()`（`lib/utils.ts`）は tailwind-merge v3 の `extendTailwindMerge` で、テキストスタイルと余白の名前を登録している。テキストスタイルや余白の段階を増やしたら、ここにも足す（足さないと `cn("text-heading-lg", "text-primary")` で片方が消える）。
 
@@ -463,7 +471,7 @@ UI 部品は `components/ui/` の shadcn/ui をベースにし、追加のスタ
 - **Footer**（`components/footer.tsx`）: inverse（#2C2C2C）の背景に、白版のロゴと、白の下線付きリンク（label-sm、「ご利用規約」「プライバシーポリシー」「お問い合わせ」、間隔 24px）。上下の内側は 48px、ロゴとリンクの間は 32px。リンク先は今は「準備中」のページ（`components/coming-soon.tsx`）。
 - **カルーセル**（`components/home/featured-carousel.tsx`）: shadcn/ui の `Carousel`（embla）。自動再生はせず、矢印・スワイプ・左右キーで送る。ループする。スライドは `lg` 以上で最大 1180px（左のテキスト 380px＋右の画像、高さ 420px）で、前後のスライドが左右にのぞく。スライド間は 32px（Figma は 40px だが余白のスケールに合わせた）。`lg` 未満は画像を上、テキストを下に縦積みする。矢印は default のアイコンのみのボタンで、スライドの左右の縁に中心を合わせる。テキスト部分は投稿日 → タイトル（heading-lg、4行で切る）→ 投稿者（label-md / muted）→ タグ。
 - **記事カード**（`components/home/article-card.tsx`）: 白背景、角丸 8px、ボーダーと影なし。上に比率 340:180 の画像、下に内側 32px の本文。本文は投稿日と、タイトル（heading-md、3行で切る）・投稿者（label-md / muted）・タグの列を 24px あけて横に並べる。カードの中は「画像・タイトル・投稿者・タグ」の4行で、一覧の `li` から行方向の subgrid（`grid-rows-subgrid`）で受け取る。タイトルの行数が違っても、同じ並びのカード同士で投稿者とタグの位置が揃う。投稿者やタグがない場合は、その行が空くだけで下の行は詰めない。
-- **投稿日（大）**（`components/home/post-date.tsx`）: カルーセルと記事カードで使う2段の日付。上が日（Inter 42px、白の文字に foreground の 1px の縁取り）、下が「年.月」（meta-sm）。42px はテキストスタイルにない、この部品だけの例外。Figma の太さは 500 だが 400 で表示する。読み上げ用に「2026年9月7日」を `sr-only` で添える。
+- **投稿日（大）**（`components/home/post-date.tsx`）: カルーセルと記事カードで使う2段の日付。上が日（meta-xl。白の文字に foreground の 1px の縁取り）、下が「年.月」（meta-sm）。読み上げ用に「2026年9月7日」を `sr-only` で添える。
 - **ローディング**: 一覧の読み込み中は primary 色のスピナー（`animate-spin rounded-full border-b-2 border-primary`）と、`bg-skeleton animate-pulse` のスケルトンカード（skeleton #C9E6FF）を併用する。
 - **空状態**: 中央寄せの Card に、muted foreground の説明文と次の行動のヒント（「検索条件を変更してお試しください。」）を置く。
 
@@ -477,7 +485,7 @@ UI 部品は `components/ui/` の shadcn/ui をベースにし、追加のスタ
 - **Do**: キーボード操作でフォーカスリングが見えることを確認する。shadcn/ui の `focus-visible:ring` を消さない。
 - **Don't**: primary の塗りボタンを同じ領域に複数並べない。
 - **Don't**: muted foreground（#5C5F62）より薄いグレーを本文や補足情報に使わない。disabled の文字色（#8E9194）は無効な部品専用。
-- **Don't**: 太さに 500（`font-medium`）や 600（`font-semibold`）を使わない。400 と 700 の2種類だけ。
+- **Don't**: 太さに 500（`font-medium`）や 600（`font-semibold`）を直接使わない。基本は 400 と 700 で、500 は meta-xl のテキストスタイルを通してだけ使う。
 - **Don't**: label-sm（行の高さ 12px）を複数行の文章に使わない。日本語の行が詰まって読みにくくなる。
 - **Don't**: Tailwind の標準パレット（`blue-500` など）を直接使わない。新しい色が必要なら、まず Figma の用途別バリアブルに追加し、`app/globals.css` に対応する変数を足す。
 - **Don't**: `styles/globals.css` を編集しない。読み込まれているのは `app/globals.css` だけで、`styles/` 側は使われていない。

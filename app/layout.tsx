@@ -5,10 +5,11 @@ import { Inter, Noto_Sans_JP } from 'next/font/google';
 import type React from 'react';
 import './globals.css';
 
-// 太さは 400 と 700 だけ（DESIGN.md の Typography）。CSS 変数は app/globals.css と app/tokens.css で使う
+// 太さは 400 と 700。Inter だけ 500 も読み込む（投稿日（大）の数字に使う meta-xl。DESIGN.md の Typography）。
+// CSS 変数は app/globals.css と app/tokens.css で使う
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['400', '500', '700'],
   variable: '--font-inter',
 });
 
