@@ -13,8 +13,7 @@ export default async function HomePage() {
   ]);
 
   return (
-    // data-page='home' で body の背景を muted にする（app/globals.css）
-    <div data-page='home' className='flex flex-col'>
+    <div className='flex flex-col'>
       <h1 className='sr-only'>
         千葉県アントレプレナーシップ教育事例共有プラットフォーム
       </h1>
