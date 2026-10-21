@@ -51,7 +51,8 @@ export function FeaturedCarousel({ cases }: { cases: CaseSummary[] }) {
             aria-label={`${index + 1} / ${cases.length}`}
             className='basis-[88%] px-space-8 lg:basis-[min(1212px,90%)] lg:px-space-16'
           >
-            <article className='relative flex h-full flex-col-reverse overflow-hidden rounded-md bg-card lg:h-[420px] lg:flex-row'>
+            {/* lg 未満は画像を上に出す。flex-col-reverse だと、背の高いスライドに揃えたときの余りが画像の上に出てずれるので、order で並べ替える */}
+            <article className='relative flex h-full flex-col overflow-hidden rounded-md bg-card lg:h-[420px] lg:flex-row'>
               <div className='flex flex-col gap-space-16 p-space-24 lg:w-[380px] lg:shrink-0 lg:px-space-32 lg:py-space-48'>
                 <div>
                   <PostDate date={caseItem.created_at} />
@@ -73,14 +74,14 @@ export function FeaturedCarousel({ cases }: { cases: CaseSummary[] }) {
                 {(caseItem.tags?.length ?? 0) > 0 && (
                   <ul className='flex flex-wrap gap-space-8 py-space-8'>
                     {caseItem.tags.map((tag) => (
-                      <li key={tag}>
+                      <li key={tag} className='flex'>
                         <Badge variant='secondary'>{tag}</Badge>
                       </li>
                     ))}
                   </ul>
                 )}
               </div>
-              <div className='relative aspect-[800/420] w-full lg:aspect-auto lg:flex-1'>
+              <div className='relative order-first aspect-[800/420] w-full lg:order-none lg:aspect-auto lg:flex-1'>
                 <Image
                   src={caseItem.imageUrl ?? '/placeholder.svg'}
                   alt={
