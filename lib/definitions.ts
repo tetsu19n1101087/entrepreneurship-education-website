@@ -16,6 +16,7 @@ export interface Case {
   profiles?: {
     display_name: string;
     school_name: string;
+    avatar_url: string | null;
   };
 }
 
@@ -32,6 +33,7 @@ export interface Comment {
   profiles?: {
     display_name: string;
     school_name: string;
+    avatar_url: string | null;
   };
   replies?: Comment[];
 }
@@ -44,7 +46,7 @@ export interface Profile {
   subject?: string;
   years_experience?: number;
   bio?: string;
-  avatar_url?: string;
+  avatar_url?: string | null;
   created_at?: string;
   updated_at?: string;
 }

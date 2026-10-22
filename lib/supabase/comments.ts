@@ -10,7 +10,8 @@ export async function getCommentsByCase(caseId: string) {
       `*,
       profiles (
         display_name,
-        school_name
+        school_name,
+        avatar_url
       )`,
     )
     .eq('case_id', caseId)
@@ -36,7 +37,8 @@ export async function getCommentsByCase(caseId: string) {
           *,
           profiles (
             display_name,
-            school_name
+            school_name,
+            avatar_url
           )
         `,
         )
