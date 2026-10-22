@@ -24,15 +24,16 @@ import { useSearchFilter } from '@/hooks/use-search-filter';
 import { X } from 'lucide-react';
 import { useState } from 'react';
 
-export function AdvancedSearchDialog() {
-  const {
-    isAdvancedSearchOpen,
-    setIsAdvancedSearchOpen,
-    setSearchQuery,
-    setSelectedCategory,
-    setSelectedSubject,
-    setSelectedTags,
-  } = useSearchFilter();
+export function AdvancedSearchDialog({
+  open,
+  onOpenChange,
+  onApply,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onApply?: (searchQuery: string) => void;
+}) {
+  const { applyFilters } = useSearchFilter();
 
   const [localFilters, setLocalFilters] = useState({
     keyword: '',
@@ -62,15 +63,16 @@ export function AdvancedSearchDialog() {
   };
 
   const handleApplyFilters = () => {
-    setSearchQuery(localFilters.keyword);
-    setSelectedCategory(
-      localFilters.category === 'all' ? null : localFilters.category,
-    );
-    setSelectedSubject(
-      localFilters.subject === 'all' ? null : localFilters.subject,
-    );
-    setSelectedTags(localFilters.tags);
-    setIsAdvancedSearchOpen(false);
+    applyFilters({
+      searchQuery: localFilters.keyword,
+      selectedCategory:
+        localFilters.category === 'all' ? null : localFilters.category,
+      selectedSubject:
+        localFilters.subject === 'all' ? null : localFilters.subject,
+      selectedTags: localFilters.tags,
+    });
+    onApply?.(localFilters.keyword);
+    onOpenChange(false);
   };
 
   const handleClearFilters = () => {
@@ -92,7 +94,7 @@ export function AdvancedSearchDialog() {
   };
 
   return (
-    <Dialog open={isAdvancedSearchOpen} onOpenChange={setIsAdvancedSearchOpen}>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className='max-w-2xl'>
         <DialogHeader>
           <DialogTitle>詳細検索</DialogTitle>

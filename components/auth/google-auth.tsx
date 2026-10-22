@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
+import type { AuthError } from '@supabase/supabase-js';
 import { useSearchParams } from 'next/navigation';
 import type React from 'react';
 import { useState } from 'react';
@@ -11,8 +12,6 @@ export function LoginWithGoogle() {
 
   const searchParams = useSearchParams();
 
-  console.log(searchParams.toString());
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
@@ -21,8 +20,9 @@ export function LoginWithGoogle() {
     // ログインを始めたオリジン（本番・Preview・ローカル）に戻す
     const redirectTo = `${window.location.origin}/auth/callback?${searchParams.toString()}`;
 
+    let error: AuthError | null;
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
+      ({ error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo,
@@ -30,12 +30,14 @@ export function LoginWithGoogle() {
             access_type: 'offline',
           },
         },
-      });
+      }));
+    } catch (e) {
+      console.error('Error during Google sign-in:', e);
+      setError('Googleでの登録に失敗しました');
+      return;
+    }
 
-      if (error) {
-        throw new Error(error.message);
-      }
-    } catch (error) {
+    if (error) {
       console.error('Error during Google sign-in:', error);
       setError('Googleでの登録に失敗しました');
     }

@@ -24,6 +24,12 @@ const eslintConfig = defineConfig([
       react: { version: '19' },
     },
   },
+  {
+    rules: {
+      // React Compiler が最適化を諦める（bail-out）書き方を検出する
+      'react-hooks/todo': 'error',
+    },
+  },
 ]);
 
 export default eslintConfig;
