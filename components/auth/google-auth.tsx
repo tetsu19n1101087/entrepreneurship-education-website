@@ -18,12 +18,8 @@ export function LoginWithGoogle() {
 
     const supabase = createClient();
 
-    const url =
-      process.env.NEXT_PUBLIC_SITE_URL || // Set this to your site URL in production env.
-      process.env.NEXT_PUBLIC_VERCEL_URL || // Automatically set by Vercel.
-      'http://localhost:3000';
-
-    const redirectTo = `${url}/auth/callback?${searchParams.toString()}`;
+    // ログインを始めたオリジン（本番・Preview・ローカル）に戻す
+    const redirectTo = `${window.location.origin}/auth/callback?${searchParams.toString()}`;
 
     try {
       const { error } = await supabase.auth.signInWithOAuth({
