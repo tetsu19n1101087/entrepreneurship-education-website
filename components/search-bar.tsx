@@ -17,6 +17,11 @@ const categoryLabelMap: Record<string, string> = {
 // キーワード入力を URL に反映するまでの待ち時間（ms）
 const SEARCH_DEBOUNCE_MS = 300;
 
+// 現在の URL の pathname と search 全体（hash は除く）。
+// q 以外のパラメータの変化（戻る/進む、pushState）も検出できるようにする
+const readLocationKey = () =>
+  `${window.location.pathname}${window.location.search}`;
+
 export function SearchBar() {
   const {
     searchQuery,
@@ -35,6 +40,10 @@ export function SearchBar() {
   // 入力欄の値はローカル state で持ち、デバウンスして URL に反映する
   const [inputValue, setInputValue] = useState(searchQuery);
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // デバウンス待ちの入力と、入力時点の URL（pathname と search）
+  const pendingSearch = useRef<{ value: string; locationKey: string } | null>(
+    null,
+  );
 
   // 自分が書き込んだが、まだ searchQuery に反映されていない q（古い順）。
   // Next は replaceState の反映を transition で行うため、キー入力より遅れて届くことがある。
@@ -62,12 +71,26 @@ export function SearchBar() {
       clearTimeout(debounceTimer.current);
       debounceTimer.current = null;
     }
+    pendingSearch.current = null;
   };
 
   // 外部要因で q が変わったら、古い入力内容の書き込みを取り消す
   useEffect(() => {
     cancelPendingSearch();
   }, [externalChangeCount]);
+
+  // 戻る/進むは blur を伴わず、q が変わらないこともある（描画中の検出では拾えない）ので
+  // popstate で入力欄を戻り先の q に合わせ、保留中の書き込みも取り消す。
+  // 描画中の検出も同じ値を setInputValue するので、両方動いても結果は一致する
+  useEffect(() => {
+    const handlePopState = () => {
+      cancelPendingSearch();
+      setPendingWrites([]);
+      setInputValue(new URLSearchParams(window.location.search).get('q') ?? '');
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -84,18 +107,44 @@ export function SearchBar() {
     setInputValue(query);
   };
 
+  // 入力を URL の q に書き込む。デバウンス満了と blur 時の flush で共通
+  const commitSearch = (value: string) => {
+    const currentQuery =
+      new URLSearchParams(window.location.search).get('q') ?? '';
+    // URL が既に同じ値なら反映イベントは来ないので、一覧に積まない
+    if (value !== currentQuery) {
+      setPendingWrites((writes) => [...writes, value]);
+    }
+    setSearchQuery(value);
+  };
+
+  // 保留中の検索があれば、待たずに URL へ書き込む。
+  // リンクの mousedown で blur した時点で書き込めば、後続のナビゲーションが
+  // replaceState（ACTION_RESTORE）に取り消されない。
+  const flushPendingSearch = () => {
+    const pending = pendingSearch.current;
+    if (pending === null) return;
+    cancelPendingSearch();
+    if (readLocationKey() === pending.locationKey) {
+      commitSearch(pending.value);
+    }
+  };
+
   const handleInputChange = (value: string) => {
     setInputValue(value);
     cancelPendingSearch();
+    // 入力時点の URL を覚えておく。書き込み時に URL が既に変わっていたら（popstate や外部変更の
+    // 検出から取り消しまでの隙間、他の pushState）書き込まない。自分の書き込みはこの記録より前に
+    // 済んでおり、記録から満了/flush までの間に自分で URL を変えることは無い。RSC 取得中のナビゲーションは URL が
+    // まだ変わらないので、onBlur の flush で守る
+    const pending = { value, locationKey: readLocationKey() };
+    pendingSearch.current = pending;
     debounceTimer.current = setTimeout(() => {
       debounceTimer.current = null;
-      const currentQuery =
-        new URLSearchParams(window.location.search).get('q') ?? '';
-      // URL が既に同じ値なら反映イベントは来ないので、一覧に積まない
-      if (value !== currentQuery) {
-        setPendingWrites((writes) => [...writes, value]);
+      pendingSearch.current = null;
+      if (readLocationKey() === pending.locationKey) {
+        commitSearch(value);
       }
-      setSearchQuery(value);
     }, SEARCH_DEBOUNCE_MS);
   };
 
@@ -119,6 +168,7 @@ export function SearchBar() {
             className='pl-space-48'
             value={inputValue}
             onChange={(e) => handleInputChange(e.target.value)}
+            onBlur={flushPendingSearch}
           />
         </div>
         <Button
