@@ -9,6 +9,7 @@ export default async function TeachersPage() {
   const teachers = profiles.map((p) => ({
     id: p.id,
     name: p.display_name,
+    avatarUrl: p.avatar_url ?? null,
     school: p.school_name,
     schoolType:
       p.school_type === 'elementary'

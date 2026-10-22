@@ -1,6 +1,5 @@
 'use client';
 
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Textarea } from '@/components/ui/textarea';
+import { UserAvatar } from '@/components/user-avatar';
 import { type Comment } from '@/lib/definitions';
 import { formatDate, toDateTimeAttribute } from '@/lib/format-date';
 import type { User } from '@supabase/supabase-js';
@@ -55,11 +55,12 @@ export default function CommentItem({
       }`}
     >
       <div className='flex items-start gap-space-16'>
-        <Avatar className='h-8 w-8'>
-          <AvatarFallback className='text-body-xs'>
-            {comment.profiles?.display_name.charAt(0)}
-          </AvatarFallback>
-        </Avatar>
+        <UserAvatar
+          src={comment.profiles?.avatar_url}
+          name={comment.profiles?.display_name}
+          size={32}
+          fallbackClassName='text-body-xs'
+        />
         <div className='flex-1'>
           <div className='mb-space-4 flex items-center gap-space-8'>
             <p className='text-body-sm'>{comment.profiles?.display_name}</p>

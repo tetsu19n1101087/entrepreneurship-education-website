@@ -444,7 +444,7 @@ Tailwind 標準の数字（`p-4` `gap-3` など）は、大きさの指定（`w-
 角丸は Figma のバリアブル `border/radius`（8px。`space/8` を参照）と、ボタン・円形の部品に使う半円（9999px）の2種類だけを使う。
 
 - **8px（`rounded-md` / `rounded.md`）**: 入力欄、バッジ、カード、アイコンタイル、エラーボックス、メニューなど、角のある要素。
-- **半円（`rounded-full` / `rounded.full`）**: すべてのボタン（アイコンのみのボタンは円になる）、アバター、ローディングスピナー。
+- **半円（`rounded-full` / `rounded.full`）**: すべてのボタン（アイコンのみのボタンは円になる）、アバター（`UserAvatar`、`components/user-avatar.tsx`）、ローディングスピナー。
 
 これ以外の角丸（6px、10px、14px や、角を尖らせた `rounded-none`）は使わない。
 
@@ -457,11 +457,11 @@ UI 部品は `components/ui/` の shadcn/ui をベースにし、追加のスタ
   - 大: ラベル button-lg（20px / bold）、内側は上下 8px・左右 16px、最小の高さ 60px。使う場面は画面のデザイン時に決める。
   - アイコンのみ: 直径 40px の円（`size-10 rounded-full`）。アイコンは 16px。
 - **Card**: 白背景、角丸 8px、`border`、`shadow-sm`、内側 24px。`CardHeader` / `CardTitle` / `CardContent` で構成する。
-- **事例カード（`case-item.tsx`）**: 全体がリンク（`absolute inset-0` の `Link` を重ねる）。上部に任意の 192px（`h-48`）のヘッダー画像（`next/image`、`object-cover`）。タイトル（heading-lg）は2行、説明（body-sm）は3行で切る（`line-clamp`）。右上に学校種別バッジと教科バッジ、下部に投稿者アバター・氏名・学校名・投稿日、右下にいいねボタン（`z-20` でカードのリンクより前面に出す）。投稿日といいね数は meta-sm（`2026.10.15`）。
+- **事例カード（`case-item.tsx`）**: 全体がリンク（`absolute inset-0` の `Link` を重ねる）。上部に任意の 192px（`h-48`）のヘッダー画像（`next/image`、`object-cover`）。タイトル（heading-lg）は2行、説明（body-sm）は3行で切る（`line-clamp`）。右上に学校種別バッジと教科バッジ、下部に投稿者アバター（Google のプロフィール画像があれば表示し、なければ氏名の頭文字。`UserAvatar`）・氏名・学校名・投稿日、右下にいいねボタン（`z-20` でカードのリンクより前面に出す）。投稿日といいね数は meta-sm（`2026.10.15`）。
 - **Badge**: 文字は label-sm、内側は上下 4px・左右 8px。タグは primary subtle の背景に on primary subtle の文字、学校種別は「学校種別の色」の3色、教科は `outline`。
 - **Input / Textarea / Select**: 高さ 36px、左右の内側 16px、`border-input`、フォーカス時は `ring-ring/50` の 3px リング。エラー時は `aria-invalid` を付けると destructive のリングになる。
 - **Logo**（`components/logo.tsx`）: シンボルとサイト名「entredu」をアウトライン化した SVG（146×40）。明るい背景は `public/logo.svg`（`primary/600`）、暗い背景は `public/logo-white.svg`（`neutral/white`）。サイト名の書体（Montserrat）は読み込まない。
-- **Header**（`components/header.tsx`）: 背景・ボーダーなし。左にロゴとナビ（「事例を探す」「教員を探す」、label-md、間隔 32px）、右にログイン状態に応じたボタン群。ログアウト中は「ログイン」（default の小）だけ、ログイン中は「事例を投稿」・通知・アバターのドロップダウン。ナビとメニュー項目はホバーで文字色だけ primary に変わる。`lg` 未満ではナビと「事例を投稿」を `Sheet` のメニュー（`components/mobile-nav.tsx`）にまとめる。
+- **Header**（`components/header.tsx`）: 背景・ボーダーなし。左にロゴとナビ（「事例を探す」「教員を探す」、label-md、間隔 32px）、右にログイン状態に応じたボタン群。ログアウト中は「ログイン」（default の小）だけ、ログイン中は「事例を投稿」・通知・アバター（Google のプロフィール画像があれば表示し、なければ頭文字。`UserAvatar`）のドロップダウン。ナビとメニュー項目はホバーで文字色だけ primary に変わる。`lg` 未満ではナビと「事例を投稿」を `Sheet` のメニュー（`components/mobile-nav.tsx`）にまとめる。
 - **Footer**（`components/footer.tsx`）: inverse（#2C2C2C）の背景に、白版のロゴと、白の下線付きリンク（label-sm、「ご利用規約」「プライバシーポリシー」「お問い合わせ」、間隔 24px）。上下の内側は 48px、ロゴとリンクの間は 32px。リンク先は今は「準備中」のページ（`components/coming-soon.tsx`）。
 - **カルーセル**（`components/home/featured-carousel.tsx`）: shadcn/ui の `Carousel`（embla）。自動再生はせず、矢印・スワイプ・左右キーで送る。ループする。スライドは `lg` 以上で最大 1180px（左のテキスト 380px＋右の画像、高さ 420px）で、前後のスライドが左右にのぞく。スライド間は 32px（Figma は 40px だが余白のスケールに合わせた）。`lg` 未満は画像を上、テキストを下に縦積みする。矢印は default のアイコンのみのボタンで、スライドの左右の縁に中心を合わせる。テキスト部分は投稿日 → タイトル（heading-lg、4行で切る）→ 投稿者（label-md / muted）→ タグ。
 - **記事カード**（`components/home/article-card.tsx`）: 白背景、角丸 8px、ボーダーと影なし。上に比率 340:180 の画像、下に内側 32px の本文。本文は投稿日と、タイトル（heading-md、3行で切る）・投稿者（label-md / muted）・タグの列を 24px あけて横に並べる。カードの中は「画像・タイトル・投稿者・タグ」の4行で、一覧の `li` から行方向の subgrid（`grid-rows-subgrid`）で受け取る。タイトルの行数が違っても、同じ並びのカード同士で投稿者とタグの位置が揃う。投稿者やタグがない場合は、その行が空くだけで下の行は詰めない。

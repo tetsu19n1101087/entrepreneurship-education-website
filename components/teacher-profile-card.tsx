@@ -1,13 +1,14 @@
 import TeacherProfileActions from '@/components/teacher-profile-actions';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import { UserAvatar } from '@/components/user-avatar';
 import { BookOpen } from 'lucide-react';
 
 interface TeacherProfileCardProps {
   teacher: {
     id: string;
     name: string;
+    avatarUrl: string | null;
     school: string;
     schoolType: string;
     position: string;
@@ -22,11 +23,12 @@ export function TeacherProfileCard({ teacher }: TeacherProfileCardProps) {
     <Card className='transition-shadow hover:shadow-md'>
       <CardContent className='p-space-24'>
         <div className='flex items-start gap-space-16'>
-          <Avatar className='h-12 w-12'>
-            <AvatarFallback className='text-body-md'>
-              {teacher.name.charAt(0)}
-            </AvatarFallback>
-          </Avatar>
+          <UserAvatar
+            src={teacher.avatarUrl}
+            name={teacher.name}
+            size={48}
+            fallbackClassName='text-body-md'
+          />
 
           <div className='flex-1'>
             <div className='mb-space-4 flex items-center gap-space-8'>

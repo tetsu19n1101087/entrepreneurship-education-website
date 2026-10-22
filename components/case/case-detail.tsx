@@ -1,6 +1,6 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { UserAvatar } from '@/components/user-avatar';
 import { formatDate, toDateTimeAttribute } from '@/lib/format-date';
 import { getCaseById } from '@/lib/supabase/cases';
 import { createClient } from '@/lib/supabase/server';
@@ -65,11 +65,11 @@ export async function CaseDetail({ caseId }: { caseId: string }) {
           <div className='flex items-center justify-between border-t pt-space-16'>
             <div className='flex items-center gap-space-16'>
               <div className='flex items-center gap-space-8'>
-                <Avatar className='h-10 w-10'>
-                  <AvatarFallback>
-                    {caseData.profiles?.display_name.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
+                <UserAvatar
+                  src={caseData.profiles?.avatar_url}
+                  name={caseData.profiles?.display_name}
+                  size={40}
+                />
                 <div>
                   <p className='text-heading-md'>
                     {caseData.profiles?.display_name}
