@@ -1,6 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { UserAvatar } from '@/components/user-avatar';
+import { formatDate, toDateTimeAttribute } from '@/lib/format-date';
 import { getCaseById } from '@/lib/supabase/cases';
 import { createClient } from '@/lib/supabase/server';
 import { Calendar, Clock, FileText, Info, PenTool, Users } from 'lucide-react';
@@ -81,7 +82,9 @@ export async function CaseDetail({ caseId }: { caseId: string }) {
 
               <div className='flex items-center gap-space-4 font-en text-meta-sm text-muted-foreground'>
                 <Calendar className='h-4 w-4' />
-                {new Date(caseData.created_at).toLocaleDateString('ja-JP')}
+                <time dateTime={toDateTimeAttribute(caseData.created_at)}>
+                  {formatDate(caseData.created_at)}
+                </time>
               </div>
             </div>
 

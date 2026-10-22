@@ -11,6 +11,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { UserAvatar } from '@/components/user-avatar';
 import { type Comment } from '@/lib/definitions';
+import { formatDate, toDateTimeAttribute } from '@/lib/format-date';
 import type { User } from '@supabase/supabase-js';
 import { Flag, MoreHorizontal, Reply } from 'lucide-react';
 import { useActionState, useState } from 'react';
@@ -71,7 +72,10 @@ export default function CommentItem({
                   : '高'}
             </Badge>
             <p className='font-en text-meta-sm text-muted-foreground'>
-              • {new Date(comment.created_at).toLocaleDateString('ja-JP')}
+              •{' '}
+              <time dateTime={toDateTimeAttribute(comment.created_at)}>
+                {formatDate(comment.created_at)}
+              </time>
             </p>
           </div>
           <p className='mb-space-16 text-body-sm'>{comment.content}</p>
