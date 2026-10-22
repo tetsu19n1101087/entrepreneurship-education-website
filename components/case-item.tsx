@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { useSearchFilter } from '@/hooks/use-search-filter';
 import type { Case } from '@/lib/definitions';
+import { formatDate, toDateTimeAttribute } from '@/lib/format-date';
 import { createClient } from '@/lib/supabase/client';
 import { resolveCaseImageUrl } from '@/lib/supabase/storage';
 import type { User } from '@supabase/supabase-js';
@@ -186,9 +187,9 @@ export default function CaseItem({
 
                     <div className='flex items-center gap-space-4 font-en text-meta-sm text-muted-foreground'>
                       <Calendar className='h-3 w-3' />
-                      {new Date(caseItem.created_at).toLocaleDateString(
-                        'ja-JP',
-                      )}
+                      <time dateTime={toDateTimeAttribute(caseItem.created_at)}>
+                        {formatDate(caseItem.created_at)}
+                      </time>
                     </div>
                   </div>
 

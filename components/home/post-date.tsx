@@ -1,22 +1,12 @@
-// 投稿日を「日（大きい数字）」と「年.月」の2段で表示する。値は日本時間で切り出す
-const formatter = new Intl.DateTimeFormat('ja-JP', {
-  timeZone: 'Asia/Tokyo',
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-});
+import { getDateParts, toDateTimeAttribute } from '@/lib/format-date';
 
+// 投稿日を「日（大きい数字）」と「年.月」の2段で表示する。値は日本時間で切り出す
 export function PostDate({ date }: { date: string }) {
-  const parts = formatter.formatToParts(new Date(date));
-  const part = (type: Intl.DateTimeFormatPartTypes) =>
-    parts.find((p) => p.type === type)?.value ?? '';
-  const year = part('year');
-  const month = part('month');
-  const day = part('day');
+  const { year, month, day } = getDateParts(date);
 
   return (
     <time
-      dateTime={`${year}-${month}-${day}`}
+      dateTime={toDateTimeAttribute(date)}
       className='flex w-fit shrink-0 flex-col items-center font-en'
     >
       <span className='sr-only'>{`${year}年${Number(month)}月${Number(day)}日`}</span>
