@@ -43,6 +43,9 @@ Git Flow で運用する。`main` と `develop` へ直接コミットせず、�
 - 作業を始める前に `develop` を最新化し、そこから `feature/*` ブランチを作成すること。`main` から分岐しないこと。
 - feature を `develop` へ取り込むときは、Pull Request（ベースは `develop`）とローカルマージのどちらにするかをユーザーに確認すること。ローカルマージする場合も、マージと Push の前にユーザーの許可を得ること。
 - release・hotfix の Pull Request は、ベースブランチに `main` を指定すること。
+- Push は許可していない。コミットしたら、ユーザーが実行する Push 用のコマンド（例: `git push -u origin feature/41-update-home`）を提示すること。
+- 作業ブランチの Push 後は、Pull Request を作成すること。
+- 作業中に新たな問題が見つかったときは、Issue を作成して内容を記述すること。
 
 ## よく使うコマンド
 
