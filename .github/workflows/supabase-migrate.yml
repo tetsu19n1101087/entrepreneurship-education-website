@@ -1,9 +1,14 @@
 # supabase/migrations/ のマイグレーションを本番 Supabase に適用する。
-# 本番の適用履歴を確認するまでは手動実行（workflow_dispatch）のみとする。
+# develop へのマージ（push）でマイグレーションが変わったときに自動で適用する。
+# 手動実行（workflow_dispatch）は dry run での確認用。
 # 手順は docs/supabase-migrations.md を参照。
 name: Supabase migrate
 
 on:
+  push:
+    branches: [develop]
+    paths:
+      - 'supabase/migrations/**'
   workflow_dispatch:
     inputs:
       dry_run:
