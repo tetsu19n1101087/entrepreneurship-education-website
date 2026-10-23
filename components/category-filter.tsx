@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useSearchFilter } from '@/hooks/use-search-filter';
+import { SUBJECTS } from '@/lib/subjects';
 import { createClient } from '@/lib/supabase/client';
 import { useEffect, useState } from 'react';
 
@@ -45,17 +46,8 @@ export function CategoryFilter() {
     },
   ];
 
-  // Subjects and their display labels; counts managed in state and fetched
-  const subjectList = [
-    '総合的な学習',
-    '社会科',
-    '技術・家庭科',
-    '商業科',
-    'その他',
-  ];
-
   const [subjectCounts, setSubjectCounts] = useState<Record<string, number>>(
-    subjectList.reduce((acc, s) => ({ ...acc, [s]: 0 }), {}) as Record<
+    SUBJECTS.reduce((acc, s) => ({ ...acc, [s]: 0 }), {}) as Record<
       string,
       number
     >,
@@ -91,7 +83,7 @@ export function CategoryFilter() {
             }),
           ),
           Promise.all(
-            subjectList.map(async (subject) => {
+            SUBJECTS.map(async (subject) => {
               try {
                 const { count, error } = await supabase
                   .from('cases')
@@ -124,7 +116,7 @@ export function CategoryFilter() {
         setCounts({ elementary, junior_high, high_school });
 
         const countsObj: Record<string, number> = {};
-        subjectList.forEach((s, i) => {
+        SUBJECTS.forEach((s, i) => {
           countsObj[s] = subjectResults[i] ?? 0;
         });
 
@@ -167,7 +159,7 @@ export function CategoryFilter() {
           <CardTitle className='text-heading-lg-wide'>教科・領域</CardTitle>
         </CardHeader>
         <CardContent className='space-y-space-8'>
-          {subjectList.map((subject: string, index: number) => (
+          {SUBJECTS.map((subject: string, index: number) => (
             <Button
               key={index}
               variant={selectedSubject === subject ? 'default' : 'ghost'}
