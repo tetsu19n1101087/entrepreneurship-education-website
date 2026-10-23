@@ -4,10 +4,10 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useSearchFilter } from '@/hooks/use-search-filter';
+import { SUBJECTS } from '@/lib/subjects';
 import {
   EMPTY_CASE_COUNTS,
   fetchCaseCounts,
-  SUBJECTS,
   type CaseCounts,
 } from '@/lib/supabase/case-counts';
 import { useEffect, useState } from 'react';

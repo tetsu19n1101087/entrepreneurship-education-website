@@ -1,3 +1,4 @@
+import { SUBJECTS } from '@/lib/subjects';
 import { createClient } from '@/lib/supabase/client';
 
 // `name` must match `cases.school_type` values in the database.
@@ -5,14 +6,6 @@ export const SCHOOL_TYPE_NAMES = [
   'elementary',
   'junior_high',
   'high_school',
-] as const;
-
-export const SUBJECTS = [
-  '総合的な学習',
-  '社会科',
-  '技術・家庭科',
-  '商業科',
-  'その他',
 ] as const;
 
 type SchoolTypeName = (typeof SCHOOL_TYPE_NAMES)[number];

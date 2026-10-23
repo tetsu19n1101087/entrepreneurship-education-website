@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useSearchFilter } from '@/hooks/use-search-filter';
+import { SUBJECTS } from '@/lib/subjects';
 import { X } from 'lucide-react';
 import { useState } from 'react';
 
@@ -145,11 +146,11 @@ function AdvancedSearchForm({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value='all'>すべて</SelectItem>
-            <SelectItem value='総合的な学習'>総合的な学習</SelectItem>
-            <SelectItem value='社会科'>社会科</SelectItem>
-            <SelectItem value='技術・家庭科'>技術・家庭科</SelectItem>
-            <SelectItem value='商業科'>商業科</SelectItem>
-            <SelectItem value='その他'>その他</SelectItem>
+            {SUBJECTS.map((subject) => (
+              <SelectItem key={subject} value={subject}>
+                {subject}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>

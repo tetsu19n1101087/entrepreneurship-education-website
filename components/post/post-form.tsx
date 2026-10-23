@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { createCase } from '@/lib/action';
+import { SUBJECTS } from '@/lib/subjects';
 import type { User } from '@supabase/supabase-js';
 import { Trash2, Upload, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -147,11 +148,11 @@ export function PostForm({ user }: { user: User | null }) {
               <SelectValue placeholder='教科を選択' />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value='総合的な学習'>総合的な学習</SelectItem>
-              <SelectItem value='社会科'>社会科</SelectItem>
-              <SelectItem value='技術・家庭科'>技術・家庭科</SelectItem>
-              <SelectItem value='商業科'>商業科</SelectItem>
-              <SelectItem value='その他'>その他</SelectItem>
+              {SUBJECTS.map((subject) => (
+                <SelectItem key={subject} value={subject}>
+                  {subject}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
