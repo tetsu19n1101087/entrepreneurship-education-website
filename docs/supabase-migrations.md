@@ -22,15 +22,20 @@ gh workflow run supabase-migrate.yml --ref develop -f dry_run=true
 - 入力 `dry_run` は既定で `true`。`true` なら `supabase db push --dry-run` で流れるマイグレーションを表示するだけ、`false` で実際に適用する
 - ログの `Show migration history` で本番の適用履歴、`Push migrations (dry run)` で流れる予定のマイグレーションを確認できる
 
-## 設定（Secrets）
+## 設定（Secrets・Variables）
 
-GitHub の Settings → Environments → `Production` に次の Secrets を登録する。必要なら Required reviewers を設定すると、適用の前に承認を挟める。
+GitHub の Settings → Environments → `Preview` に次の Secrets と Variables を登録する。必要なら Required reviewers を設定すると、適用の前に承認を挟める。
 
-| Secret                  | 値                                                                       |
-| ----------------------- | ------------------------------------------------------------------------ |
-| `SUPABASE_ACCESS_TOKEN` | Supabase のアクセストークン（下記）                                      |
-| `SUPABASE_DB_PASSWORD`  | 本番 DB の `postgres` ユーザーのパスワード（下記）                       |
-| `SUPABASE_PROJECT_ID`   | 本番プロジェクトの project ref（ダッシュボード URL の `/project/` 以降） |
+- workflow は develop で動くので、Vercel の Preview と同じ `Preview` environment を使う。`Production` は Vercel の本番デプロイ（main）用
+- environment が Preview でも、適用先の Supabase プロジェクトは本番と共有している（`SUPABASE_PROJECT_ID` で指定）
+
+| 種類     | 名前                    | 値                                                                       |
+| -------- | ----------------------- | ------------------------------------------------------------------------ |
+| Secret   | `SUPABASE_ACCESS_TOKEN` | Supabase のアクセストークン（下記）                                      |
+| Secret   | `SUPABASE_DB_PASSWORD`  | 本番 DB の `postgres` ユーザーのパスワード（下記）                       |
+| Variable | `SUPABASE_PROJECT_ID`   | 本番プロジェクトの project ref（ダッシュボード URL の `/project/` 以降） |
+
+project ref は秘密情報ではない（Supabase の URL にも含まれる）ので、Variable にしている。
 
 ### アクセストークン
 
