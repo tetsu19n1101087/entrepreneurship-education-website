@@ -1,5 +1,4 @@
 import { TeacherProfileCard } from '@/components/teacher-profile-card';
-import { SearchFilterProvider } from '@/hooks/use-search-filter';
 import { getProfiles } from '@/lib/supabase/profiles';
 
 export default async function TeachersPage() {
@@ -26,24 +25,22 @@ export default async function TeachersPage() {
   }));
 
   return (
-    <SearchFilterProvider>
-      <div className='h-full flex-1 bg-background'>
-        <main className='container mx-auto px-space-16 py-space-32'>
-          <div className='mb-space-32'>
-            <h1 className='mb-space-8 text-heading-xl text-foreground'>
-              教員一覧
-            </h1>
-            <p className='text-body-md text-muted-foreground'>
-              千葉県内の教員の皆様とつながりましょう
-            </p>
-          </div>
-          <div className='grid grid-cols-1 gap-space-24 md:grid-cols-2 lg:grid-cols-3'>
-            {teachers.map((teacher) => (
-              <TeacherProfileCard key={teacher.id} teacher={teacher} />
-            ))}
-          </div>
-        </main>
-      </div>
-    </SearchFilterProvider>
+    <div className='h-full flex-1 bg-background'>
+      <main className='container mx-auto px-space-16 py-space-32'>
+        <div className='mb-space-32'>
+          <h1 className='mb-space-8 text-heading-xl text-foreground'>
+            教員一覧
+          </h1>
+          <p className='text-body-md text-muted-foreground'>
+            千葉県内の教員の皆様とつながりましょう
+          </p>
+        </div>
+        <div className='grid grid-cols-1 gap-space-24 md:grid-cols-2 lg:grid-cols-3'>
+          {teachers.map((teacher) => (
+            <TeacherProfileCard key={teacher.id} teacher={teacher} />
+          ))}
+        </div>
+      </main>
+    </div>
   );
 }

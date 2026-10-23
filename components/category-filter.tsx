@@ -5,8 +5,32 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useSearchFilter } from '@/hooks/use-search-filter';
 import { SUBJECTS } from '@/lib/subjects';
-import { createClient } from '@/lib/supabase/client';
+import {
+  EMPTY_CASE_COUNTS,
+  fetchCaseCounts,
+  type CaseCounts,
+} from '@/lib/supabase/case-counts';
 import { useEffect, useState } from 'react';
+
+// `name` must match `cases.school_type` values in the database.
+// Use `label` for the displayed Japanese text.
+const SCHOOL_TYPES = [
+  {
+    name: 'elementary',
+    label: '小学校',
+    color: 'bg-elementary-subtle text-elementary border-elementary-border',
+  },
+  {
+    name: 'junior_high',
+    label: '中学校',
+    color: 'bg-junior-high-subtle text-junior-high border-junior-high-border',
+  },
+  {
+    name: 'high_school',
+    label: '高等学校',
+    color: 'bg-high-school-subtle text-high-school border-high-school-border',
+  },
+] as const;
 
 export function CategoryFilter() {
   const {
@@ -16,115 +40,21 @@ export function CategoryFilter() {
     setSelectedSubject,
   } = useSearchFilter();
 
-  // `name` must match `cases.school_type` values in the database.
-  // Use `label` for the displayed Japanese text.
   // start with zero counts until fetched from Supabase
-  const [counts, setCounts] = useState<Record<string, number>>({
-    elementary: 0,
-    junior_high: 0,
-    high_school: 0,
-  });
-
-  const schoolType = [
-    {
-      name: 'elementary',
-      label: '小学校',
-      count: counts.elementary,
-      color: 'bg-elementary-subtle text-elementary border-elementary-border',
-    },
-    {
-      name: 'junior_high',
-      label: '中学校',
-      count: counts.junior_high,
-      color: 'bg-junior-high-subtle text-junior-high border-junior-high-border',
-    },
-    {
-      name: 'high_school',
-      label: '高等学校',
-      count: counts.high_school,
-      color: 'bg-high-school-subtle text-high-school border-high-school-border',
-    },
-  ];
-
-  const [subjectCounts, setSubjectCounts] = useState<Record<string, number>>(
-    SUBJECTS.reduce((acc, s) => ({ ...acc, [s]: 0 }), {}) as Record<
-      string,
-      number
-    >,
-  );
+  const [counts, setCounts] = useState<CaseCounts>(EMPTY_CASE_COUNTS);
 
   useEffect(() => {
-    const supabase = createClient();
+    let isMounted = true;
 
-    (async () => {
-      try {
-        const types = ['elementary', 'junior_high', 'high_school'];
-
-        // Fetch school_type counts and subject counts concurrently
-        const [typeResults, subjectResults] = await Promise.all([
-          Promise.all(
-            types.map(async (t) => {
-              try {
-                const { count, error } = await supabase
-                  .from('cases')
-                  .select('*', { count: 'exact', head: true })
-                  .eq('school_type', t);
-
-                if (error) {
-                  console.error('Error fetching count for', t, error);
-                  return 0;
-                }
-
-                return typeof count === 'number' ? count : 0;
-              } catch (e) {
-                console.error('Unexpected error fetching count for', t, e);
-                return 0;
-              }
-            }),
-          ),
-          Promise.all(
-            SUBJECTS.map(async (subject) => {
-              try {
-                const { count, error } = await supabase
-                  .from('cases')
-                  .select('*', { count: 'exact', head: true })
-                  .eq('subject', subject);
-
-                if (error) {
-                  console.error(
-                    'Error fetching subject count for',
-                    subject,
-                    error,
-                  );
-                  return 0;
-                }
-
-                return typeof count === 'number' ? count : 0;
-              } catch (e) {
-                console.error(
-                  'Unexpected error fetching subject count for',
-                  subject,
-                  e,
-                );
-                return 0;
-              }
-            }),
-          ),
-        ]);
-
-        const [elementary, junior_high, high_school] = typeResults;
-        setCounts({ elementary, junior_high, high_school });
-
-        const countsObj: Record<string, number> = {};
-        SUBJECTS.forEach((s, i) => {
-          countsObj[s] = subjectResults[i] ?? 0;
-        });
-
-        setSubjectCounts(countsObj);
-      } catch (e) {
-        console.error('Error fetching counts', e);
+    fetchCaseCounts().then((result) => {
+      if (isMounted) {
+        setCounts(result);
       }
-    })();
+    });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
@@ -134,7 +64,7 @@ export function CategoryFilter() {
           <CardTitle className='text-heading-lg-wide'>学校種別</CardTitle>
         </CardHeader>
         <CardContent className='space-y-space-16'>
-          {schoolType.map((category, index) => (
+          {SCHOOL_TYPES.map((category, index) => (
             <Button
               key={index}
               variant={selectedCategory === category.name ? 'default' : 'ghost'}
@@ -145,9 +75,9 @@ export function CategoryFilter() {
                 )
               }
             >
-              <span>{category.label ?? category.name}</span>
-              {category.count > 0 && (
-                <Badge variant='secondary'>{category.count}</Badge>
+              <span>{category.label}</span>
+              {counts.types[category.name] > 0 && (
+                <Badge variant='secondary'>{counts.types[category.name]}</Badge>
               )}
             </Button>
           ))}
@@ -159,7 +89,7 @@ export function CategoryFilter() {
           <CardTitle className='text-heading-lg-wide'>教科・領域</CardTitle>
         </CardHeader>
         <CardContent className='space-y-space-8'>
-          {SUBJECTS.map((subject: string, index: number) => (
+          {SUBJECTS.map((subject, index) => (
             <Button
               key={index}
               variant={selectedSubject === subject ? 'default' : 'ghost'}
@@ -169,8 +99,8 @@ export function CategoryFilter() {
               }
             >
               <span>{subject}</span>
-              {subjectCounts[subject] > 0 && (
-                <Badge variant='outline'>{subjectCounts[subject]}</Badge>
+              {counts.subjects[subject] > 0 && (
+                <Badge variant='outline'>{counts.subjects[subject]}</Badge>
               )}
             </Button>
           ))}

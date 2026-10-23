@@ -13,3 +13,7 @@ Any changes you make to your deployed app will be automatically pushed to this r
 2. Deploy your chats from the v0 interface
 3. Changes are automatically pushed to this repository
 4. Vercel deploys the latest version from this repository
+
+## Docs
+
+- [Supabase マイグレーションの本番適用](docs/supabase-migrations.md)
