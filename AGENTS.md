@@ -10,7 +10,7 @@
 - **画像最適化**: 画像を表示する際は必ず `next/image` の `<Image>` を用いて自動最適化の恩恵を受けること。
 - **型付け**: `tsconfig.json` の厳格なルール (`noUnusedLocals`, `noImplicitReturns` 等) に従うこと。
 - **コミット・整形**: コミット時に Husky + lint-staged を通じて ESLint と Prettier が走ります。コードフォーマットエラーや未使用変数はコミット前に修正してください。
-- **コミットの事前確認**: AIが勝手にGitコミットやPushを実行してはいけません。コミットを実行する前に、必ずユーザーに確認を取り、許可を得ること。
+- **コミットの事前確認**: AIが勝手にPushを実行してはいけません。作業ブランチ（`feature/*`・`release/*`・`hotfix/*`）へのコミットは、ユーザーの確認なしで行ってよい。`develop`・`main` へのコミット（マージを含む）は、実行する前に必ずユーザーに確認を取り、許可を得ること。
 - **データベース**: Supabase をバックエンドとし、DBアクセスや認証は `lib/supabase/` 以下のクライアントを使用すること。
 
 ## ブランチ運用（Git Flow）
@@ -43,6 +43,9 @@ Git Flow で運用する。`main` と `develop` へ直接コミットせず、�
 - 作業を始める前に `develop` を最新化し、そこから `feature/*` ブランチを作成すること。`main` から分岐しないこと。
 - feature を `develop` へ取り込むときは、Pull Request（ベースは `develop`）とローカルマージのどちらにするかをユーザーに確認すること。ローカルマージする場合も、マージと Push の前にユーザーの許可を得ること。
 - release・hotfix の Pull Request は、ベースブランチに `main` を指定すること。
+- Push は許可していない。コミットしたら、ユーザーが実行する Push 用のコマンド（例: `git push -u origin feature/41-update-home`）を提示すること。
+- 作業ブランチの Push 後は、Pull Request を作成すること。
+- 作業中に新たな問題が見つかったときは、Issue を作成して内容を記述すること。
 
 ## よく使うコマンド
 
