@@ -24,7 +24,10 @@ gh workflow run supabase-migrate.yml --ref develop -f dry_run=true
 
 ## 設定（Secrets）
 
-GitHub の Settings → Environments → `Production` に次の Secrets を登録する。必要なら Required reviewers を設定すると、適用の前に承認を挟める。
+GitHub の Settings → Environments → `Preview` に次の Secrets を登録する。必要なら Required reviewers を設定すると、適用の前に承認を挟める。
+
+- workflow は develop で動くので、Vercel の Preview と同じ `Preview` environment を使う。`Production` は Vercel の本番デプロイ（main）用
+- environment が Preview でも、適用先の Supabase プロジェクトは本番と共有している（`SUPABASE_PROJECT_ID` で指定）
 
 | Secret                  | 値                                                                       |
 | ----------------------- | ------------------------------------------------------------------------ |
