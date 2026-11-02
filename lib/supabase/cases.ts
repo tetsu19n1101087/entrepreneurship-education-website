@@ -12,7 +12,8 @@ export async function getCases() {
       *,
       profiles (
         display_name,
-        school_name
+        school_name,
+        avatar_url
       )
     `,
     )
@@ -109,7 +110,8 @@ export async function getCaseById(id: string) {
       *,
       profiles (
         display_name,
-        school_name
+        school_name,
+        avatar_url
       )
     `,
     )

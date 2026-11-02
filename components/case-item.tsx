@@ -1,10 +1,11 @@
 'use client';
 
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { UserAvatar } from '@/components/user-avatar';
 import { useSearchFilter } from '@/hooks/use-search-filter';
 import type { Case } from '@/lib/definitions';
+import { formatDate, toDateTimeAttribute } from '@/lib/format-date';
 import { createClient } from '@/lib/supabase/client';
 import { resolveCaseImageUrl } from '@/lib/supabase/storage';
 import type { User } from '@supabase/supabase-js';
@@ -169,11 +170,12 @@ export default function CaseItem({
                 <div className='flex items-center justify-between'>
                   <div className='flex items-center gap-space-16'>
                     <div className='flex items-center gap-space-8'>
-                      <Avatar className='h-8 w-8'>
-                        <AvatarFallback className='text-body-xs'>
-                          {caseItem.profiles?.display_name.charAt(0)}
-                        </AvatarFallback>
-                      </Avatar>
+                      <UserAvatar
+                        src={caseItem.profiles?.avatar_url}
+                        name={caseItem.profiles?.display_name}
+                        size={32}
+                        fallbackClassName='text-body-xs'
+                      />
                       <div>
                         <p className='text-body-sm text-foreground'>
                           {caseItem.profiles?.display_name}
@@ -186,9 +188,9 @@ export default function CaseItem({
 
                     <div className='flex items-center gap-space-4 font-en text-meta-sm text-muted-foreground'>
                       <Calendar className='h-3 w-3' />
-                      {new Date(caseItem.created_at).toLocaleDateString(
-                        'ja-JP',
-                      )}
+                      <time dateTime={toDateTimeAttribute(caseItem.created_at)}>
+                        {formatDate(caseItem.created_at)}
+                      </time>
                     </div>
                   </div>
 

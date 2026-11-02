@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -7,6 +6,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { UserAvatar } from '@/components/user-avatar';
 import { logout } from '@/lib/action';
 import type { Profile } from '@/lib/definitions';
 import { createClient } from '@/lib/supabase/server';
@@ -85,14 +85,17 @@ export async function Header() {
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant='outline' size='icon'>
-                    <Avatar className='h-6 w-6'>
-                      <AvatarFallback className='text-body-xs'>
-                        {profile?.display_name?.charAt(0) ||
-                          user?.email?.charAt(0) ||
-                          'U'}
-                      </AvatarFallback>
-                    </Avatar>
+                  <Button
+                    variant='outline'
+                    size='icon'
+                    aria-label='アカウントメニュー'
+                  >
+                    <UserAvatar
+                      src={profile?.avatar_url}
+                      name={profile?.display_name || user?.email}
+                      size={24}
+                      fallbackClassName='text-body-xs'
+                    />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end' className='w-56'>

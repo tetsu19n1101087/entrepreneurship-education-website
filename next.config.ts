@@ -11,15 +11,31 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    remotePatterns: supabaseHostname
-      ? [
-          {
-            protocol: 'https',
-            hostname: supabaseHostname,
-            pathname: '/storage/v1/object/public/**',
-          },
-        ]
-      : [],
+    // 許可ホストを変えるときは lib/avatar.ts の isAllowedAvatarUrl も合わせて変更する
+    remotePatterns: [
+      ...(supabaseHostname
+        ? [
+            {
+              protocol: 'https' as const,
+              hostname: supabaseHostname,
+              pathname: '/storage/v1/object/public/**',
+            },
+          ]
+        : []),
+      // Google プロフィール画像
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        pathname: '/a/**',
+        search: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        pathname: '/a-/**',
+        search: '',
+      },
+    ],
   },
   reactCompiler: true,
 };
