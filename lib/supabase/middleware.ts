@@ -4,6 +4,17 @@ import { NextResponse, type NextRequest } from 'next/server';
 // ログインしなくても見られるページ（/auth 以下は別に判定する）
 const PUBLIC_PATHS = ['/', '/cases', '/terms', '/privacy', '/contact'];
 
+// 動的なパスで、ログインしなくても見られるページ
+// 事例の詳細（/case/[id]）だけを許可し、その下の階層は含めない
+const PUBLIC_PATH_PATTERNS = [/^\/case\/[^/]+\/?$/];
+
+function isPublicPath(pathname: string) {
+  return (
+    PUBLIC_PATHS.includes(pathname) ||
+    PUBLIC_PATH_PATTERNS.some((pattern) => pattern.test(pathname))
+  );
+}
+
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
@@ -45,7 +56,7 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (
-    !PUBLIC_PATHS.includes(request.nextUrl.pathname) &&
+    !isPublicPath(request.nextUrl.pathname) &&
     !user &&
     !request.nextUrl.pathname.startsWith('/login') &&
     !request.nextUrl.pathname.startsWith('/auth')

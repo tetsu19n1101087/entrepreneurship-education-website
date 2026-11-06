@@ -9,6 +9,7 @@ import type { Profile } from '@/lib/definitions';
 import { type Comment } from '@/lib/definitions';
 import type { User } from '@supabase/supabase-js';
 import { MessageSquare } from 'lucide-react';
+import Link from 'next/link';
 import { useActionState } from 'react';
 import CommentItem from './comment-item';
 
@@ -47,6 +48,17 @@ export function CommentSection({
       </CardHeader>
       <CardContent className='space-y-space-24'>
         {/* Comment Form */}
+        {!user && (
+          <div className='flex flex-col items-start gap-space-16 rounded-md bg-muted p-space-16 sm:flex-row sm:items-center sm:justify-between'>
+            <p className='text-body-sm text-muted-foreground'>
+              コメント・返信・いいねをするには、ログインが必要です。
+            </p>
+            <Button asChild size='sm'>
+              <Link href={`/auth/login?next=/case/${caseId}`}>ログイン</Link>
+            </Button>
+          </div>
+        )}
+
         {user && (
           <form action={formAction}>
             <div className='space-y-space-16'>
